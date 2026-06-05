@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Pasien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -29,7 +30,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email'    => 'required|email',
+            'email' => 'required|email',
             'password' => 'required'
         ]);
 
@@ -38,14 +39,16 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             if (Auth::user()->role == 'admin') {
-
                 return redirect('/dashboard-admin');
             }
 
             return redirect('/home');
         }
 
-        return back()->with('error', 'Email atau Password salah');
+        return back()->with(
+            'error',
+            'Email atau Password salah'
+        );
     }
 
     /*
@@ -66,23 +69,56 @@ class AuthController extends Controller
     */
 
     public function register(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed|min:6'
-        ]);
+{
+    $request->validate([
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'pasien'
-        ]);
+        'name' => 'required',
 
-        return redirect('/login')
-            ->with('success', 'Registrasi berhasil');
-    }
+        'email' => 'required|email|unique:users,email',
+
+        'jenis_kelamin' => 'required',
+
+        'tanggal_lahir' => 'required',
+
+        'alamat' => 'required',
+
+        'no_hp' => 'required',
+
+        'password' => 'required|confirmed|min:6'
+    ]);
+
+    $user = User::create([
+
+        'name' => $request->name,
+
+        'email' => $request->email,
+
+        'password' => Hash::make($request->password),
+
+        'role' => 'pasien'
+    ]);
+
+    Pasien::create([
+
+        'user_id' => $user->id,
+
+        'nama_pasien' => $request->name,
+
+        'jenis_kelamin' => $request->jenis_kelamin,
+
+        'tanggal_lahir' => $request->tanggal_lahir,
+
+        'alamat' => $request->alamat,
+
+        'no_hp' => $request->no_hp
+    ]);
+
+    return redirect('/login')
+        ->with(
+            'success',
+            'Registrasi berhasil'
+        );
+}
 
     /*
     |--------------------------------------------------------------------------

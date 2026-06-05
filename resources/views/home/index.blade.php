@@ -16,255 +16,383 @@
 
         body{
             background:#fff5f7;
-            color:#4a4a4a;
         }
 
-        /* NAVBAR */
-        .navbar{
-            background:#f8a5c2;
+        nav{
+            background:#ff8db4;
             padding:20px 50px;
             display:flex;
             justify-content:space-between;
             align-items:center;
-            box-shadow:0 3px 10px rgba(0,0,0,0.08);
         }
 
-        .navbar h2{
+        nav h2{
             color:white;
         }
 
-        .navbar ul{
-            display:flex;
-            list-style:none;
-            gap:20px;
-        }
-
-        .navbar ul li a{
+        nav a{
+            color:white;
             text-decoration:none;
-            color:white;
+            margin-left:20px;
             font-weight:bold;
-            transition:0.3s;
         }
 
-        .navbar ul li a:hover{
-            color:#ffe3ee;
-        }
-
-        /* HERO */
         .hero{
-            background:linear-gradient(135deg, #ffd6e8, #fff0f5);
-            padding:80px 50px;
             text-align:center;
+            padding:80px 20px;
+            background:white;
         }
 
         .hero h1{
-            font-size:45px;
             color:#ff6b9a;
+            font-size:45px;
             margin-bottom:20px;
         }
 
         .hero p{
-            font-size:18px;
-            color:#555;
+            color:#666;
+            margin-bottom:25px;
         }
 
-        /* SECTION */
-        .section{
-            padding:60px 50px;
+        .hero a{
+            background:#ff6b9a;
+            color:white;
+            padding:12px 25px;
+            border-radius:10px;
+            text-decoration:none;
         }
 
-        .section-title{
+        section{
+            padding:50px;
+        }
+
+        section h2{
             text-align:center;
-            font-size:35px;
-            margin-bottom:40px;
             color:#ff6b9a;
+            margin-bottom:30px;
         }
 
-        /* CARD */
-        .card-container{
-            display:flex;
-            flex-wrap:wrap;
-            gap:25px;
-            justify-content:center;
+        .cards{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:20px;
         }
 
         .card{
             background:white;
-            width:300px;
-            border-radius:18px;
-            overflow:hidden;
-            box-shadow:0 5px 15px rgba(0,0,0,0.08);
-            transition:0.3s;
-        }
-
-        .card:hover{
-            transform:translateY(-6px);
+            padding:20px;
+            border-radius:15px;
+            text-align:center;
+            box-shadow:0 3px 10px rgba(0,0,0,0.08);
         }
 
         .card img{
             width:100%;
             height:220px;
             object-fit:cover;
+            border-radius:10px;
+            margin-bottom:15px;
         }
 
-        .card-body{
-            padding:18px;
-        }
-
-        .card-body h3{
+        .card h3{
             color:#ff6b9a;
             margin-bottom:10px;
         }
 
-        .price{
-            margin-top:10px;
-            font-weight:bold;
-            color:#ff6b9a;
+        table{
+            width:100%;
+            background:white;
+            border-collapse:collapse;
         }
 
-        /* JADWAL */
-        .jadwal{
-            margin-top:12px;
-            background:#fff0f6;
-            padding:10px;
-            border-radius:10px;
-            border-left:4px solid #ff6b9a;
+        table th{
+            background:#ff8db4;
+            color:white;
+            padding:12px;
+        }
+
+        table td{
+            border:1px solid #eee;
+            padding:12px;
+            text-align:center;
+        }
+
+        .profil{
+            background:white;
+            padding:30px;
+            border-radius:15px;
+            text-align:center;
+            box-shadow:0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .profil img{
+            width:150px;
+            margin-bottom:20px;
         }
 
         footer{
-            background:#f8a5c2;
+            background:#ff8db4;
             color:white;
             text-align:center;
-            padding:18px;
-            margin-top:50px;
+            padding:20px;
+            margin-top:40px;
         }
 
     </style>
 
 </head>
-
 <body>
 
-<!-- NAVBAR -->
-<div class="navbar">
+<nav>
 
-    <h2>
-        {{ $profil->nama_klinik ?? 'Dental Care' }}
-    </h2>
+    <h2>Dental Care</h2>
 
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="{{ route('layanan.index') }}">Layanan</a></li>
-        <li><a href="{{ route('dokter.index') }}">Dokter</a></li>
-        <li><a href="{{ route('jadwal_dokter.index') }}">Jadwal</a></li>
-        <li><a href="{{ route('reservasi.index') }}">Reservasi</a></li>
-    </ul>
+    <div>
 
-</div>
+        <a href="/">Home</a>
 
-<!-- HERO -->
+        <a href="#layanan">Layanan</a>
+
+        <a href="#dokter">Dokter</a>
+
+        <a href="#jadwal">Jadwal</a>
+
+        <a href="#profil">Profil Klinik</a>
+
+        @guest
+
+            <a href="/login">Login</a>
+            <a href="/pasien">Profil Saya</a>
+
+            <a href="/register">Daftar</a>
+
+        @endguest
+
+        @auth
+
+            <span style="
+                color:white;
+                margin-left:20px;
+                font-weight:bold;
+            ">
+                {{ Auth::user()->name }}
+            </span>
+
+            <form action="/logout"
+                  method="POST"
+                  style="display:inline;">
+
+                @csrf
+
+                <button type="submit"
+                    style="
+                        background:white;
+                        color:#ff6b9a;
+                        border:none;
+                        padding:8px 15px;
+                        border-radius:8px;
+                        margin-left:10px;
+                        cursor:pointer;
+                        font-weight:bold;
+                    ">
+                    Logout
+                </button>
+
+            </form>
+
+        @endauth
+
+    </div>
+
+</nav>
+
 <div class="hero">
 
-    <h1>Healthy Teeth, Beautiful Smile</h1>
+    <h1>
+        Senyum Sehat Dimulai Dari Sini
+    </h1>
 
     <p>
-        {{ $profil->deskripsi ?? 'Selamat datang di klinik dental care terbaik untuk kesehatan gigi anda.' }}
+        Klinik gigi terpercaya dengan pelayanan profesional
+        dan dokter berpengalaman.
     </p>
 
+    @guest
+
+        <a href="/login">
+            Login Untuk Reservasi
+        </a>
+
+    @endguest
+
+    @auth
+
+        <a href="/reservasi/create">
+            Reservasi Sekarang
+        </a>
+
+    @endauth
+    @auth
+
+
+
+@endauth
+
 </div>
 
-<!-- TENTANG -->
-<div class="section">
+<section id="layanan">
 
-    <h2 class="section-title">Tentang Klinik</h2>
+    <h2>Layanan Kami</h2>
 
-    <center>
-        <p style="max-width:700px;">
-            {{ $profil->alamat ?? 'Alamat klinik belum tersedia' }}
+    <div class="cards">
+
+        @foreach($layanans as $layanan)
+
+        <div class="card">
+
+            @if($layanan->foto)
+
+                <img src="{{ asset('images/layanan/'.$layanan->foto) }}"
+                     alt="{{ $layanan->nama_layanan }}">
+
+            @endif
+
+            <h3>{{ $layanan->nama_layanan }}</h3>
+
+            <p>{{ $layanan->deskripsi }}</p>
+
+        </div>
+
+        @endforeach
+
+    </div>
+
+</section>
+
+<section id="dokter">
+
+    <h2>Dokter Kami</h2>
+
+    <div class="cards">
+
+        @foreach($dokters as $dokter)
+
+        <div class="card">
+
+            @if($dokter->foto)
+
+                <img src="{{ asset('images/dokter/'.$dokter->foto) }}"
+                     alt="{{ $dokter->nama_dokter }}">
+
+            @endif
+
+            <h3>{{ $dokter->nama_dokter }}</h3>
+
+        </div>
+
+        @endforeach
+
+    </div>
+
+</section>
+
+<section id="jadwal">
+
+    <h2>Jadwal Dokter</h2>
+
+    <table>
+
+        <tr>
+
+            <th>Dokter</th>
+
+            <th>Hari</th>
+
+            <th>Jam Mulai</th>
+
+            <th>Jam Selesai</th>
+
+        </tr>
+
+        @foreach($jadwals as $jadwal)
+
+        <tr>
+
+            <td>{{ $jadwal->dokter->nama_dokter }}</td>
+
+            <td>{{ $jadwal->hari }}</td>
+
+            <td>{{ $jadwal->jam_mulai }}</td>
+
+            <td>{{ $jadwal->jam_selesai }}</td>
+
+        </tr>
+
+        @endforeach
+
+    </table>
+
+</section>
+
+<section id="profil">
+
+    <h2>Profil Klinik</h2>
+
+    <div class="profil">
+
+        @if($profil && $profil->logo)
+
+            <img src="{{ asset('images/logo/'.$profil->logo) }}"
+                 alt="Logo Klinik">
+
+        @endif
+
+        <h3>
+            {{ $profil->nama_klinik ?? 'Dental Care' }}
+        </h3>
+
+        <br>
+
+        <p>
+            <strong>Alamat :</strong>
+            {{ $profil->alamat ?? '-' }}
         </p>
-    </center>
 
-</div>
+        <br>
 
-<!-- LAYANAN -->
-<div class="section">
+        <p>
+            <strong>Telepon :</strong>
+            {{ $profil->telepon ?? '-' }}
+        </p>
 
-    <h2 class="section-title">Layanan Kami</h2>
+        <br>
 
-    <div class="card-container">
-
-        @foreach ($layanans as $layanan)
-
-            <div class="card">
-
-                <img src="{{ asset('images/layanan/' . $layanan->foto) }}">
-
-                <div class="card-body">
-
-                    <h3>{{ $layanan->nama_layanan }}</h3>
-
-                    <p>{{ $layanan->deskripsi }}</p>
-
-                    <p class="price">
-                        Rp {{ number_format($layanan->biaya) }}
-                    </p>
-
-                </div>
-
-            </div>
-
-        @endforeach
+        <p>
+            <strong>Deskripsi :</strong>
+            {{ $profil->deskripsi ?? '-' }}
+        </p>
 
     </div>
 
-</div>
+</section>
 
-<!-- DOKTER -->
-<div class="section">
-
-    <h2 class="section-title">Dokter Kami</h2>
-
-    <div class="card-container">
-
-        @foreach ($dokters as $dokter)
-
-            <div class="card">
-
-                <img src="{{ asset('images/dokter/' . $dokter->foto) }}">
-
-                <div class="card-body">
-
-                    <h3>{{ $dokter->nama_dokter }}</h3>
-
-                    <div class="jadwal">
-
-                        <h4>Jadwal Praktik</h4>
-
-                        @foreach ($dokter->jadwal as $jadwal)
-
-                            <p>
-                                {{ $jadwal->hari }} :
-                                {{ $jadwal->jam_mulai }} - {{ $jadwal->jam_selesai }}
-                            </p>
-
-                        @endforeach
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        @endforeach
-
-    </div>
-
-</div>
-
-<!-- FOOTER -->
 <footer>
-    © 2026 Dental Care | All Rights Reserved
+
+    <h3>Dental Care</h3>
+
+    <p>
+        Klinik Gigi Profesional dan Terpercaya
+    </p>
+
+    <br>
+
+    <p>
+        © 2026 Dental Care
+    </p>
+
 </footer>
 
 </body>
+
+
 </html>

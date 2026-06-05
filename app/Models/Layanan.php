@@ -2,19 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Reservasi;
 
 class Layanan extends Model
 {
-    use HasFactory;
-
-    protected $table = 'layanans';
-
     protected $fillable = [
         'nama_layanan',
-        'biaya',
         'deskripsi',
         'foto'
     ];
+
+    public function reservasis()
+    {
+        return $this->hasMany(Reservasi::class);
+    }
 }

@@ -1,22 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard Admin</title>
-</head>
-<body>
+@extends('layouts.admin')
 
-    <h1>Dashboard Admin</h1>
+@section('title', 'Dashboard Admin')
 
-    <h3>Selamat Datang, {{ Auth::user()->name }}</h3>
+@section('content')
 
-    <p>Role : {{ Auth::user()->role }}</p>
+<div class="cards">
 
-    <form action="/logout" method="POST">
-        @csrf
-        <button type="submit">
-            Logout
-        </button>
-    </form>
+    <div class="card">
+        <h2>{{ $jumlahDokter }}</h2>
+        <p>Data Dokter</p>
+    </div>
 
-</body>
-</html>
+    <div class="card">
+        <h2>{{ $jumlahPasien }}</h2>
+        <p>Data Pasien</p>
+    </div>
+
+    <div class="card">
+        <h2>{{ $jumlahLayanan }}</h2>
+        <p>Data Layanan</p>
+    </div>
+
+    <div class="card">
+        <h2>{{ $jumlahReservasi }}</h2>
+        <p>Data Reservasi</p>
+    </div>
+
+    <div class="card">
+        <h2>{{ $jumlahRekamMedis }}</h2>
+        <p>Rekam Medis</p>
+    </div>
+
+</div>
+
+@endsection

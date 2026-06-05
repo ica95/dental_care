@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PasienController;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\JadwalDokterController;
 use App\Http\Controllers\LayananController;
@@ -31,65 +34,74 @@ Route::get('/login', [AuthController::class, 'showLogin'])
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::post('/logout', [AuthController::class, 'logout']);
-
 Route::get('/register', [AuthController::class, 'showRegister']);
 Route::post('/register', [AuthController::class, 'register']);
 
+Route::post('/logout', [AuthController::class, 'logout']);
+
 /*
 |--------------------------------------------------------------------------
-| DASHBOARD ADMIN
+| AREA YANG HARUS LOGIN
 |--------------------------------------------------------------------------
 */
 
-Route::get('/dashboard-admin', function () {
-    return view('admin.dashboard');
+Route::middleware('auth')->group(function () {
+    Route::resource(
+    'pasien',
+    PasienController::class
+);
+
+    Route::get(
+        '/dashboard-admin',
+        [AdminController::class, 'dashboard']
+    );
+
+    Route::resource(
+        'dokter',
+        DokterController::class
+    );
+
+    Route::resource(
+        'jadwal_dokter',
+        JadwalDokterController::class
+    );
+
+    Route::resource(
+        'layanan',
+        LayananController::class
+    );
+
+    Route::resource(
+        'reservasi',
+        ReservasiController::class
+    );
+
+    Route::resource(
+        'rekam_medis',
+        RekamMedisController::class
+    );
+
+    Route::resource(
+        'profil_klinik',
+        ProfilKlinikController::class
+    );
+
 });
 
 /*
 |--------------------------------------------------------------------------
-| CRUD DOKTER
+| TEST LOGOUT
 |--------------------------------------------------------------------------
 */
 
-Route::resource('dokter', DokterController::class);
+Route::get('/tes-logout', function () {
 
-/*
-|--------------------------------------------------------------------------
-| CRUD JADWAL DOKTER
-|--------------------------------------------------------------------------
-*/
+    Auth::logout();
 
-Route::resource('jadwal_dokter', JadwalDokterController::class);
+    session()->invalidate();
 
-/*
-|--------------------------------------------------------------------------
-| CRUD LAYANAN
-|--------------------------------------------------------------------------
-*/
+    session()->regenerateToken();
 
-Route::resource('layanan', LayananController::class);
+    return redirect('/login');
 
-/*
-|--------------------------------------------------------------------------
-| CRUD RESERVASI
-|--------------------------------------------------------------------------
-*/
-
-Route::resource('reservasi', ReservasiController::class);
-
-/*
-|--------------------------------------------------------------------------
-| CRUD REKAM MEDIS
-|--------------------------------------------------------------------------
-*/
-
-Route::resource('rekam_medis', RekamMedisController::class);
-
-/*
-|--------------------------------------------------------------------------
-| CRUD PROFIL KLINIK
-|--------------------------------------------------------------------------
-*/
-
-Route::resource('profil_klinik', ProfilKlinikController::class);
+});

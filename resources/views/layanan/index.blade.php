@@ -1,30 +1,119 @@
-<h1>Data Layanan</h1>
+@extends('layouts.admin')
 
-<a href="{{ route('layanan.create') }}">Tambah Layanan</a>
+@section('title', 'Data Layanan')
 
-<hr>
+@section('content')
 
-@foreach ($layanans as $layanan)
+<div class="card">
 
-    <div style="margin-bottom:20px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
 
-        <img src="{{ asset('images/layanan/' . $layanan->foto) }}" width="120">
+        <h2>🦷 Data Layanan</h2>
 
-        <h3>{{ $layanan->nama_layanan }}</h3>
-
-        <p>{{ $layanan->deskripsi }}</p>
-
-        <p>Rp {{ number_format($layanan->biaya) }}</p>
-
-        <a href="{{ route('layanan.edit', $layanan->id) }}">Edit</a>
-
-        <form action="{{ route('layanan.destroy', $layanan->id) }}" method="POST">
-            @csrf
-            @method('DELETE')
-
-            <button type="submit">Hapus</button>
-        </form>
+        <a href="/layanan/create"
+           class="btn">
+            + Tambah Layanan
+        </a>
 
     </div>
 
-@endforeach
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>No</th>
+                <th>Foto</th>
+                <th>Nama Layanan</th>
+                <th>Deskripsi</th>
+                <th>Aksi</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @forelse($layanans as $layanan)
+
+            <tr>
+
+                <td>
+                    {{ $loop->iteration }}
+                </td>
+
+                <td>
+
+                    @if($layanan->foto)
+
+                        <img
+                            src="{{ asset('images/layanan/'.$layanan->foto) }}"
+                            width="100"
+                            style="
+                                border-radius:10px;
+                                object-fit:cover;
+                            ">
+
+                    @else
+
+                        Tidak ada foto
+
+                    @endif
+
+                </td>
+
+                <td>
+                    {{ $layanan->nama_layanan }}
+                </td>
+
+                <td>
+                    {{ $layanan->deskripsi }}
+                </td>
+
+                <td>
+
+                    <a href="/layanan/{{ $layanan->id }}/edit"
+                       class="btn">
+                        Edit
+                    </a>
+
+                    <form action="/layanan/{{ $layanan->id }}"
+                          method="POST"
+                          style="display:inline;">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit"
+                                class="btn-danger"
+                                onclick="return confirm('Yakin ingin menghapus layanan ini?')">
+                            Hapus
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+            @empty
+
+            <tr>
+
+                <td colspan="5"
+                    style="text-align:center;">
+                    Belum ada data layanan
+                </td>
+
+            </tr>
+
+            @endforelse
+
+        </tbody>
+
+    </table>
+
+</div>
+
+@endsection

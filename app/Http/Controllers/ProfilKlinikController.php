@@ -2,63 +2,94 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProfilKlinik;
 use Illuminate\Http\Request;
 
 class ProfilKlinikController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $profils = ProfilKlinik::all();
+
+        return view('profil_klinik.index', compact('profils'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('profil_klinik.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $logo = null;
+
+        if ($request->hasFile('logo')) {
+
+            $logo = time().'.'.$request->logo->extension();
+
+            $request->logo->move(
+                public_path('images/logo'),
+                $logo
+            );
+        }
+
+        ProfilKlinik::create([
+    'nama_klinik' => $request->nama_klinik,
+    'alamat' => $request->alamat,
+    'no_hp' => $request->no_hp,
+    'email' => $request->email,
+    'deskripsi' => $request->deskripsi,
+    'logo' => $logo
+]);
+        return redirect('/profil_klinik');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $profil = ProfilKlinik::findOrFail($id);
+
+        return view('profil_klinik.edit', compact('profil'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $profil = ProfilKlinik::findOrFail($id);
+
+        $logo = $profil->logo;
+
+        if ($request->hasFile('logo')) {
+
+            $logo = time().'.'.$request->logo->extension();
+
+            $request->logo->move(
+                public_path('images/logo'),
+                $logo
+            );
+        }
+
+        $profil->update([
+            'nama_klinik' => $request->nama_klinik,
+            'alamat' => $request->alamat,
+            'no_hp' => $request->no_hp,
+'email' => $request->email,
+            'deskripsi' => $request->deskripsi,
+            'logo' => $logo
+        ]);
+
+        return redirect('/profil_klinik');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $profil = ProfilKlinik::findOrFail($id);
+
+        $profil->delete();
+
+        return redirect('/profil_klinik');
     }
 }

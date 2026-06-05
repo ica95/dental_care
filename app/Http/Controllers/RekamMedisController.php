@@ -2,63 +2,103 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RekamMedis;
+use App\Models\Reservasi;
+use App\Models\Pasien;
+use App\Models\Dokter;
 use Illuminate\Http\Request;
 
 class RekamMedisController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $rekamMedis = RekamMedis::with(
+            'reservasi',
+            'pasien',
+            'dokter'
+        )->get();
+
+        return view(
+            'rekam_medis.index',
+            compact('rekamMedis')
+        );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $reservasis = Reservasi::all();
+
+        $pasiens = Pasien::all();
+
+        $dokters = Dokter::all();
+
+        return view(
+            'rekam_medis.create',
+            compact(
+                'reservasis',
+                'pasiens',
+                'dokters'
+            )
+        );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        RekamMedis::create([
+
+            'reservasi_id' => $request->reservasi_id,
+
+            'pasien_id' => $request->pasien_id,
+
+            'dokter_id' => $request->dokter_id,
+
+            'tanggal_periksa' =>
+                $request->tanggal_periksa,
+
+            'diagnosa' =>
+                $request->diagnosa,
+
+            'tindakan' =>
+                $request->tindakan,
+
+            'resep_obat' =>
+                $request->resep_obat,
+
+            'catatan' =>
+                $request->catatan
+        ]);
+
+        return redirect('/rekam_medis');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $rekamMedis =
+            RekamMedis::findOrFail($id);
+
+        return view(
+            'rekam_medis.edit',
+            compact('rekamMedis')
+        );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $rekamMedis =
+            RekamMedis::findOrFail($id);
+
+        $rekamMedis->update($request->all());
+
+        return redirect('/rekam_medis');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
+        $rekamMedis =
+            RekamMedis::findOrFail($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $rekamMedis->delete();
+
+        return redirect('/rekam_medis');
     }
 }

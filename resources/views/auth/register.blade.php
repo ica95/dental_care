@@ -36,7 +36,8 @@
             margin-bottom:25px;
         }
 
-        input{
+        input,
+        select{
             width:100%;
             padding:12px;
             border:1px solid #ffc0cb;
@@ -66,6 +67,11 @@
             font-weight:bold;
         }
 
+        .error{
+            color:red;
+            margin-bottom:15px;
+        }
+
     </style>
 
 </head>
@@ -75,29 +81,70 @@
 
     <h2>Registrasi Pasien</h2>
 
+    @if ($errors->any())
+
+        <div class="error">
+
+            @foreach ($errors->all() as $error)
+
+                <p>{{ $error }}</p>
+
+            @endforeach
+
+        </div>
+
+    @endif
+
     <form action="/register" method="POST">
 
         @csrf
 
-        <input type="text"
-               name="name"
-               placeholder="Nama Lengkap"
-               required>
+        <input
+    type="text"
+    name="name"
+    placeholder="Nama Lengkap"
+    required>
 
-        <input type="email"
-               name="email"
-               placeholder="Email"
-               required>
+<input
+    type="email"
+    name="email"
+    placeholder="Email"
+    required>
 
-        <input type="password"
-               name="password"
-               placeholder="Password"
-               required>
+<select name="jenis_kelamin" required>
+    <option value="">Pilih Jenis Kelamin</option>
+    <option value="L">Laki-laki</option>
+    <option value="P">Perempuan</option>
+</select>
 
-        <input type="password"
-               name="password_confirmation"
-               placeholder="Konfirmasi Password"
-               required>
+<input
+    type="date"
+    name="tanggal_lahir"
+    required>
+
+<input
+    type="text"
+    name="alamat"
+    placeholder="Alamat"
+    required>
+
+<input
+    type="text"
+    name="no_hp"
+    placeholder="Nomor HP"
+    required>
+
+<input
+    type="password"
+    name="password"
+    placeholder="Password"
+    required>
+
+<input
+    type="password"
+    name="password_confirmation"
+    placeholder="Konfirmasi Password"
+    required>
 
         <button type="submit">
             Daftar
@@ -106,8 +153,13 @@
     </form>
 
     <div class="login">
+
         Sudah punya akun?
-        <a href="/login">Login</a>
+
+        <a href="/login">
+            Login
+        </a>
+
     </div>
 
 </div>

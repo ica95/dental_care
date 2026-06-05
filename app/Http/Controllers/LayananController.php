@@ -2,63 +2,89 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Layanan;
 use Illuminate\Http\Request;
 
 class LayananController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $layanans = Layanan::all();
+
+        return view('layanan.index', compact('layanans'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('layanan.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $foto = null;
+
+        if ($request->hasFile('foto')) {
+
+            $foto = time().'.'.$request->foto->extension();
+
+            $request->foto->move(
+                public_path('images/layanan'),
+                $foto
+            );
+        }
+
+        Layanan::create([
+            'nama_layanan' => $request->nama_layanan,
+            'deskripsi' => $request->deskripsi,
+            'foto' => $foto
+        ]);
+
+        return redirect('/layanan');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        $layanan = Layanan::findOrFail($id);
+
+        return view('layanan.edit', compact('layanan'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $layanan = Layanan::findOrFail($id);
+
+        $foto = $layanan->foto;
+
+        if ($request->hasFile('foto')) {
+
+            $foto = time().'.'.$request->foto->extension();
+
+            $request->foto->move(
+                public_path('images/layanan'),
+                $foto
+            );
+        }
+
+        $layanan->update([
+            'nama_layanan' => $request->nama_layanan,
+            'deskripsi' => $request->deskripsi,
+            'foto' => $foto
+        ]);
+
+        return redirect('/layanan');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $layanan = Layanan::findOrFail($id);
+
+        $layanan->delete();
+
+        return redirect('/layanan');
     }
 }
