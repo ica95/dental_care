@@ -38,11 +38,13 @@ class AuthController extends Controller
 
             $request->session()->regenerate();
 
-            if (Auth::user()->role == 'admin') {
-                return redirect('/dashboard-admin');
-            }
+           if (Auth::user()->role == 'admin') {
 
-            return redirect('/home');
+    return redirect('/dashboard-admin');
+
+}
+
+return redirect('/dashboard-pasien');
         }
 
         return back()->with(
@@ -126,14 +128,14 @@ class AuthController extends Controller
     |--------------------------------------------------------------------------
     */
 
-    public function logout(Request $request)
-    {
-        Auth::logout();
+   public function logout(Request $request)
+{
+    Auth::logout();
 
-        $request->session()->invalidate();
+    $request->session()->invalidate();
 
-        $request->session()->regenerateToken();
+    $request->session()->regenerateToken();
 
-        return redirect('/login');
-    }
+    return redirect('/');
+}
 }

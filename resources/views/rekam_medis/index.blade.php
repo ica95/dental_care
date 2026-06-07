@@ -10,8 +10,7 @@
 
         <h2>📋 Data Rekam Medis</h2>
 
-        <a href="/rekam_medis/create"
-           class="btn">
+        <a href="/rekam_medis/create" class="btn">
             + Tambah Rekam Medis
         </a>
 
@@ -22,14 +21,16 @@
         <thead>
 
             <tr>
-
                 <th>No</th>
                 <th>Pasien</th>
                 <th>Dokter</th>
-                <th>Tanggal</th>
+                <th>Reservasi</th>
+                <th>Tanggal Periksa</th>
                 <th>Diagnosa</th>
                 <th>Tindakan</th>
-
+                <th>Resep Obat</th>
+                <th>Catatan</th>
+                <th>Biaya</th>
             </tr>
 
         </thead>
@@ -40,37 +41,40 @@
 
             <tr>
 
-                <td>
-                    {{ $loop->iteration }}
-                </td>
+                <td>{{ $loop->iteration }}</td>
 
-                <td>
-                    {{ $data->pasien->nama_pasien }}
-                </td>
+                <td>{{ $data->pasien->nama_pasien ?? '-' }}</td>
 
-                <td>
-                    {{ $data->dokter->nama_dokter }}
-                </td>
+                <td>{{ $data->dokter->nama_dokter ?? '-' }}</td>
 
-                <td>
-                    {{ $data->tanggal_periksa }}
-                </td>
+                <td>#{{ $data->reservasi_id }}</td>
 
-                <td>
-                    {{ $data->diagnosa }}
-                </td>
+                <td>{{ $data->tanggal_periksa }}</td>
 
-                <td>
-                    {{ $data->tindakan }}
-                </td>
+                <td>{{ $data->diagnosa }}</td>
 
+                <td>{{ $data->tindakan }}</td>
+
+                <td>{{ $data->resep_obat }}</td>
+
+                <td>{{ $data->catatan }}</td>
+
+                <td>Rp {{ number_format($data->biaya,0,',','.') }}</td>
+                <td>
+
+    <a href="/rekam_medis/{{ $data->id }}/edit"
+       class="btn">
+        Edit
+    </a>
+
+</td>
             </tr>
 
             @empty
 
             <tr>
 
-                <td colspan="6" style="text-align:center;">
+                <td colspan="9" style="text-align:center;">
                     Belum ada data rekam medis
                 </td>
 

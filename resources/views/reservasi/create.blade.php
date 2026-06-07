@@ -1,93 +1,221 @@
-@extends('layouts.admin')
+@extends('layouts.pasien')
 
-@section('title', 'Tambah Reservasi')
+@section('title', 'Buat Reservasi')
 
 @section('content')
 
-<div class="card" style="max-width:700px;margin:auto;">
+<div class="card">
 
-<h2 style="margin-bottom:20px;color:#ff6b9a;">
-    📅 Tambah Reservasi
-</h2>
+    <div class="card-body">
 
-<form action="/reservasi"
-      method="POST">
+        <h2 style="color:#ff6b9a;">
+            🦷 Form Reservasi
+        </h2>
+@if(session('error'))
+    <div style="
+        background:#f8d7da;
+        color:#721c24;
+        padding:10px;
+        border-radius:8px;
+        margin-bottom:15px;
+    ">
+        {{ session('error') }}
+    </div>
+@endif
 
-    @csrf
+@if(session('success'))
+    <div style="
+        background:#d4edda;
+        color:#155724;
+        padding:10px;
+        border-radius:8px;
+        margin-bottom:15px;
+    ">
+        {{ session('success') }}
+    </div>
+@endif
 
-    <label>Pasien</label>
+@if($errors->any())
+    <div style="
+        background:#fff3cd;
+        color:#856404;
+        padding:10px;
+        border-radius:8px;
+        margin-bottom:15px;
+    ">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+        <br>
 
-    <input type="text"
-           value="{{ $pasien->nama_pasien }}"
-           readonly>
+        <form action="/reservasi" method="POST">
 
-    <input type="hidden"
-           name="pasien_id"
-           value="{{ $pasien->id }}">
+            @csrf
 
-    <label>Dokter</label>
+            <label>Tanggal Reservasi</label>
 
-    <select name="dokter_id" required>
+<input
+    type="date"
+    name="tanggal_reservasi"
+    id="tanggal_reservasi"
+    required>
 
-        @foreach($dokters as $dokter)
+<br><br>
+
+<label>Dokter</label>
+
+<select
+    name="dokter_id"
+    id="dokter_id"
+    required>
+
+    <option value="">
+        Pilih Dokter
+    </option>
+
+    @foreach($dokters as $dokter)
 
         <option value="{{ $dokter->id }}">
             {{ $dokter->nama_dokter }}
         </option>
 
-        @endforeach
+    @endforeach
 
-    </select>
+</select>
 
-    <label>Layanan</label>
+<br><br>
 
-    <select name="layanan_id" required>
+<label>Layanan</label>
 
-        @foreach($layanans as $layanan)
+<select name="layanan_id" required>
+
+    <option value="">
+        Pilih Layanan
+    </option>
+
+    @foreach($layanans as $layanan)
 
         <option value="{{ $layanan->id }}">
             {{ $layanan->nama_layanan }}
         </option>
 
-        @endforeach
+    @endforeach
 
-    </select>
+</select>
 
-    <label>Tanggal Reservasi</label>
+<br><br>
 
-    <input type="date"
-           name="tanggal_reservasi"
-           required>
+<label>Jam Reservasi</label>
 
-    <label>Jam Reservasi</label>
+<select
+    name="jam_reservasi"
+    id="jam_reservasi"
+    required>
 
-    <input type="time"
-           name="jam_reservasi"
-           required>
+    <option value="">
+        Pilih Jam
+    </option>
 
-    <label>Keluhan</label>
+</select>
 
-    <textarea name="keluhan"
-              rows="4"
-              placeholder="Masukkan keluhan pasien"
-              required></textarea>
+<br><br>
 
-    <button type="submit">
-        Simpan Reservasi
-    </button>
+<label>Keluhan</label>
 
-    <a href="/reservasi"
-       style="
-            margin-left:10px;
-            text-decoration:none;
-            color:#666;
-            font-weight:bold;
-       ">
-        Kembali
-    </a>
+<textarea
+    name="keluhan"
+    rows="5"
+    required></textarea>
 
-</form>
+            <br><br>
+
+            <button
+                type="submit"
+                class="btn">
+
+                Simpan Reservasi
+
+            </button>
+
+        </form>
+
+    </div>
 
 </div>
+<script>
 
+document.addEventListener(
+    'DOMContentLoaded',
+    function(){
+
+        const dokter =
+            document.getElementById(
+                'dokter_id'
+            );
+
+        const tanggal =
+            document.getElementById(
+                'tanggal_reservasi'
+            );
+
+        const jam =
+            document.getElementById(
+                'jam_reservasi'
+            );
+
+        function loadJam()
+        {
+            if(
+                dokter.value == '' ||
+                tanggal.value == ''
+            ){
+                return;
+            }
+
+            fetch(
+                '/jadwal-dokter/'
+                + dokter.value
+                + '/'
+                + tanggal.value
+            )
+
+            .then(response =>
+                response.json()
+            )
+
+            .then(data => {
+
+                jam.innerHTML =
+                '<option value="">Pilih Jam</option>';
+
+                data.forEach(function(item){
+
+                    jam.innerHTML +=
+                    '<option value="'+item+'">'
+                    + item +
+                    '</option>';
+
+                });
+
+            });
+        }
+
+        dokter.addEventListener(
+            'change',
+            loadJam
+        );
+
+        tanggal.addEventListener(
+            'change',
+            loadJam
+        );
+
+    }
+);
+
+</script>
 @endsection

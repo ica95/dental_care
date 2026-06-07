@@ -1,122 +1,134 @@
-@extends('layouts.admin')
+@extends('layouts.pasien')
 
-@section('title', 'Data Reservasi')
+@section('title', 'Reservasi Saya')
 
 @section('content')
 
 <div class="card">
 
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+    <div class="card-body">
 
-        <h2>📅 Data Reservasi</h2>
+        <h2 style="color:#ff6b9a;text-align:center;">
+            📋 Riwayat Reservasi
+        </h2>
 
-        <a href="/reservasi/create" class="btn">
-            + Tambah Reservasi
-        </a>
+        <br>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Dokter</th>
+
+                    <th>Tanggal</th>
+
+                    <th>Jam</th>
+
+                    <th>Keluhan</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @forelse($reservasis as $reservasi)
+
+                <tr>
+
+                    <td>
+                        {{ $reservasi->dokter->nama_dokter }}
+                    </td>
+
+                    <td>
+                        {{ $reservasi->tanggal_reservasi }}
+                    </td>
+
+                    <td>
+                        {{ $reservasi->jam_reservasi }}
+                    </td>
+
+                    <td>
+                        {{ $reservasi->keluhan }}
+                    </td>
+
+                    <td>
+
+                        @if($reservasi->status == 'pending')
+
+                            <span style="
+                                background:#fff3cd;
+                                color:#856404;
+                                padding:6px 12px;
+                                border-radius:20px;
+                                font-weight:bold;
+                            ">
+                                Pending
+                            </span>
+
+                        @elseif($reservasi->status == 'diterima')
+
+                            <span style="
+                                background:#d4edda;
+                                color:#155724;
+                                padding:6px 12px;
+                                border-radius:20px;
+                                font-weight:bold;
+                            ">
+                                Diterima
+                            </span>
+
+                        @elseif($reservasi->status == 'selesai')
+
+                            <span style="
+                                background:#d1ecf1;
+                                color:#0c5460;
+                                padding:6px 12px;
+                                border-radius:20px;
+                                font-weight:bold;
+                            ">
+                                Selesai
+                            </span>
+
+                        @else
+
+                            <span style="
+                                background:#f8d7da;
+                                color:#721c24;
+                                padding:6px 12px;
+                                border-radius:20px;
+                                font-weight:bold;
+                            ">
+                                Batal
+                            </span>
+
+                        @endif
+
+                    </td>
+
+                </tr>
+
+                @empty
+
+                <tr>
+
+                    <td colspan="5">
+                        Belum ada reservasi
+                    </td>
+
+                </tr>
+
+                @endforelse
+
+            </tbody>
+
+        </table>
 
     </div>
-
-    <table>
-
-        <thead>
-
-            <tr>
-                <th>No</th>
-                <th>Pasien</th>
-                <th>Dokter</th>
-                <th>Layanan</th>
-                <th>Tanggal</th>
-                <th>Jam</th>
-                <th>Status</th>
-                <th>Aksi</th>
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            @forelse($reservasis as $reservasi)
-
-            <tr>
-
-                <td>{{ $loop->iteration }}</td>
-
-                <td>{{ $reservasi->pasien->nama_pasien }}</td>
-
-                <td>{{ $reservasi->dokter->nama_dokter }}</td>
-
-                <td>{{ $reservasi->layanan->nama_layanan }}</td>
-
-                <td>{{ $reservasi->tanggal_reservasi }}</td>
-
-                <td>{{ $reservasi->jam_reservasi }}</td>
-
-                <td>
-
-                    @if($reservasi->status == 'pending')
-                        <span style="color:orange;font-weight:bold;">
-                            Pending
-                        </span>
-
-                    @elseif($reservasi->status == 'diterima')
-                        <span style="color:green;font-weight:bold;">
-                            Diterima
-                        </span>
-
-                    @elseif($reservasi->status == 'selesai')
-                        <span style="color:blue;font-weight:bold;">
-                            Selesai
-                        </span>
-
-                    @else
-                        <span style="color:red;font-weight:bold;">
-                            Batal
-                        </span>
-                    @endif
-
-                </td>
-
-                <td>
-
-                    <a href="/reservasi/{{ $reservasi->id }}/edit"
-                       class="btn">
-                        Edit
-                    </a>
-
-                    <form action="/reservasi/{{ $reservasi->id }}"
-                          method="POST"
-                          style="display:inline;">
-
-                        @csrf
-                        @method('DELETE')
-
-                        <button type="submit"
-                                class="btn-danger"
-                                onclick="return confirm('Yakin ingin menghapus reservasi ini?')">
-                            Hapus
-                        </button>
-
-                    </form>
-
-                </td>
-
-            </tr>
-
-            @empty
-
-            <tr>
-
-                <td colspan="8" style="text-align:center;">
-                    Belum ada data reservasi
-                </td>
-
-            </tr>
-
-            @endforelse
-
-        </tbody>
-
-    </table>
 
 </div>
 

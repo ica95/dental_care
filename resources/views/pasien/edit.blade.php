@@ -24,15 +24,17 @@ method="POST">
 
     <select name="jenis_kelamin">
 
-        <option value="Laki-laki">
-            Laki-laki
-        </option>
+    <option value="L"
+        {{ $pasien->jenis_kelamin == 'L' ? 'selected' : '' }}>
+        Laki-laki
+    </option>
 
-        <option value="Perempuan">
-            Perempuan
-        </option>
+    <option value="P"
+        {{ $pasien->jenis_kelamin == 'P' ? 'selected' : '' }}>
+        Perempuan
+    </option>
 
-    </select>
+</select>
 
     <br><br>
 

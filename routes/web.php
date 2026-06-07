@@ -35,26 +35,76 @@ Route::get('/login', [AuthController::class, 'showLogin'])
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/register', [AuthController::class, 'showRegister']);
+
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/logout', [AuthController::class, 'logout']);
 
 /*
 |--------------------------------------------------------------------------
-| AREA YANG HARUS LOGIN
+| AREA LOGIN
 |--------------------------------------------------------------------------
 */
 
 Route::middleware('auth')->group(function () {
+
+    /*
+    |--------------------------------------------------------------------------
+    | DASHBOARD PASIEN
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get(
+        '/dashboard-pasien',
+        [PasienController::class, 'dashboard']
+    );
+
     Route::resource(
-    'pasien',
-    PasienController::class
+        'pasien',
+        PasienController::class
+    );
+
+    /*
+    |--------------------------------------------------------------------------
+    | RESERVASI PASIEN
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get(
+        '/reservasi',
+        [ReservasiController::class, 'index']
+    );
+
+    Route::get(
+        '/reservasi/create',
+        [ReservasiController::class, 'create']
+    );
+
+    Route::post(
+        '/reservasi',
+        [ReservasiController::class, 'store']
+    );
+    Route::get(
+    '/jadwal-dokter/{dokter}/{tanggal}',
+    [ReservasiController::class, 'getJadwal']
 );
+
+    /*
+    |--------------------------------------------------------------------------
+    | DASHBOARD ADMIN
+    |--------------------------------------------------------------------------
+    */
 
     Route::get(
         '/dashboard-admin',
         [AdminController::class, 'dashboard']
     );
+
+    /*
+    |--------------------------------------------------------------------------
+    | MASTER DATA ADMIN
+    |--------------------------------------------------------------------------
+    */
 
     Route::resource(
         'dokter',
@@ -72,11 +122,6 @@ Route::middleware('auth')->group(function () {
     );
 
     Route::resource(
-        'reservasi',
-        ReservasiController::class
-    );
-
-    Route::resource(
         'rekam_medis',
         RekamMedisController::class
     );
@@ -84,6 +129,32 @@ Route::middleware('auth')->group(function () {
     Route::resource(
         'profil_klinik',
         ProfilKlinikController::class
+    );
+
+    /*
+    |--------------------------------------------------------------------------
+    | RESERVASI ADMIN
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get(
+        '/admin/reservasi',
+        [ReservasiController::class, 'index']
+    )->name('admin.reservasi');
+
+    Route::get(
+        '/admin/reservasi/{id}/edit',
+        [ReservasiController::class, 'edit']
+    );
+
+    Route::put(
+        '/admin/reservasi/{id}',
+        [ReservasiController::class, 'update']
+    );
+
+    Route::delete(
+        '/admin/reservasi/{id}',
+        [ReservasiController::class, 'destroy']
     );
 
 });

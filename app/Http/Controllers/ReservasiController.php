@@ -2,22 +2,49 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Reservasi;
 use App\Models\Pasien;
 use App\Models\Dokter;
 use App\Models\Layanan;
-use Illuminate\Support\Facades\Auth;
+use App\Models\JadwalDokter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReservasiController extends Controller
 {
     public function index()
     {
+        // ADMIN
+        if (Auth::user()->role == 'admin')
+        {
+            $reservasis = Reservasi::with(
+                'pasien',
+                'dokter',
+                'layanan'
+            )->get();
+
+            return view(
+                'reservasi.admin_index',
+                compact('reservasis')
+            );
+        }
+
+        // PASIEN
+        $pasien = Pasien::where(
+            'user_id',
+            Auth::id()
+        )->first();
+
         $reservasis = Reservasi::with(
-            'pasien',
             'dokter',
             'layanan'
-        )->get();
+        )
+        ->where(
+            'pasien_id',
+            $pasien->id
+        )
+        ->get();
 
         return view(
             'reservasi.index',
@@ -25,45 +52,122 @@ class ReservasiController extends Controller
         );
     }
 
-   public function create()
-{
-    $pasien = Pasien::where(
-        'user_id',
-        Auth::id()
-    )->first();
+    public function create()
+    {
+        $pasien = Pasien::where(
+            'user_id',
+            Auth::id()
+        )->first();
 
-    $dokters = Dokter::all();
+        $dokters = Dokter::all();
 
-    $layanans = Layanan::all();
+        $layanans = Layanan::all();
 
-    return view(
-        'reservasi.create',
-        compact(
-            'pasien',
-            'dokters',
-            'layanans'
-        )
-    );
-}
+        return view(
+            'reservasi.create',
+            compact(
+                'pasien',
+                'dokters',
+                'layanans'
+            )
+        );
+    }
 
     public function store(Request $request)
     {
         $request->validate([
-            // hapus pasien_id
+
             'dokter_id' => 'required',
+
             'layanan_id' => 'required',
-            'tanggal_reservasi' => 'required',
+
+            'tanggal_reservasi' => 'required|date',
+
             'jam_reservasi' => 'required',
+
             'keluhan' => 'required'
+
         ]);
-        
-$pasien = Pasien::where(
-    'user_id',
-    Auth::id()
-)->first();
+
+        // Ambil nama hari dari tanggal reservasi
+        Carbon::setLocale('id');
+
+        $hari = Carbon::parse(
+            $request->tanggal_reservasi
+        )->translatedFormat('l');
+
+        $hari = ucfirst($hari);
+
+        // Cari jadwal dokter
+        $jadwal = JadwalDokter::where(
+            'dokter_id',
+            $request->dokter_id
+        )
+        ->where(
+            'hari',
+            $hari
+        )
+        ->first();
+
+        // Dokter tidak praktik
+        if (!$jadwal)
+        {
+            return back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Dokter tidak praktik pada hari '.$hari
+                );
+        }
+
+        // Jam di luar jadwal dokter
+        if (
+            $request->jam_reservasi < $jadwal->jam_mulai ||
+            $request->jam_reservasi > $jadwal->jam_selesai
+        )
+        {
+            return back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Jam reservasi harus antara '
+                    .$jadwal->jam_mulai.
+                    ' sampai '
+                    .$jadwal->jam_selesai
+                );
+        }
+
+        $pasien = Pasien::where(
+            'user_id',
+            Auth::id()
+        )->first();
+$cekJam = Reservasi::where(
+    'dokter_id',
+    $request->dokter_id
+)
+->where(
+    'tanggal_reservasi',
+    $request->tanggal_reservasi
+)
+->where(
+    'jam_reservasi',
+    $request->jam_reservasi
+)
+->exists();
+
+if($cekJam)
+{
+    return back()
+        ->withInput()
+        ->with(
+            'error',
+            'Jam tersebut sudah dibooking'
+        );
+}
         Reservasi::create([
 
             'pasien_id' => $pasien->id,
+
             'dokter_id' => $request->dokter_id,
 
             'layanan_id' => $request->layanan_id,
@@ -78,17 +182,18 @@ $pasien = Pasien::where(
                 $request->keluhan,
 
             'status' => 'pending'
+
         ]);
 
         return redirect('/reservasi')
-            ->with('success', 'Reservasi berhasil ditambahkan');
+            ->with(
+                'success',
+                'Reservasi berhasil ditambahkan'
+            );
     }
 
     public function show($id)
-{
-    return redirect('/reservasi');
-
-    
+    {
         $reservasi = Reservasi::with(
             'pasien',
             'dokter',
@@ -124,14 +229,27 @@ $pasien = Pasien::where(
 
     public function update(Request $request, $id)
 {
-    $reservasi = Reservasi::findOrFail($id);
+    $rekamMedis = RekamMedis::findOrFail($id);
 
-    $reservasi->update([
-        'status' => $request->status
+    $rekamMedis->update([
+
+        'diagnosa' => $request->diagnosa,
+
+        'tindakan' => $request->tindakan,
+
+        'resep_obat' => $request->resep_obat,
+
+        'catatan' => $request->catatan,
+
+        'biaya' => $request->biaya
+
     ]);
 
-    return redirect('/reservasi')
-        ->with('success', 'Status berhasil diupdate');
+    return redirect('/rekam_medis')
+        ->with(
+            'success',
+            'Rekam medis berhasil diupdate'
+        );
 }
 
     public function destroy($id)
@@ -140,7 +258,72 @@ $pasien = Pasien::where(
 
         $reservasi->delete();
 
-        return redirect('/reservasi')
-            ->with('success', 'Reservasi berhasil dihapus');
+        return redirect('/admin/reservasi')
+            ->with(
+                'success',
+                'Reservasi berhasil dihapus'
+            );
     }
+   public function getJadwal($dokterId, $tanggal)
+{
+    Carbon::setLocale('id');
+
+    $hari = Carbon::parse($tanggal)
+        ->translatedFormat('l');
+
+    $hari = ucfirst($hari);
+
+    $jadwal = JadwalDokter::where(
+        'dokter_id',
+        $dokterId
+    )
+    ->where(
+        'hari',
+        $hari
+    )
+    ->first();
+
+    if (!$jadwal)
+    {
+        return response()->json([]);
+    }
+
+    $jamTersedia = [];
+
+    $mulai = intval(
+        substr($jadwal->jam_mulai,0,2)
+    );
+
+    $selesai = intval(
+        substr($jadwal->jam_selesai,0,2)
+    );
+
+    for($i=$mulai;$i<$selesai;$i++)
+    {
+        $jamTersedia[] =
+            sprintf('%02d:00',$i);
+    }
+
+    // Jam yang sudah dibooking
+    $jamTerpakai = Reservasi::where(
+        'dokter_id',
+        $dokterId
+    )
+    ->where(
+        'tanggal_reservasi',
+        $tanggal
+    )
+    ->pluck('jam_reservasi')
+    ->toArray();
+
+    // Hapus jam yang sudah terpakai
+    $jamTersedia = array_diff(
+        $jamTersedia,
+        $jamTerpakai
+    );
+
+    return response()->json(
+        array_values($jamTersedia)
+    );
+}
 }

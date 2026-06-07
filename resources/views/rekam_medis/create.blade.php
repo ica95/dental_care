@@ -6,104 +6,104 @@
 
 <div class="card" style="max-width:800px;margin:auto;">
 
-<h2 style="margin-bottom:20px;color:#ff6b9a;">
-    🩺 Tambah Rekam Medis
-</h2>
+    <h2 style="margin-bottom:20px;color:#ff6b9a;">
+        🩺 Tambah Rekam Medis
+    </h2>
 
-<form action="/rekam_medis"
-      method="POST">
+    <form action="/rekam_medis"
+          method="POST">
 
-    @csrf
+        @csrf
 
-    <label>Reservasi</label>
+        <label>Reservasi</label>
 
-    <select name="reservasi_id">
+        <select name="reservasi_id" required>
 
-        @foreach($reservasis as $reservasi)
-
-            <option value="{{ $reservasi->id }}">
-                Reservasi #{{ $reservasi->id }}
+            <option value="">
+                Pilih Reservasi
             </option>
 
-        @endforeach
+            @foreach($reservasis as $reservasi)
 
-    </select>
+                <option value="{{ $reservasi->id }}">
 
-    <label>Pasien</label>
+                    {{ $reservasi->pasien->nama_pasien }}
+                    -
+                    {{ $reservasi->dokter->nama_dokter }}
+                    -
+                    {{ $reservasi->tanggal_reservasi }}
 
-    <select name="pasien_id">
+                </option>
 
-        @foreach($pasiens as $pasien)
+            @endforeach
 
-            <option value="{{ $pasien->id }}">
-                {{ $pasien->nama_pasien }}
-            </option>
+        </select>
 
-        @endforeach
 
-    </select>
+        <label>Diagnosa</label>
 
-    <label>Dokter</label>
+        <textarea
+            name="diagnosa"
+            rows="4"
+            required
+            placeholder="Masukkan diagnosa"></textarea>
 
-    <select name="dokter_id">
+        <br><br>
 
-        @foreach($dokters as $dokter)
+        <label>Tindakan</label>
 
-            <option value="{{ $dokter->id }}">
-                {{ $dokter->nama_dokter }}
-            </option>
+        <textarea
+            name="tindakan"
+            rows="4"
+            required
+            placeholder="Masukkan tindakan"></textarea>
 
-        @endforeach
+        <br><br>
 
-    </select>
+        <label>Resep Obat</label>
 
-    <label>Tanggal Periksa</label>
+        <textarea
+            name="resep_obat"
+            rows="4"
+            placeholder="Masukkan resep obat"></textarea>
 
-    <input type="date"
-           name="tanggal_periksa">
+        <br><br>
 
-    <label>Diagnosa</label>
+        <label>Catatan</label>
 
-    <textarea name="diagnosa"
-              rows="3"
-              placeholder="Masukkan diagnosa"></textarea>
+        <textarea
+            name="catatan"
+            rows="4"
+            placeholder="Masukkan catatan tambahan"></textarea>
 
-    <label>Tindakan</label>
+        <br><br>
+        <label>Biaya</label>
 
-    <textarea name="tindakan"
-              rows="3"
-              placeholder="Masukkan tindakan"></textarea>
+<input
+    type="number"
+    name="biaya"
+    placeholder="Masukkan biaya">
 
-    <label>Resep Obat</label>
+<br><br>
 
-    <textarea name="resep_obat"
-              rows="3"
-              placeholder="Masukkan resep obat"></textarea>
+        <button type="submit"
+                class="btn">
 
-    <label>Catatan</label>
+            💾 Simpan Rekam Medis
 
-    <textarea name="catatan"
-              rows="3"
-              placeholder="Masukkan catatan tambahan"></textarea>
+        </button>
 
-    <br>
+        <a href="/rekam_medis"
+           style="
+                margin-left:10px;
+                text-decoration:none;
+                color:#666;
+                font-weight:bold;
+           ">
+            Kembali
+        </a>
 
-    <button type="submit">
-        💾 Simpan Rekam Medis
-    </button>
-
-    <a href="/rekam_medis"
-       style="
-            margin-left:10px;
-            text-decoration:none;
-            color:#666;
-            font-weight:bold;
-       ">
-        Kembali
-    </a>
-
-</form>
-
+    </form>
 
 </div>
 

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reservasi extends Model
 {
     protected $fillable = [
+
         'pasien_id',
         'dokter_id',
         'layanan_id',
@@ -29,9 +30,5 @@ class Reservasi extends Model
     public function layanan()
     {
         return $this->belongsTo(Layanan::class);
-    }
-    public function rekamMedis()
-    {
-    return $this->hasOne(RekamMedis::class);
     }
 }

@@ -8,6 +8,31 @@ use Illuminate\Support\Facades\Auth;
 
 class PasienController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | DASHBOARD PASIEN
+    |--------------------------------------------------------------------------
+    */
+
+    public function dashboard()
+    {
+        $pasien = Pasien::where(
+            'user_id',
+            Auth::id()
+        )->first();
+
+        return view(
+            'pasien.dashboard',
+            compact('pasien')
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | PROFIL PASIEN
+    |--------------------------------------------------------------------------
+    */
+
     public function index()
     {
         $pasien = Pasien::where(
@@ -20,6 +45,16 @@ class PasienController extends Controller
             compact('pasien')
         );
     }
+    public function show($id)
+{
+    return redirect('/pasien');
+}
+
+    /*
+    |--------------------------------------------------------------------------
+    | EDIT PROFIL PASIEN
+    |--------------------------------------------------------------------------
+    */
 
     public function edit($id)
     {
@@ -30,6 +65,12 @@ class PasienController extends Controller
             compact('pasien')
         );
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | UPDATE PROFIL PASIEN
+    |--------------------------------------------------------------------------
+    */
 
     public function update(
         Request $request,
@@ -54,8 +95,13 @@ class PasienController extends Controller
 
             'no_hp' =>
                 $request->no_hp
+
         ]);
 
-        return redirect('/pasien');
+        return redirect('/pasien')
+            ->with(
+                'success',
+                'Profil berhasil diperbarui'
+            );
     }
 }
