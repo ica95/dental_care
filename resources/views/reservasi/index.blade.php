@@ -9,7 +9,7 @@
     <div class="card-body">
 
         <h2 style="color:#ff6b9a;text-align:center;">
-            📋 Riwayat Reservasi
+            Riwayat Reservasi
         </h2>
 
         <br>

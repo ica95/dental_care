@@ -1,174 +1,222 @@
 @extends('layouts.pasien')
 
+@section('title','Home')
+
 @section('content')
+
+<!-- HERO -->
 
 <div class="hero">
 
-<h1>
-    Senyum Sehat Dimulai Dari Sini
-</h1>
+    <h1>
+        Senyum Sehat Dimulai Dari Sini
+    </h1>
 
-<p>
-    Klinik gigi terpercaya dengan pelayanan profesional
-    dan dokter berpengalaman.
-</p>
+    <p>
+        Klinik gigi terpercaya dengan pelayanan profesional
+        dan dokter berpengalaman.
+    </p>
 
-@guest
+    @guest
 
-    <a href="/login">
-        Login Untuk Reservasi
-    </a>
+        <a href="/login">
+            Login Untuk Reservasi
+        </a>
 
-@endguest
+    @endguest
 
-@auth
+    @auth
 
-    <a href="/reservasi/create">
-        Reservasi Sekarang
-    </a>
+        <a href="/reservasi/create">
+            Reservasi Sekarang
+        </a>
 
-@endauth
-
+    @endauth
 
 </div>
+
+<!-- LAYANAN -->
 
 <section id="layanan">
 
-<h2>Layanan Kami</h2>
+    <h2>
+        Layanan Kami
+    </h2>
 
-<div class="cards">
+    <div class="cards">
 
-    @foreach($layanans as $layanan)
+        @foreach($layanans as $layanan)
 
-    <div class="card">
+            <div class="card">
 
-        @if($layanan->foto)
+                @if($layanan->foto)
 
-            <img src="{{ asset('images/layanan/'.$layanan->foto) }}"
-                 alt="{{ $layanan->nama_layanan }}">
+                    <img
+                        src="{{ asset('images/layanan/'.$layanan->foto) }}"
+                        alt="{{ $layanan->nama_layanan }}">
 
-        @endif
+                @endif
 
-        <h3>{{ $layanan->nama_layanan }}</h3>
+                <h3>
+                    {{ $layanan->nama_layanan }}
+                </h3>
 
-        <p>{{ $layanan->deskripsi }}</p>
+                <p>
+                    {{ $layanan->deskripsi }}
+                </p>
+
+            </div>
+
+        @endforeach
 
     </div>
 
-    @endforeach
-
-</div>
-
 </section>
+
+<!-- DOKTER -->
 
 <section id="dokter">
 
-<h2>Dokter Kami</h2>
+    <h2>
+        Dokter Kami
+    </h2>
 
-<div class="cards">
+    <div class="cards">
 
-    @foreach($dokters as $dokter)
+        @foreach($dokters as $dokter)
 
-    <div class="card">
+            <div class="card">
 
-        @if($dokter->foto)
+                @if($dokter->foto)
 
-            <img src="{{ asset('images/dokter/'.$dokter->foto) }}"
-                 alt="{{ $dokter->nama_dokter }}">
+                    <img
+                        src="{{ asset('images/dokter/'.$dokter->foto) }}"
+                        alt="{{ $dokter->nama_dokter }}">
 
-        @endif
+                @endif
 
-        <h3>{{ $dokter->nama_dokter }}</h3>
+                <h3>
+                    {{ $dokter->nama_dokter }}
+                </h3>
+
+            </div>
+
+        @endforeach
 
     </div>
 
-    @endforeach
-
-</div>
-
 </section>
+
+<!-- JADWAL -->
 
 <section id="jadwal">
 
+    <h2>
+        Jadwal Dokter
+    </h2>
 
-<h2>Jadwal Dokter</h2>
+    <table>
 
-<table>
+        <tr>
 
-    <tr>
+            <th>Dokter</th>
+            <th>Hari</th>
+            <th>Jam Mulai</th>
+            <th>Jam Selesai</th>
 
-        <th>Dokter</th>
-        <th>Hari</th>
-        <th>Jam Mulai</th>
-        <th>Jam Selesai</th>
+        </tr>
 
-    </tr>
+        @foreach($jadwals as $jadwal)
 
-    @foreach($jadwals as $jadwal)
+        <tr>
 
-    <tr>
+            <td>
+                {{ $jadwal->dokter->nama_dokter }}
+            </td>
 
-        <td>{{ $jadwal->dokter->nama_dokter }}</td>
-        <td>{{ $jadwal->hari }}</td>
-        <td>{{ $jadwal->jam_mulai }}</td>
-        <td>{{ $jadwal->jam_selesai }}</td>
+            <td>
+                {{ $jadwal->hari }}
+            </td>
 
-    </tr>
+            <td>
+                {{ $jadwal->jam_mulai }}
+            </td>
 
-    @endforeach
+            <td>
+                {{ $jadwal->jam_selesai }}
+            </td>
 
-</table>
+        </tr>
+
+        @endforeach
+
+    </table>
 
 </section>
 
+<!-- PROFIL KLINIK -->
+
 <section id="profil">
 
-```
-<h2>Profil Klinik</h2>
+    <h2>
+        Profil Klinik
+    </h2>
 
-<div class="profil">
+    <div class="profil">
 
-    @if($profil && $profil->logo)
+        @if($profil && $profil->logo)
 
-        <img src="{{ asset('images/logo/'.$profil->logo) }}"
-             alt="Logo Klinik">
+            <img
+                src="{{ asset('images/logo/'.$profil->logo) }}"
+                alt="Logo Klinik">
 
-    @endif
+        @endif
 
-    <h3>
-        {{ $profil->nama_klinik ?? 'Dental Care' }}
-    </h3>
+        <h3>
+            {{ $profil->nama_klinik ?? 'Lumine Dental Care' }}
+        </h3>
 
-    <br>
+        <br>
 
-    <p>
-        <strong>Alamat :</strong>
-        {{ $profil->alamat ?? '-' }}
-    </p>
+        <p>
 
-    <br>
+            <strong>Alamat :</strong>
 
-    <p>
-        <strong>No HP :</strong>
-        {{ $profil->no_hp ?? '-' }}
-    </p>
+            {{ $profil->alamat ?? '-' }}
 
-    <br>
+        </p>
 
-    <p>
-        <strong>Email :</strong>
-        {{ $profil->email ?? '-' }}
-    </p>
+        <br>
 
-    <br>
+        <p>
 
-    <p>
-        <strong>Deskripsi :</strong>
-        {{ $profil->deskripsi ?? '-' }}
-    </p>
+            <strong>No HP :</strong>
 
-</div>
+            {{ $profil->no_hp ?? '-' }}
 
+        </p>
+
+        <br>
+
+        <p>
+
+            <strong>Email :</strong>
+
+            {{ $profil->email ?? '-' }}
+
+        </p>
+
+        <br>
+
+        <p>
+
+            <strong>Deskripsi :</strong>
+
+            {{ $profil->deskripsi ?? '-' }}
+
+        </p>
+
+    </div>
 
 </section>
 

@@ -8,7 +8,7 @@
 
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
 
-        <h2>👨‍⚕️ Data Dokter</h2>
+        <h2>Data Dokter</h2>
 
         <a href="{{ route('dokter.create') }}"
            class="btn">

@@ -6,10 +6,9 @@
 
 <div class="card">
 
-```
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
 
-    <h2>📅 Data Jadwal Dokter</h2>
+    <h2>Data Jadwal Dokter</h2>
 
     <a href="/jadwal_dokter/create" class="btn">
         + Tambah Jadwal
@@ -97,7 +96,6 @@
     </tbody>
 
 </table>
-```
 
 </div>
 

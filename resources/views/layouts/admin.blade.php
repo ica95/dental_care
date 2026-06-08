@@ -183,17 +183,6 @@
             background:#c0392b;
         }
 
-        /* FOOTER */
-
-        .footer{
-            margin-top:30px;
-            background:white;
-            padding:15px;
-            border-radius:15px;
-            text-align:center;
-            color:#666;
-            box-shadow:0 3px 10px rgba(0,0,0,0.08);
-        }
 
         /* LOGOUT */
 
@@ -253,6 +242,7 @@
     <a href="/rekam_medis">Rekam Medis</a>
 
     <a href="/profil_klinik">Profil Klinik</a>
+    <a href="/laporan">Laporan</a>
 
     <div class="logout">
 
@@ -295,13 +285,6 @@
 
     </div>
 
-    <!-- FOOTER -->
-
-    <div class="footer">
-
-        © {{ date('Y') }} Dental Care System
-
-    </div>
 
 </div>
 

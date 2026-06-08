@@ -8,7 +8,7 @@
 
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
 
-        <h2>🦷 Data Layanan</h2>
+        <h2>Data Layanan</h2>
 
         <a href="/layanan/create"
            class="btn">

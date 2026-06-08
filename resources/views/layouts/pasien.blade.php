@@ -284,12 +284,18 @@
                 👤 {{ Auth::user()->name }}
             </span>
 
-            <form action="/logout" method="POST">
-    @csrf
-    <button type="submit" class="logout-btn">
-        Logout
-    </button>
-</form>
+            <form action="/logout"
+                  method="POST"
+                  style="display:inline;">
+
+                @csrf
+
+                <button type="submit"
+                        class="logout-btn">
+                    Logout
+                </button>
+
+            </form>
 
         @endauth
 

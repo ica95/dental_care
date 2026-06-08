@@ -176,3 +176,11 @@ Route::get('/tes-logout', function () {
     return redirect('/login');
 
 });
+Route::put(
+    '/rekam_medis/{id}',
+    [RekamMedisController::class, 'update']
+);
+Route::get(
+    '/laporan',
+    [RekamMedisController::class, 'laporan']
+);

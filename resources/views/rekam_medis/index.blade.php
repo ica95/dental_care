@@ -8,7 +8,7 @@
 
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
 
-        <h2>📋 Data Rekam Medis</h2>
+        <h2>Data Rekam Medis</h2>
 
         <a href="/rekam_medis/create" class="btn">
             + Tambah Rekam Medis

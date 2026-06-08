@@ -31,4 +31,28 @@ class Reservasi extends Model
     {
         return $this->belongsTo(Layanan::class);
     }
+    public function laporan()
+{
+    $reservasis = Reservasi::with(
+        'pasien',
+        'dokter'
+    )->get();
+
+    $rekamMedis = RekamMedis::with(
+        'pasien',
+        'dokter'
+    )->get();
+
+    $totalPemasukan =
+        RekamMedis::sum('biaya');
+
+    return view(
+        'laporan.index',
+        compact(
+            'reservasis',
+            'rekamMedis',
+            'totalPemasukan'
+        )
+    );
+}
 }

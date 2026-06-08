@@ -50,10 +50,9 @@
 
         <br><br>
 
-        <button type="submit"
-                class="btn">
-            Update
-        </button>
+        <button type="submit">
+        Update
+    </button>
 
     </form>
 

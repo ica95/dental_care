@@ -37,11 +37,10 @@ $totalPemasukan = RekamMedis::sum('biaya');
 
     public function create()
     {
-        $reservasis = Reservasi::with(
-            'pasien',
-            'dokter'
-        )->get();
-
+        $reservasis = \App\Models\Reservasi::with(
+    'pasien',
+    'dokter'
+)->get();
         return view(
             'rekam_medis.create',
             compact('reservasis')
@@ -153,47 +152,30 @@ $totalPemasukan = RekamMedis::sum('biaya');
     |--------------------------------------------------------------------------
     */
 
-    public function update(
-        Request $request,
-        $id
-    )
-    {
-        $request->validate([
+    public function update(Request $request, $id)
+{
+    $rekamMedis = RekamMedis::findOrFail($id);
 
-            'reservasi_id' => 'required',
-            'tanggal_periksa' => 'required',
-            'diagnosa' => 'required',
-            'tindakan' => 'required'
+    $rekamMedis->update([
 
-        ]);
+        'diagnosa' => $request->diagnosa,
 
-        $reservasi = Reservasi::findOrFail(
-            $request->reservasi_id
+        'tindakan' => $request->tindakan,
+
+        'resep_obat' => $request->resep_obat,
+
+        'catatan' => $request->catatan,
+
+        'biaya' => $request->biaya
+
+    ]);
+
+    return redirect('/rekam_medis')
+        ->with(
+            'success',
+            'Rekam medis berhasil diupdate'
         );
-
-        $rekamMedis = RekamMedis::findOrFail($id);
-
-        $rekamMedis->update([
-
-            'reservasi_id' => $reservasi->id,
-
-            'pasien_id' => $reservasi->pasien_id,
-
-            'dokter_id' => $reservasi->dokter_id,
-
-            'diagnosa' => $request->diagnosa,
-
-            'tindakan' => $request->tindakan
-
-        ]);
-
-        return redirect('/rekam_medis')
-            ->with(
-                'success',
-                'Rekam medis berhasil diperbarui'
-            );
-    }
-
+}
     /*
     |--------------------------------------------------------------------------
     | HAPUS REKAM MEDIS
@@ -212,4 +194,40 @@ $totalPemasukan = RekamMedis::sum('biaya');
                 'Rekam medis berhasil dihapus'
             );
     }
+    public function laporan(Request $request)
+{
+    $bulan = $request->bulan;
+
+    $rekamMedis = RekamMedis::with(
+        'pasien',
+        'dokter'
+    );
+
+    if($bulan)
+    {
+        $rekamMedis->whereMonth(
+            'tanggal_periksa',
+            date('m', strtotime($bulan))
+        );
+
+        $rekamMedis->whereYear(
+            'tanggal_periksa',
+            date('Y', strtotime($bulan))
+        );
+    }
+
+    $rekamMedis = $rekamMedis->get();
+
+    $totalPemasukan =
+        $rekamMedis->sum('biaya');
+
+    return view(
+        'laporan.index',
+        compact(
+            'rekamMedis',
+            'totalPemasukan',
+            'bulan'
+        )
+    );
+}
 }
