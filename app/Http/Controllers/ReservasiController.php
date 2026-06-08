@@ -8,6 +8,7 @@ use App\Models\Pasien;
 use App\Models\Dokter;
 use App\Models\Layanan;
 use App\Models\JadwalDokter;
+use App\Models\RekamMedis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -229,26 +230,16 @@ if($cekJam)
 
     public function update(Request $request, $id)
 {
-    $rekamMedis = RekamMedis::findOrFail($id);
+    $reservasi = Reservasi::findOrFail($id);
 
-    $rekamMedis->update([
-
-        'diagnosa' => $request->diagnosa,
-
-        'tindakan' => $request->tindakan,
-
-        'resep_obat' => $request->resep_obat,
-
-        'catatan' => $request->catatan,
-
-        'biaya' => $request->biaya
-
+    $reservasi->update([
+        'status' => $request->status
     ]);
 
-    return redirect('/rekam_medis')
+    return redirect('/admin/reservasi')
         ->with(
             'success',
-            'Rekam medis berhasil diupdate'
+            'Status reservasi berhasil diperbarui'
         );
 }
 

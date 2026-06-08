@@ -8,11 +8,16 @@ use Illuminate\Http\Request;
 
 class JadwalDokterController extends Controller
 {
-    public function index()
+        public function index()
     {
         $jadwals = JadwalDokter::with('dokter')->get();
 
-        return view('jadwal_dokter.index', compact('jadwals'));
+        $dokters = Dokter::all();
+
+        return view(
+            'jadwal_dokter.index',
+            compact('jadwals', 'dokters')
+        );
     }
 
     public function create()

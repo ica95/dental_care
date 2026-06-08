@@ -8,7 +8,7 @@
 
 
 <h2 style="margin-bottom:20px;color:#ff6b9a;">
-    ✏️ Edit Status Reservasi
+     Edit Status Reservasi
 </h2>
 
 <form action="/reservasi/{{ $reservasi->id }}"

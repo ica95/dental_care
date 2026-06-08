@@ -10,10 +10,10 @@
 
     <h2>Profil Klinik</h2>
 
-    <a href="/profil_klinik/create"
-       class="btn">
-        + Tambah Profil Klinik
-    </a>
+    <button class="btn"
+            onclick="openModal()">
+        + Tambah Profil
+    </button>
 
 </div>
 
@@ -85,14 +85,22 @@
 
             <td>
 
-                <a href="/profil_klinik/{{ $profil->id }}/edit"
-                   class="btn">
+            <div style="display:flex; gap:10px;">
+
+                <button class="btn-edit"
+                    onclick="openEditModal(
+                    '{{ $profil->id }}',
+                    '{{ $profil->nama_klinik }}',
+                    '{{ $profil->alamat }}',
+                    '{{ $profil->no_hp }}',
+                    '{{ $profil->email }}',
+                    `{{ $profil->deskripsi }}`
+                    )">
                     Edit
-                </a>
+                </button>
 
                 <form action="/profil_klinik/{{ $profil->id }}"
-                      method="POST"
-                      style="display:inline;">
+                    method="POST">
 
                     @csrf
                     @method('DELETE')
@@ -105,8 +113,9 @@
 
                 </form>
 
-            </td>
+            </div>
 
+            </td>
         </tr>
 
         @empty
@@ -126,5 +135,64 @@
 </table>
 
 </div>
+
+@include('profil_klinik.create')
+@include('profil_klinik.edit')
+
+<script>
+
+function openModal()
+{
+    document.getElementById('modalProfil').style.display = 'block';
+}
+
+function closeModal()
+{
+    document.getElementById('modalProfil').style.display = 'none';
+}
+
+function openEditModal(
+    id,
+    nama,
+    alamat,
+    no_hp,
+    email,
+    deskripsi
+)
+{
+    document.getElementById('editModal').style.display = 'block';
+
+    document.getElementById('edit_nama_klinik').value = nama;
+    document.getElementById('edit_alamat').value = alamat;
+    document.getElementById('edit_no_hp').value = no_hp;
+    document.getElementById('edit_email').value = email;
+    document.getElementById('edit_deskripsi').value = deskripsi;
+
+    document.getElementById('editForm').action =
+        '/profil_klinik/' + id;
+}
+
+function closeEditModal()
+{
+    document.getElementById('editModal').style.display = 'none';
+}
+
+window.onclick = function(event)
+{
+    let modalTambah = document.getElementById('modalProfil');
+    let modalEdit = document.getElementById('editModal');
+
+    if(event.target == modalTambah)
+    {
+        modalTambah.style.display = 'none';
+    }
+
+    if(event.target == modalEdit)
+    {
+        modalEdit.style.display = 'none';
+    }
+}
+
+</script>
 
 @endsection

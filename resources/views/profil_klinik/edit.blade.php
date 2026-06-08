@@ -1,88 +1,85 @@
-@extends('layouts.admin')
+<div id="editModal" class="modal">
 
-@section('title', 'Edit Profil Klinik')
+    <div class="modal-content">
 
-@section('content')
+        <h2>Edit Profil Klinik</h2>
 
-<div class="card" style="max-width:800px;margin:auto;">
+        <form id="editForm"
+              method="POST"
+              enctype="multipart/form-data">
 
+            @csrf
+            @method('PUT')
 
-<h2 style="margin-bottom:20px;color:#ff6b9a;">
-    🏥 Edit Profil Klinik
-</h2>
+            <div class="form-group">
+                <label>Nama Klinik</label>
 
-<form action="/profil_klinik/{{ $profil->id }}"
-      method="POST"
-      enctype="multipart/form-data">
+                <input type="text"
+                       id="edit_nama_klinik"
+                       name="nama_klinik"
+                       required>
+            </div>
 
-    @csrf
-    @method('PUT')
+            <div class="form-group">
+                <label>Alamat</label>
 
-    <label>Nama Klinik</label>
+                <textarea id="edit_alamat"
+                          name="alamat"
+                          rows="3"
+                          required></textarea>
+            </div>
 
-    <input type="text"
-           name="nama_klinik"
-           value="{{ $profil->nama_klinik }}">
+            <div class="form-group">
+                <label>No HP</label>
 
-    <label>Alamat</label>
+                <input type="text"
+                       id="edit_no_hp"
+                       name="no_hp"
+                       required>
+            </div>
 
-    <textarea name="alamat"
-              rows="4">{{ $profil->alamat }}</textarea>
+            <div class="form-group">
+                <label>Email</label>
 
-    <label>No HP</label>
+                <input type="email"
+                       id="edit_email"
+                       name="email"
+                       required>
+            </div>
 
-    <input type="text"
-           name="no_hp"
-           value="{{ $profil->no_hp }}">
+            <div class="form-group">
+                <label>Deskripsi</label>
 
-    <label>Email</label>
+                <textarea id="edit_deskripsi"
+                          name="deskripsi"
+                          rows="4"
+                          required></textarea>
+            </div>
 
-    <input type="email"
-           name="email"
-           value="{{ $profil->email }}">
+            <div class="form-group">
+                <label>Ganti Logo</label>
 
-    <label>Deskripsi</label>
+                <input type="file"
+                       name="logo">
+            </div>
 
-    <textarea name="deskripsi"
-              rows="4">{{ $profil->deskripsi }}</textarea>
+            <div class="button-group">
 
-    <label>Logo Klinik</label>
+                <button type="submit"
+                        class="btn">
+                    Update
+                </button>
 
-    @if($profil->logo)
+                <button type="button"
+                        class="btn-danger"
+                        onclick="closeEditModal()">
+                    Batal
+                </button>
 
-        <div style="margin-bottom:15px;">
+            </div>
 
-            <img
-                src="{{ asset('images/logo/'.$profil->logo) }}"
-                width="120"
-                style="border-radius:10px;">
+        </form>
 
-        </div>
-
-    @endif
-
-    <input type="file"
-           name="logo">
-
-    <br><br>
-
-    <button type="submit">
-        💾 Update Profil
-    </button>
-
-    <a href="/profil_klinik"
-       style="
-            margin-left:10px;
-            text-decoration:none;
-            color:#666;
-            font-weight:bold;
-       ">
-        Kembali
-    </a>
-
-</form>
-
+    </div>
 
 </div>
-
-@endsection

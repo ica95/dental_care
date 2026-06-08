@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dental Care Admin</title>
 
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+@yield('css')
     <style>
 
         *{
@@ -109,6 +111,21 @@
             color:#666;
         }
 
+        .card-link{
+            text-decoration:none;
+            color:inherit;
+        }
+
+        .card-link .card{
+            transition:0.3s;
+            cursor:pointer;
+        }
+
+        .card-link .card:hover{
+            transform:translateY(-5px);
+            box-shadow:0 8px 20px rgba(0,0,0,0.15);
+        }
+        
         /* FORM */
 
         input,
@@ -197,6 +214,42 @@
             font-weight:bold;
         }
 
+
+.modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.4);
+    z-index:9999;
+}
+
+.modal-content{
+    width:450px;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+
+    box-shadow:0 5px 20px rgba(0,0,0,.2);
+}
+
+.modal-content h2{
+    margin-bottom:20px;
+    color:#ff6b9a;
+}
+
+.button-group{
+    display:flex;
+    gap:10px;
+}
+
     </style>
 
 </head>
@@ -207,6 +260,13 @@
      @php
         $profil = \App\Models\ProfilKlinik::first();
     @endphp
+
+   <a href="/profil_klinik"
+   style="
+        text-decoration:none;
+        display:block;
+        margin-bottom:30px;
+   ">
 
     @if($profil && $profil->logo)
 
@@ -225,9 +285,15 @@
 
     @endif
 
-    <h2>
+    <h2 style="
+        color:white;
+        text-align:center;
+        margin:0;
+    ">
         {{ $profil->nama_klinik ?? 'Dental Care' }}
     </h2>
+
+</a>
 
     <a href="/dashboard-admin">Dashboard</a>
 
@@ -241,8 +307,9 @@
 
     <a href="/rekam_medis">Rekam Medis</a>
 
-    <a href="/profil_klinik">Profil Klinik</a>
     <a href="/laporan">Laporan</a>
+
+    
 
     <div class="logout">
 

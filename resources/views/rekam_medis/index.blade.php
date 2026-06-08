@@ -31,6 +31,7 @@
                 <th>Resep Obat</th>
                 <th>Catatan</th>
                 <th>Biaya</th>
+                <th>Aksi</th>
             </tr>
 
         </thead>
@@ -60,14 +61,15 @@
                 <td>{{ $data->catatan }}</td>
 
                 <td>Rp {{ number_format($data->biaya,0,',','.') }}</td>
+
                 <td>
 
-    <a href="/rekam_medis/{{ $data->id }}/edit"
-       class="btn">
-        Edit
-    </a>
+                    <a href="/rekam_medis/{{ $data->id }}/edit"
+                    class="btn">
+                        Edit
+                    </a>
 
-</td>
+                </td>
             </tr>
 
             @empty

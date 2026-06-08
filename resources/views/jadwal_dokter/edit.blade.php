@@ -1,49 +1,91 @@
-<h1>Edit Jadwal Dokter</h1>
+<div id="editModal" class="modal">
 
-<form action="/jadwal_dokter/{{ $jadwal->id }}"
-      method="POST">
+    <div class="modal-content">
 
-    @csrf
-    @method('PUT')
+        <h2>Edit Jadwal Dokter</h2>
 
-    <select name="dokter_id">
+        <form id="editForm"
+              method="POST">
 
-        @foreach($dokters as $dokter)
+            @csrf
+            @method('PUT')
 
-            <option
-                value="{{ $dokter->id }}"
-                {{ $jadwal->dokter_id == $dokter->id ? 'selected' : '' }}>
+            <div class="form-group">
 
-                {{ $dokter->nama_dokter }}
+                <label>Dokter</label>
 
-            </option>
+                <select id="edit_dokter"
+                        name="dokter_id"
+                        required>
 
-        @endforeach
+                    @foreach($dokters as $dokter)
 
-    </select>
+                    <option value="{{ $dokter->id }}">
+                        {{ $dokter->nama_dokter }}
+                    </option>
 
-    <br><br>
+                    @endforeach
 
-    <input type="text"
-           name="hari"
-           value="{{ $jadwal->hari }}">
+                </select>
 
-    <br><br>
+            </div>
 
-    <input type="time"
-           name="jam_mulai"
-           value="{{ $jadwal->jam_mulai }}">
+            <div class="form-group">
 
-    <br><br>
+                <label>Hari</label>
 
-    <input type="time"
-           name="jam_selesai"
-           value="{{ $jadwal->jam_selesai }}">
+                <select id="edit_hari"
+                        name="hari"
+                        required>
 
-    <br><br>
+                    <option value="Senin">Senin</option>
+                    <option value="Selasa">Selasa</option>
+                    <option value="Rabu">Rabu</option>
+                    <option value="Kamis">Kamis</option>
+                    <option value="Jumat">Jumat</option>
+                    <option value="Sabtu">Sabtu</option>
 
-    <button type="submit">
-        Update
-    </button>
+                </select>
 
-</form>
+            </div>
+
+            <div class="form-group">
+
+                <label>Jam Mulai</label>
+
+                <input type="time"
+                       id="edit_mulai"
+                       name="jam_mulai">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Jam Selesai</label>
+
+                <input type="time"
+                       id="edit_selesai"
+                       name="jam_selesai">
+
+            </div>
+
+            <div class="button-group">
+
+                <button type="submit"
+                        class="btn">
+                    Update
+                </button>
+
+                <button type="button"
+                        class="btn-danger"
+                        onclick="closeEditModal()">
+                    Batal
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

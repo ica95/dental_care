@@ -10,10 +10,9 @@
 
         <h2>Data Layanan</h2>
 
-        <a href="/layanan/create"
-           class="btn">
+        <button class="btn" onclick="openModal()">
             + Tambah Layanan
-        </a>
+        </button>
 
     </div>
 
@@ -73,10 +72,14 @@
 
                 <td>
 
-                    <a href="/layanan/{{ $layanan->id }}/edit"
-                       class="btn">
-                        Edit
-                    </a>
+                   <button class="btn-edit"
+                        onclick="openEditModal(
+                        '{{ $layanan->id }}',
+                        '{{ $layanan->nama_layanan }}',
+                        `{{ $layanan->deskripsi }}`
+                        )">
+                            Edit
+                    </button>
 
                     <form action="/layanan/{{ $layanan->id }}"
                           method="POST"
@@ -115,5 +118,54 @@
     </table>
 
 </div>
+
+    @include('layanan.create')
+    @include('layanan.edit')
+
+<script>
+
+function openModal()
+{
+    document.getElementById('modalLayanan').style.display = 'block';
+}
+
+function closeModal()
+{
+    document.getElementById('modalLayanan').style.display = 'none';
+}
+
+function openEditModal(id,nama,deskripsi)
+{
+    document.getElementById('editModal').style.display = 'block';
+
+    document.getElementById('edit_nama').value = nama;
+    document.getElementById('edit_deskripsi').value = deskripsi;
+
+    document.getElementById('editForm').action =
+        '/layanan/' + id;
+}
+
+function closeEditModal()
+{
+    document.getElementById('editModal').style.display = 'none';
+}
+
+window.onclick = function(event)
+{
+    let modalTambah = document.getElementById('modalLayanan');
+    let modalEdit = document.getElementById('editModal');
+
+    if(event.target == modalTambah)
+    {
+        modalTambah.style.display = 'none';
+    }
+
+    if(event.target == modalEdit)
+    {
+        modalEdit.style.display = 'none';
+    }
+}
+
+</script>
 
 @endsection

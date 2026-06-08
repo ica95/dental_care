@@ -20,18 +20,19 @@ class ProfilKlinikController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $logo = null;
+{
 
-        if ($request->hasFile('logo')) {
+    $logo = null;
 
-            $logo = time().'.'.$request->logo->extension();
+    if ($request->hasFile('logo')) {
 
-            $request->logo->move(
-                public_path('images/logo'),
-                $logo
-            );
-        }
+        $logo = time().'.'.$request->logo->extension();
+
+        $request->logo->move(
+            public_path('images/logo'),
+            $logo
+        );
+    }
 
         ProfilKlinik::create([
     'nama_klinik' => $request->nama_klinik,

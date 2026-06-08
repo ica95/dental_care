@@ -1,81 +1,64 @@
-@extends('layouts.admin')
+<div id="editModal" class="modal">
 
-@section('title', 'Edit Layanan')
+    <div class="modal-content">
 
-@section('content')
+        <h2>Edit Layanan</h2>
 
-<div class="card" style="max-width:800px;margin:auto;">
+        <form id="editForm"
+              method="POST"
+              enctype="multipart/form-data">
 
+            @csrf
+            @method('PUT')
 
-<h2 style="margin-bottom:20px;color:#ff6b9a;">
-    🦷 Edit Layanan
-</h2>
+            <div class="form-group">
 
-<form action="/layanan/{{ $layanan->id }}"
-      method="POST"
-      enctype="multipart/form-data">
+                <label>Nama Layanan</label>
 
-    @csrf
-    @method('PUT')
+                <input type="text"
+                       id="edit_nama"
+                       name="nama_layanan"
+                       required>
 
-    <label>Nama Layanan</label>
+            </div>
 
-    <input type="text"
-           name="nama_layanan"
-           value="{{ $layanan->nama_layanan }}"
-           required>
+            <div class="form-group">
 
-    <label>Deskripsi</label>
+                <label>Deskripsi</label>
 
-    <textarea name="deskripsi"
-              rows="5"
-              required>{{ $layanan->deskripsi }}</textarea>
+                <textarea id="edit_deskripsi"
+                          name="deskripsi"
+                          rows="4"
+                          required></textarea>
 
-    <label>Foto Saat Ini</label>
+            </div>
 
-    <br>
+            <div class="form-group">
 
-    @if($layanan->foto)
+                <label>Ganti Foto</label>
 
-        <img
-            src="{{ asset('images/layanan/'.$layanan->foto) }}"
-            width="180"
-            style="
-                border-radius:10px;
-                margin-bottom:15px;
-                box-shadow:0 3px 10px rgba(0,0,0,0.1);
-            ">
+                <input type="file"
+                       name="foto">
 
-    @else
+            </div>
 
-        <p>Tidak ada foto</p>
+            <div class="button-group">
 
-    @endif
+                <button type="submit"
+                        class="btn">
+                    Update
+                </button>
 
-    <label>Ganti Foto</label>
+                <button type="button"
+                        class="btn-danger"
+                        onclick="closeEditModal()">
+                    Batal
+                </button>
 
-    <input type="file"
-           name="foto">
+            </div>
 
-    <br><br>
+        </form>
 
-    <button type="submit">
-        💾 Update Layanan
-    </button>
-
-    <a href="/layanan"
-       style="
-            margin-left:10px;
-            text-decoration:none;
-            color:#666;
-            font-weight:bold;
-       ">
-        Kembali
-    </a>
-
-</form>
-
+    </div>
 
 </div>
-
-@endsection

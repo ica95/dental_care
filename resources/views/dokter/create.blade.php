@@ -1,24 +1,46 @@
-<h1>Tambah Dokter</h1>
+<div id="modalDokter" class="modal">
 
-<form action="/dokter"
-      method="POST"
-      enctype="multipart/form-data">
+    <div class="modal-content">
 
-    @csrf
+        <h2>Tambah Data Dokter</h2>
 
-    <input type="text"
-           name="nama_dokter"
-           placeholder="Nama Dokter">
+        <form action="{{ route('dokter.store') }}"
+              method="POST"
+              enctype="multipart/form-data">
 
-    <br><br>
+            @csrf
 
-    <input type="file"
-           name="foto">
+            <div class="form-group">
+                <label>Nama Dokter</label>
 
-    <br><br>
+                <input type="text"
+                       name="nama_dokter"
+                       required>
+            </div>
 
-    <button type="submit">
-        Simpan
-    </button>
+            <div class="form-group">
+                <label>Foto Dokter</label>
 
-</form>
+                <input type="file"
+                       name="foto">
+            </div>
+
+            <div class="button-group">
+
+                <button type="submit" class="btn">
+                    Simpan
+                </button>
+
+                <button type="button"
+                        class="btn-danger"
+                        onclick="closeModal()">
+                    Batal
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

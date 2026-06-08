@@ -10,10 +10,10 @@
 
         <h2>Data Dokter</h2>
 
-        <a href="{{ route('dokter.create') }}"
-           class="btn">
+        <button class="btn"
+        onclick="openModal()">
             + Tambah Dokter
-        </a>
+        </button>
 
     </div>
 
@@ -66,10 +66,13 @@
 
                 <td>
 
-                    <a href="{{ route('dokter.edit', $dokter->id) }}"
-                       class="btn">
+                    <button class="btn-edit"
+                        onclick="openEditModal(
+                            '{{ $dokter->id }}',
+                            '{{ $dokter->nama_dokter }}'
+                                        )">
                         Edit
-                    </a>
+                    </button>
 
                     <form action="{{ route('dokter.destroy', $dokter->id) }}"
                           method="POST"
@@ -107,5 +110,100 @@
     </table>
 
 </div>
+
+<div id="modalDokter" class="modal">
+
+    <div class="modal-content">
+
+        <h2>Tambah Dokter</h2>
+
+        <form action="{{ route('dokter.store') }}"
+              method="POST"
+              enctype="multipart/form-data">
+
+            @csrf
+
+            <div class="form-group">
+                <label>Nama Dokter</label>
+                <input type="text"
+                       name="nama_dokter"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Foto Dokter</label>
+                <input type="file"
+                       name="foto">
+            </div>
+
+            <div class="button-group">
+
+                <button type="submit"
+                        class="btn">
+                    Simpan
+                </button>
+
+                <button type="button"
+                        class="btn-danger"
+                        onclick="closeModal()">
+                    Batal
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+@include('dokter.create')
+
+@include('dokter.edit')
+
+<script>
+
+function openModal()
+{
+    document.getElementById('modalDokter').style.display = 'block';
+}
+
+function closeModal()
+{
+    document.getElementById('modalDokter').style.display = 'none';
+}
+
+function openEditModal(id, nama)
+{
+    document.getElementById('editModal').style.display = 'block';
+
+    document.getElementById('edit_nama').value = nama;
+
+    document.getElementById('editForm').action = '/dokter/' + id;
+}
+
+function closeEditModal()
+{
+    document.getElementById('editModal').style.display = 'none';
+}
+
+window.onclick = function(event)
+{
+    let tambahModal = document.getElementById('modalDokter');
+    let editModal = document.getElementById('editModal');
+
+    if(event.target == tambahModal)
+    {
+        tambahModal.style.display = 'none';
+    }
+
+    if(event.target == editModal)
+    {
+        editModal.style.display = 'none';
+    }
+}
+
+</script>
 
 @endsection

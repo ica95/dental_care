@@ -4,9 +4,16 @@
 
 @section('content')
 
-<div class="card" style="max-width:800px;margin:auto;">
+<div class="card" style="max-width:900px;margin:auto;">
 
-    <h2>✏️ Edit Rekam Medis</h2>
+    <h2 style="
+        color:#ff6b9a;
+        margin-bottom:25px;
+        border-bottom:2px solid #ffe0ea;
+        padding-bottom:10px;
+    ">
+        Edit Rekam Medis
+    </h2>
 
     <form action="/rekam_medis/{{ $rekamMedis->id }}"
           method="POST">
@@ -14,45 +21,70 @@
         @csrf
         @method('PUT')
 
-        <label>Diagnosa</label>
+        <div style="
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:20px;
+        ">
 
-        <textarea name="diagnosa"
-                  rows="3">{{ $rekamMedis->diagnosa }}</textarea>
+            
+            <div>
 
-        <br><br>
+                <label><b>Biaya Pemeriksaan</b></label>
 
-        <label>Tindakan</label>
+                <input type="number"
+                       name="biaya"
+                       value="{{ $rekamMedis->biaya }}"
+                       required>
 
-        <textarea name="tindakan"
-                  rows="3">{{ $rekamMedis->tindakan }}</textarea>
+            </div>
 
-        <br><br>
+        </div>
 
-        <label>Resep Obat</label>
+        <label><b>Diagnosa</b></label>
 
-        <textarea name="resep_obat"
-                  rows="3">{{ $rekamMedis->resep_obat }}</textarea>
+        <textarea
+            name="diagnosa"
+            rows="4"
+            required>{{ $rekamMedis->diagnosa }}</textarea>
 
-        <br><br>
+        <label><b>Tindakan</b></label>
 
-        <label>Catatan</label>
+        <textarea
+            name="tindakan"
+            rows="4"
+            required>{{ $rekamMedis->tindakan }}</textarea>
 
-        <textarea name="catatan"
-                  rows="3">{{ $rekamMedis->catatan }}</textarea>
+        <label><b>Resep Obat</b></label>
 
-        <br><br>
+        <textarea
+            name="resep_obat"
+            rows="4">{{ $rekamMedis->resep_obat }}</textarea>
 
-        <label>Biaya</label>
+        <label><b>Catatan Tambahan</b></label>
 
-        <input type="number"
-               name="biaya"
-               value="{{ $rekamMedis->biaya }}">
+        <textarea
+            name="catatan"
+            rows="4">{{ $rekamMedis->catatan }}</textarea>
 
-        <br><br>
+        <div style="
+            margin-top:25px;
+            display:flex;
+            gap:10px;
+        ">
 
-        <button type="submit">
-        Update
-    </button>
+            <button type="submit"
+                    class="btn">
+                Update
+            </button>
+
+            <button type="button"
+                    class="btn-danger"
+                    onclick="window.location.href='/rekam_medis'">
+                Batal
+            </button>
+
+        </div>
 
     </form>
 

@@ -18,11 +18,6 @@
 
 @endif
 
-<a href="/reservasi/create"
-   class="btn"
-   style="margin-bottom:20px;">
-    + Tambah Reservasi
-</a>
 
 <table>
 

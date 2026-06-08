@@ -1,42 +1,49 @@
-<h1>Edit Dokter</h1>
+<div id="editModal" class="modal">
 
-<form action="{{ route('dokter.update', $dokter->id) }}"
-      method="POST"
-      enctype="multipart/form-data">
+    <div class="modal-content">
 
-    @csrf
-    @method('PUT')
+        <h2>Edit Dokter</h2>
 
-    <label>Nama Dokter</label>
-    <br>
+        <form id="editForm"
+              method="POST"
+              enctype="multipart/form-data">
 
-    <input type="text"
-           name="nama_dokter"
-           value="{{ $dokter->nama_dokter }}">
+            @csrf
+            @method('PUT')
 
-    <br><br>
+            <div class="form-group">
+                <label>Nama Dokter</label>
 
-    <label>Foto Saat Ini</label>
-    <br>
+                <input type="text"
+                       id="edit_nama"
+                       name="nama_dokter"
+                       required>
+            </div>
 
-    @if ($dokter->foto)
-        <img src="{{ asset('images/dokter/' . $dokter->foto) }}"
-             width="150">
-    @else
-        <p>Foto belum ada</p>
-    @endif
+            <div class="form-group">
+                <label>Foto Dokter</label>
 
-    <br><br>
+                <input type="file"
+                       name="foto">
+            </div>
 
-    <label>Upload Foto Baru</label>
-    <br>
+            <div class="button-group">
 
-    <input type="file" name="foto">
+                <button type="submit"
+                        class="btn">
+                    Update
+                </button>
 
-    <br><br>
+                <button type="button"
+                        class="btn-danger"
+                        onclick="closeEditModal()">
+                    Batal
+                </button>
 
-    <button type="submit">
-        Update
-    </button>
+            </div>
 
-</form>
+        </form>
+
+    </div>
+
+</div>

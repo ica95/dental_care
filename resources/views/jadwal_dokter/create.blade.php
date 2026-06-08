@@ -1,50 +1,72 @@
+<div id="modalJadwal" class="modal">
 
-<h1>Tambah Jadwal Dokter</h1>
+    <div class="modal-content">
 
-<form action="/jadwal_dokter"
-      method="POST">
+        <h2>Tambah Jadwal Dokter</h2>
 
-    @csrf
+        <form action="{{ route('jadwal_dokter.store') }}"
+              method="POST">
 
-    <label>Dokter</label>
+            @csrf
 
-    <select name="dokter_id">
+            <div class="form-group">
+                <label>Dokter</label>
 
-        @foreach($dokters as $dokter)
+                <select name="dokter_id" required>
+                    <option value="">-- Pilih Dokter --</option>
 
-            <option value="{{ $dokter->id }}">
-                {{ $dokter->nama_dokter }}
-            </option>
+                    @foreach($dokters as $dokter)
+                    <option value="{{ $dokter->id }}">
+                        {{ $dokter->nama_dokter }}
+                    </option>
+                    @endforeach
 
-        @endforeach
+                </select>
+            </div>
 
-    </select>
+            <div class="form-group">
+                <label>Hari</label>
 
-    <br><br>
+                <select name="hari" required>
+                    <option>Senin</option>
+                    <option>Selasa</option>
+                    <option>Rabu</option>
+                    <option>Kamis</option>
+                    <option>Jumat</option>
+                    <option>Sabtu</option>
+                </select>
+            </div>
 
-    <label>Hari</label>
+            <div class="form-group">
+                <label>Jam Mulai</label>
+                <input type="time"
+                       name="jam_mulai"
+                       required>
+            </div>
 
-    <input type="text"
-           name="hari">
+            <div class="form-group">
+                <label>Jam Selesai</label>
+                <input type="time"
+                       name="jam_selesai"
+                       required>
+            </div>
 
-    <br><br>
+            <div class="button-group">
 
-    <label>Jam Mulai</label>
+                <button type="submit" class="btn">
+                    Simpan
+                </button>
 
-    <input type="time"
-           name="jam_mulai">
+                <button type="button"
+                        class="btn-danger"
+                        onclick="closeModal()">
+                    Batal
+                </button>
 
-    <br><br>
+            </div>
 
-    <label>Jam Selesai</label>
+        </form>
 
-    <input type="time"
-           name="jam_selesai">
+    </div>
 
-    <br><br>
-
-    <button type="submit">
-        Simpan
-    </button>
-
-</form>
+</div>

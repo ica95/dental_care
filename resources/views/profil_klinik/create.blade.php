@@ -1,82 +1,78 @@
-@extends('layouts.admin')
+<div id="modalProfil" class="modal">
 
-@section('title', 'Tambah Profil Klinik')
+    <div class="modal-content">
 
-@section('content')
+        <h2>Tambah Profil Klinik</h2>
 
-<div class="card" style="max-width:800px;margin:auto;">
+        <form action="{{ route('profil_klinik.store') }}"
+              method="POST"
+              enctype="multipart/form-data">
 
-```
-<h2 style="margin-bottom:20px;color:#ff6b9a;">
-    🏥 Tambah Profil Klinik
-</h2>
+            @csrf
 
-<form action="/profil_klinik"
-      method="POST"
-      enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Nama Klinik</label>
 
-    @csrf
+                <input type="text"
+                       name="nama_klinik"
+                       required>
+            </div>
 
-    <label>Nama Klinik</label>
+            <div class="form-group">
+                <label>Alamat</label>
 
-    <input type="text"
-           name="nama_klinik"
-           placeholder="Masukkan nama klinik"
-           required>
+                <textarea name="alamat"
+                          rows="3"
+                          required></textarea>
+            </div>
 
-    <label>Alamat</label>
+            <div class="form-group">
+              <label>No. HP</label>
 
-    <textarea name="alamat"
-              rows="4"
-              placeholder="Masukkan alamat klinik"
-              required></textarea>
+              <input type="text"
+                     name="no_hp"
+                     required>
+            </div>
 
-    <label>No HP</label>
+            <div class="form-group">
+                <label>Email</label>
 
-    <input type="text"
-           name="no_hp"
-           placeholder="Masukkan nomor HP"
-           required>
+                <input type="email"
+                       name="email">
+            </div>
 
-    <label>Email</label>
+            <div class="form-group">
+                <label>Deskripsi Klinik</label>
 
-    <input type="email"
-           name="email"
-           placeholder="Masukkan email klinik"
-           required>
+                <textarea name="deskripsi"
+                        rows="4"
+                        required></textarea>
+            </div>
 
-    <label>Deskripsi</label>
+            <div class="form-group">
+                <label>Logo Klinik</label>
 
-    <textarea name="deskripsi"
-              rows="4"
-              placeholder="Masukkan deskripsi klinik"
-              required></textarea>
+                <input type="file"
+                       name="logo">
+            </div>
 
-    <label>Logo Klinik</label>
+            <div class="button-group">
 
-    <input type="file"
-           name="logo"
-           accept="image/*">
+                <button type="submit"
+                        class="btn">
+                    Simpan
+                </button>
 
-    <br><br>
+                <button type="button"
+                        class="btn-danger"
+                        onclick="closeModal()">
+                    Batal
+                </button>
 
-    <button type="submit">
-        💾 Simpan Profil Klinik
-    </button>
+            </div>
 
-    <a href="/profil_klinik"
-       style="
-            margin-left:10px;
-            text-decoration:none;
-            color:#666;
-            font-weight:bold;
-       ">
-        Kembali
-    </a>
+        </form>
 
-</form>
-```
+    </div>
 
 </div>
-
-@endsection

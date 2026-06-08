@@ -4,10 +4,15 @@
 
 @section('content')
 
-<div class="card" style="max-width:800px;margin:auto;">
+<div class="card" style="max-width:900px;margin:auto;">
 
-    <h2 style="margin-bottom:20px;color:#ff6b9a;">
-        🩺 Tambah Rekam Medis
+    <h2 style="
+        color:#ff6b9a;
+        margin-bottom:25px;
+        border-bottom:2px solid #ffe0ea;
+        padding-bottom:10px;
+    ">
+        Tambah Rekam Medis
     </h2>
 
     <form action="/rekam_medis"
@@ -15,93 +20,101 @@
 
         @csrf
 
-        <label>Reservasi</label>
+        <div style="
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:20px;
+        ">
 
-        <select name="reservasi_id" required>
+            <div>
 
-            <option value="">
-                Pilih Reservasi
-            </option>
+                <label><b>Reservasi</b></label>
 
-            @foreach($reservasis as $reservasi)
+                <select name="reservasi_id" required>
 
-                <option value="{{ $reservasi->id }}">
+                    <option value="">
+                        Pilih Reservasi
+                    </option>
 
-                    {{ $reservasi->pasien->nama_pasien }}
-                    -
-                    {{ $reservasi->dokter->nama_dokter }}
-                    -
-                    {{ $reservasi->tanggal_reservasi }}
+                    @foreach($reservasis as $reservasi)
 
-                </option>
+                        <option value="{{ $reservasi->id }}">
 
-            @endforeach
+                            {{ $reservasi->pasien->nama_pasien }}
+                            -
+                            {{ $reservasi->dokter->nama_dokter }}
+                            -
+                            {{ $reservasi->tanggal_reservasi }}
 
-        </select>
+                        </option>
 
+                    @endforeach
 
-        <label>Diagnosa</label>
+                </select>
+
+            </div>
+
+            <div>
+
+                <label><b>Biaya Pemeriksaan</b></label>
+
+                <input type="number"
+                       name="biaya"
+                       placeholder="Masukkan biaya"
+                       required>
+
+            </div>
+
+        </div>
+
+        <label><b>Diagnosa</b></label>
 
         <textarea
             name="diagnosa"
             rows="4"
             required
-            placeholder="Masukkan diagnosa"></textarea>
+            placeholder="Masukkan hasil diagnosa"></textarea>
 
-        <br><br>
-
-        <label>Tindakan</label>
+        <label><b>Tindakan</b></label>
 
         <textarea
             name="tindakan"
             rows="4"
             required
-            placeholder="Masukkan tindakan"></textarea>
+            placeholder="Masukkan tindakan yang dilakukan"></textarea>
 
-        <br><br>
-
-        <label>Resep Obat</label>
+        <label><b>Resep Obat</b></label>
 
         <textarea
             name="resep_obat"
             rows="4"
             placeholder="Masukkan resep obat"></textarea>
 
-        <br><br>
-
-        <label>Catatan</label>
+        <label><b>Catatan Tambahan</b></label>
 
         <textarea
             name="catatan"
             rows="4"
             placeholder="Masukkan catatan tambahan"></textarea>
 
-        <br><br>
-        <label>Biaya</label>
+        <div style="
+            margin-top:25px;
+            display:flex;
+            gap:10px;
+        ">
 
-<input
-    type="number"
-    name="biaya"
-    placeholder="Masukkan biaya">
+            <button type="submit"
+                    class="btn">
+                Simpan
+            </button>
 
-<br><br>
+            <button type="button"
+                    class="btn-danger"
+                    onclick="window.location.href='/rekam_medis'">
+                Batal
+            </button>
 
-        <button type="submit"
-                class="btn">
-
-            💾 Simpan Rekam Medis
-
-        </button>
-
-        <a href="/rekam_medis"
-           style="
-                margin-left:10px;
-                text-decoration:none;
-                color:#666;
-                font-weight:bold;
-           ">
-            Kembali
-        </a>
+        </div>
 
     </form>
 

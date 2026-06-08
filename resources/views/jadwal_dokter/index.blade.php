@@ -10,9 +10,9 @@
 
     <h2>Data Jadwal Dokter</h2>
 
-    <a href="/jadwal_dokter/create" class="btn">
+    <button class="btn" onclick="openModal()">
         + Tambah Jadwal
-    </a>
+    </button>
 
 </div>
 
@@ -57,10 +57,16 @@
 
             <td>
 
-                <a href="/jadwal_dokter/{{ $jadwal->id }}/edit"
-                   class="btn">
-                    Edit
-                </a>
+                <button class="btn-edit"
+                    onclick="openEditModal(
+                    '{{ $jadwal->id }}',
+                    '{{ $jadwal->dokter_id }}',
+                    '{{ $jadwal->hari }}',
+                    '{{ $jadwal->jam_mulai }}',
+                    '{{ $jadwal->jam_selesai }}'
+                    )">
+                        Edit
+                </button>
 
                 <form action="/jadwal_dokter/{{ $jadwal->id }}"
                       method="POST"
@@ -98,5 +104,40 @@
 </table>
 
 </div>
+@include('jadwal_dokter.create')
+
+@include('jadwal_dokter.edit')
+
+<script>
+
+function openModal()
+{
+    document.getElementById('modalJadwal').style.display = 'block';
+}
+
+function closeModal()
+{
+    document.getElementById('modalJadwal').style.display = 'none';
+}
+
+function openEditModal(id,dokter,hari,mulai,selesai)
+{
+    document.getElementById('editModal').style.display = 'block';
+
+    document.getElementById('edit_dokter').value = dokter;
+    document.getElementById('edit_hari').value = hari;
+    document.getElementById('edit_mulai').value = mulai;
+    document.getElementById('edit_selesai').value = selesai;
+
+    document.getElementById('editForm').action =
+        '/jadwal_dokter/' + id;
+}
+
+function closeEditModal()
+{
+    document.getElementById('editModal').style.display = 'none';
+}
+
+</script>
 
 @endsection

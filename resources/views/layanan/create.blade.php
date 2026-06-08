@@ -1,29 +1,60 @@
-<h1>Tambah Layanan</h1>
+<div id="modalLayanan" class="modal">
 
-<form action="/layanan"
-      method="POST"
-      enctype="multipart/form-data">
+    <div class="modal-content">
 
-    @csrf
+        <h2>Tambah Layanan</h2>
 
-    <input type="text"
-           name="nama_layanan"
-           placeholder="Nama Layanan">
+        <form action="{{ route('layanan.store') }}"
+              method="POST"
+              enctype="multipart/form-data">
 
-    <br><br>
+            @csrf
 
-    <textarea name="deskripsi"
-              placeholder="Deskripsi"></textarea>
+            <div class="form-group">
 
-    <br><br>
+                <label>Nama Layanan</label>
 
-    <input type="file"
-           name="foto">
+                <input type="text"
+                       name="nama_layanan"
+                       required>
 
-    <br><br>
+            </div>
 
-    <button type="submit">
-        Simpan
-    </button>
+            <div class="form-group">
 
-</form>
+                <label>Deskripsi</label>
+
+                <textarea name="deskripsi"
+                          rows="4"
+                          required></textarea>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Foto</label>
+
+                <input type="file"
+                       name="foto">
+
+            </div>
+
+            <div class="button-group">
+
+                <button type="submit" class="btn">
+                    Simpan
+                </button>
+
+                <button type="button"
+                        class="btn-danger"
+                        onclick="closeModal()">
+                    Batal
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
