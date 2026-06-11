@@ -1,4 +1,4 @@
-@extends('layouts.pasien')
+@extends('layouts.guest')
 
 @section('title','Home')
 
@@ -6,34 +6,54 @@
 
 <!-- HERO -->
 
-<div class="hero">
+<section id="beranda" class="hero">
 
-    <h1>
-        Senyum Sehat Dimulai Dari Sini
-    </h1>
+    <div class="hero-content">
 
-    <p>
-        Klinik gigi terpercaya dengan pelayanan profesional
-        dan dokter berpengalaman.
-    </p>
+        <h1>
+            Lumine Dental Care
+        </h1>
 
-    @guest
+        <p>
+            Senyum Sehat, Percaya Diri Meningkat
+        </p>
 
-        <a href="/login">
-            Login Untuk Reservasi
-        </a>
+    
+    </div>
 
-    @endguest
+</section>
 
-    @auth
+<!-- TENTANG -->
 
-        <a href="/reservasi/create">
-            Reservasi Sekarang
-        </a>
+<section id="tentang">
 
-    @endauth
+    <h2>
+        Tentang Kami
+    </h2>
 
-</div>
+    <div class="card">
+
+        <div class="card-body">
+
+            <p style="text-align:center; line-height:1.8; font-size:18px;">
+
+                Lumine Dental Care adalah klinik gigi yang menyediakan
+                pelayanan kesehatan gigi profesional dengan dokter
+                berpengalaman dan fasilitas modern.
+
+                <br><br>
+
+                Kami berkomitmen memberikan pelayanan terbaik untuk
+                menjaga kesehatan dan keindahan senyum setiap pasien
+                dengan standar pelayanan yang nyaman, aman dan terpercaya.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
 
 <!-- LAYANAN -->
 
@@ -57,13 +77,17 @@
 
                 @endif
 
-                <h3>
-                    {{ $layanan->nama_layanan }}
-                </h3>
+                <div class="card-body">
 
-                <p>
-                    {{ $layanan->deskripsi }}
-                </p>
+                    <h3>
+                        {{ $layanan->nama_layanan }}
+                    </h3>
+
+                    <p>
+                        {{ $layanan->deskripsi }}
+                    </p>
+
+                </div>
 
             </div>
 
@@ -85,7 +109,7 @@
 
         @foreach($dokters as $dokter)
 
-            <div class="card">
+            <div class="card dokter-card">
 
                 @if($dokter->foto)
 
@@ -95,9 +119,13 @@
 
                 @endif
 
-                <h3>
-                    {{ $dokter->nama_dokter }}
-                </h3>
+                <div class="card-body">
+
+                    <h3>
+                        {{ $dokter->nama_dokter }}
+                    </h3>
+
+                </div>
 
             </div>
 
@@ -107,117 +135,175 @@
 
 </section>
 
-<!-- JADWAL -->
+<!-- LOKASI -->
 
-<section id="jadwal">
+<section id="lokasi" class="section">
 
-    <h2>
-        Jadwal Dokter
-    </h2>
+    <div class="section-title">
 
-    <table>
-
-        <tr>
-
-            <th>Dokter</th>
-            <th>Hari</th>
-            <th>Jam Mulai</th>
-            <th>Jam Selesai</th>
-
-        </tr>
-
-        @foreach($jadwals as $jadwal)
-
-        <tr>
-
-            <td>
-                {{ $jadwal->dokter->nama_dokter }}
-            </td>
-
-            <td>
-                {{ $jadwal->hari }}
-            </td>
-
-            <td>
-                {{ $jadwal->jam_mulai }}
-            </td>
-
-            <td>
-                {{ $jadwal->jam_selesai }}
-            </td>
-
-        </tr>
-
-        @endforeach
-
-    </table>
-
-</section>
-
-<!-- PROFIL KLINIK -->
-
-<section id="profil">
-
-    <h2>
-        Profil Klinik
-    </h2>
-
-    <div class="profil">
-
-        @if($profil && $profil->logo)
-
-            <img
-                src="{{ asset('images/logo/'.$profil->logo) }}"
-                alt="Logo Klinik">
-
-        @endif
-
-        <h3>
-            {{ $profil->nama_klinik ?? 'Lumine Dental Care' }}
-        </h3>
-
-        <br>
+        <h2>
+            Lokasi Kami
+        </h2>
 
         <p>
-
-            <strong>Alamat :</strong>
-
-            {{ $profil->alamat ?? '-' }}
-
-        </p>
-
-        <br>
-
-        <p>
-
-            <strong>No HP :</strong>
-
-            {{ $profil->no_hp ?? '-' }}
-
-        </p>
-
-        <br>
-
-        <p>
-
-            <strong>Email :</strong>
-
-            {{ $profil->email ?? '-' }}
-
-        </p>
-
-        <br>
-
-        <p>
-
-            <strong>Deskripsi :</strong>
-
-            {{ $profil->deskripsi ?? '-' }}
-
+            Temukan lokasi Lumine Dental Care dengan mudah
         </p>
 
     </div>
 
-</section>
+    <div class="lokasi-card">
 
+        <div class="lokasi-info">
+
+            <div class="info-item">
+
+                <h3>📍 Alamat</h3>
+
+                <p>
+                    Komplek HKSN Permai Blok 11 (57),
+                    Banjarmasin
+                </p>
+
+            </div>
+
+            <div class="info-item">
+
+                <h3>🕒 Jam Operasional</h3>
+
+                <p>
+                    Senin - Sabtu
+                    <br>
+                    08.00 - 20.00 WITA
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="maps-wrapper">
+
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.2854846036903!2d114.57760107353519!3d-3.27922499669571!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2de42390cad5c2c3%3A0x5bd695a8ce658833!2sKomplek%20HKSN%20Permai%20Blok%2011%20(57)!5e0!3m2!1sid!2sid!4v1780991345047!5m2!1sid!2sid"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+
+            </iframe>
+
+        </div>
+
+        <div class="btn-wrapper">
+
+            <a href="https://maps.app.goo.gl/sQSwibSe9A6SXiSPA"
+               target="_blank"
+               class="btn-lokasi">
+
+                Lihat Lokasi di Google Maps
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- KONTAK -->
+
+<section id="kontak" class="section">
+
+    <div class="section-title">
+
+        <h2>
+            Kontak Kami
+        </h2>
+
+        <p>
+            Hubungi dan ikuti media sosial Lumine Dental Care
+        </p>
+
+    </div>
+
+    <div class="kontak-container">
+
+        <!-- WHATSAPP -->
+
+        <div class="kontak-card">
+
+            <div class="kontak-icon">
+                📞
+            </div>
+
+            <h3>
+                WhatsApp
+            </h3>
+
+            <p>
+                081772862667
+            </p>
+
+            <a href="https://wa.me/6281772862667"
+               target="_blank"
+               class="btn-wa">
+
+                Chat Sekarang
+
+            </a>
+
+        </div>
+
+        <!-- INSTAGRAM -->
+
+        <div class="kontak-card">
+
+            <div class="kontak-icon">
+                📷
+            </div>
+
+            <h3>
+                Instagram
+            </h3>
+
+            <p>
+                @luminedental_care
+            </p>
+
+            <a href="https://instagram.com/luminedental_care"
+               target="_blank"
+               class="btn-sosmed">
+
+                Kunjungi Instagram
+
+            </a>
+
+        </div>
+
+        <!-- TIKTOK -->
+
+        <div class="kontak-card">
+
+            <div class="kontak-icon">
+                🎵
+            </div>
+
+            <h3>
+                TikTok
+            </h3>
+
+            <p>
+                @lumine.dental.care
+            </p>
+
+            <a href="https://tiktok.com/@lumine.dental.care"
+               target="_blank"
+               class="btn-sosmed">
+
+                Kunjungi TikTok
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
 @endsection

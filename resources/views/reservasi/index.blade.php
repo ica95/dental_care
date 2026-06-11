@@ -45,13 +45,12 @@
                     </td>
 
                     <td>
-                        {{ $reservasi->tanggal_reservasi }}
-                    </td>
+    {{ \Carbon\Carbon::parse($reservasi->tanggal_reservasi)->locale('id')->translatedFormat('d F Y') }}
+</td>
 
-                    <td>
-                        {{ $reservasi->jam_reservasi }}
-                    </td>
-
+<td>
+    {{ \Carbon\Carbon::parse($reservasi->jam_reservasi)->format('H:i') }} WIB
+</td>
                     <td>
                         {{ $reservasi->keluhan }}
                     </td>
