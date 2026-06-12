@@ -1,221 +1,166 @@
 @extends('layouts.pasien')
 
-@section('title', 'Buat Reservasi')
+@section('title', 'Form Reservasi')
 
 @section('content')
 
-<div class="card">
+<div class="card" style="max-width:750px; margin:auto;">
 
-    <div class="card-body">
-
-        <h2 style="color:#ff6b9a;">
-            🦷 Form Reservasi
-        </h2>
-@if(session('error'))
-    <div style="
-        background:#f8d7da;
-        color:#721c24;
-        padding:10px;
-        border-radius:8px;
-        margin-bottom:15px;
+    <h2 style="
+        color:#ff6b9a;
+        margin-bottom:25px;
+        text-align:center;
     ">
-        {{ session('error') }}
-    </div>
-@endif
+        🦷 Form Reservasi
+    </h2>
 
-@if(session('success'))
-    <div style="
-        background:#d4edda;
-        color:#155724;
-        padding:10px;
-        border-radius:8px;
-        margin-bottom:15px;
-    ">
-        {{ session('success') }}
-    </div>
-@endif
+    {{-- ERROR --}}
+    @if(session('error'))
+        <div style="
+            background:#ffe5e5;
+            color:red;
+            padding:12px;
+            border-radius:10px;
+            margin-bottom:20px;
+        ">
+            {{ session('error') }}
+        </div>
+    @endif
 
-@if($errors->any())
-    <div style="
-        background:#fff3cd;
-        color:#856404;
-        padding:10px;
-        border-radius:8px;
-        margin-bottom:15px;
-    ">
-        <ul>
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-        <br>
+    <form action="/reservasi" method="POST">
+        @csrf
 
-        <form action="/reservasi" method="POST">
+        {{-- TANGGAL --}}
+        <label>Tanggal Reservasi</label>
+        <input
+            type="date"
+            name="tanggal_reservasi"
+            id="tanggal"
+            min="{{ date('Y-m-d') }}"
+            required>
 
-            @csrf
+        {{-- DOKTER --}}
+        <label>Dokter (sesuai hari praktik)</label>
+        <select name="dokter_id" id="dokter" required>
+            <option value="">Pilih Dokter</option>
+        </select>
 
-            <label>Tanggal Reservasi</label>
+        {{-- JAM --}}
+        <label>Jam Reservasi</label>
+        <select name="jam_reservasi" id="jam" required>
+            <option value="">Pilih Jam</option>
+        </select>
 
-<input
-    type="date"
-    name="tanggal_reservasi"
-    id="tanggal_reservasi"
-    required>
+        {{-- KELUHAN --}}
+        <label>Keluhan</label>
+        <textarea
+            name="keluhan"
+            rows="4"
+            placeholder="Masukkan keluhan"
+            required></textarea>
 
-<br><br>
+        <div style="
+            display:flex;
+            gap:10px;
+            margin-top:20px;
+        ">
 
-<label>Dokter</label>
-
-<select
-    name="dokter_id"
-    id="dokter_id"
-    required>
-
-    <option value="">
-        Pilih Dokter
-    </option>
-
-    @foreach($dokters as $dokter)
-
-        <option value="{{ $dokter->id }}">
-            {{ $dokter->nama_dokter }}
-        </option>
-
-    @endforeach
-
-</select>
-
-<br><br>
-
-<label>Layanan</label>
-
-<select name="layanan_id" required>
-
-    <option value="">
-        Pilih Layanan
-    </option>
-
-    @foreach($layanans as $layanan)
-
-        <option value="{{ $layanan->id }}">
-            {{ $layanan->nama_layanan }}
-        </option>
-
-    @endforeach
-
-</select>
-
-<br><br>
-
-<label>Jam Reservasi</label>
-
-<select
-    name="jam_reservasi"
-    id="jam_reservasi"
-    required>
-
-    <option value="">
-        Pilih Jam
-    </option>
-
-</select>
-
-<br><br>
-
-<label>Keluhan</label>
-
-<textarea
-    name="keluhan"
-    rows="5"
-    required></textarea>
-
-            <br><br>
-
-            <button
-                type="submit"
-                class="btn">
-
+            <button type="submit"
+                style="
+                    flex:1;
+                    background:#ff6b9a;
+                    color:white;
+                    border:none;
+                    padding:12px;
+                    border-radius:10px;
+                    font-weight:bold;
+                    cursor:pointer;
+                ">
                 Simpan Reservasi
-
             </button>
 
-        </form>
+            <a href="/reservasi"
+               style="
+                    flex:1;
+                    text-align:center;
+                    background:#f3f3f3;
+                    color:#555;
+                    padding:12px;
+                    border-radius:10px;
+                    text-decoration:none;
+                    font-weight:bold;
+               ">
+                Kembali
+            </a>
 
-    </div>
+        </div>
+
+    </form>
 
 </div>
+
 <script>
 
-document.addEventListener(
-    'DOMContentLoaded',
-    function(){
+document.getElementById('tanggal').addEventListener('change', function () {
 
-        const dokter =
-            document.getElementById(
-                'dokter_id'
-            );
+    let tanggal = this.value;
 
-        const tanggal =
-            document.getElementById(
-                'tanggal_reservasi'
-            );
+    fetch('/get-dokter/' + tanggal)
+        .then(response => response.json())
+        .then(data => {
 
-        const jam =
-            document.getElementById(
-                'jam_reservasi'
-            );
+            let dokterSelect = document.getElementById('dokter');
+            dokterSelect.innerHTML =
+                '<option value="">Pilih Dokter</option>';
 
-        function loadJam()
-        {
-            if(
-                dokter.value == '' ||
-                tanggal.value == ''
-            ){
-                return;
+            if(data.length == 0){
+                dokterSelect.innerHTML +=
+                    '<option disabled>Tidak ada dokter praktik</option>';
             }
 
-            fetch(
-                '/jadwal-dokter/'
-                + dokter.value
-                + '/'
-                + tanggal.value
-            )
+            data.forEach(dokter => {
+                dokterSelect.innerHTML += `
+                    <option value="${dokter.id}">
+                        ${dokter.nama_dokter} - ${dokter.hari}
+                        (${dokter.jam_mulai.substring(0,5)} - ${dokter.jam_selesai.substring(0,5)})
+                    </option>
+                `;
+            });
 
-            .then(response =>
-                response.json()
-            )
+        });
 
-            .then(data => {
+});
 
-                jam.innerHTML =
+document.getElementById('dokter').addEventListener('change', function () {
+
+    let dokterId = this.value;
+    let tanggal = document.getElementById('tanggal').value;
+
+    fetch('/get-jadwal/' + dokterId + '/' + tanggal)
+        .then(response => response.json())
+        .then(data => {
+
+            let jamSelect = document.getElementById('jam');
+            jamSelect.innerHTML =
                 '<option value="">Pilih Jam</option>';
 
-                data.forEach(function(item){
+            if(data.length == 0){
+                jamSelect.innerHTML +=
+                    '<option disabled>Jam sudah penuh</option>';
+            }
 
-                    jam.innerHTML +=
-                    '<option value="'+item+'">'
-                    + item +
-                    '</option>';
-
-                });
-
+                        data.forEach(jam => {
+                jamSelect.innerHTML += `
+                    <option value="${jam}">
+                        ${jam}
+                    </option>
+                `;
             });
-        }
 
-        dokter.addEventListener(
-            'change',
-            loadJam
-        );
+        });
 
-        tanggal.addEventListener(
-            'change',
-            loadJam
-        );
-
-    }
-);
+});
 
 </script>
+
 @endsection

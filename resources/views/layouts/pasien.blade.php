@@ -56,7 +56,7 @@
         .menu{
             display:flex;
             align-items:center;
-            gap:10px;
+            gap:12px;
         }
 
         .menu a{
@@ -72,25 +72,39 @@
             background:#ff8db4;
         }
 
-        .user{
-            color:white;
-            font-weight:bold;
-            margin-left:10px;
+        /* PROFILE BUTTON */
+
+        .profile-btn{
+            background:#ff8db4;
+            color:white !important;
+            padding:12px 18px;
+            border-radius:14px;
+            font-weight:600;
+            text-decoration:none;
+            transition:.3s;
         }
+
+        .profile-btn:hover{
+            background:#ff78aa;
+        }
+
+        /* LOGOUT BUTTON */
 
         .logout-btn{
-            background:white;
-            color:#f06292;
-            border:none;
-            padding:10px 18px;
-            border-radius:10px;
-            cursor:pointer;
-            font-weight:bold;
-        }
+    background:white;
+    color:#f06292;
+    border:none;
+    padding:12px 18px;
+    border-radius:14px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+}
 
-        .logout-btn:hover{
-            background:#fff0f5;
-        }
+.logout-btn:hover{
+    background:#fff0f5;
+    color:#e91e63;
+}
 
         /* CONTAINER */
 
@@ -122,22 +136,6 @@
             font-size:18px;
         }
 
-        /* BUTTON */
-
-        .btn{
-            display:inline-block;
-            background:#ff6b9a;
-            color:white;
-            text-decoration:none;
-            padding:12px 25px;
-            border-radius:10px;
-            font-weight:bold;
-        }
-
-        .btn:hover{
-            background:#ff4f87;
-        }
-
         /* CARD */
 
         .card{
@@ -146,16 +144,6 @@
             padding:25px;
             box-shadow:0 5px 15px rgba(0,0,0,0.08);
             margin-bottom:25px;
-        }
-
-        .cards{
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-            gap:20px;
-        }
-
-        .card-body{
-            padding:10px;
         }
 
         /* TABLE */
@@ -251,9 +239,7 @@
     <div class="logo">
 
         @if($profil && $profil->logo)
-
             <img src="{{ asset('images/logo/'.$profil->logo) }}">
-
         @endif
 
         <h2>
@@ -268,44 +254,36 @@
 
         @auth
 
-            <a href="/dashboard-pasien">
-                Dashboard
-            </a>
-
-            <a href="/pasien">
-                Profil Saya
+            <a href="/reservasi/create">
+                Reservasi
             </a>
 
             <a href="/reservasi">
-                Reservasi Saya
+                Riwayat Reservasi
             </a>
 
-            <span class="user">
+            <a href="/pasien" class="profile-btn">
                 👤 {{ Auth::user()->name }}
-            </span>
+            </a>
 
             <form action="/logout"
                   method="POST"
                   style="display:inline;">
-
                 @csrf
-
-                <button type="submit"
-                        class="logout-btn">
+                <button type="submit" class="logout-btn">
                     Logout
                 </button>
-
             </form>
 
         @endauth
 
         @guest
 
-            <a href="/login" class="btn">
+            <a href="/login">
                 Login
             </a>
 
-            <a href="/register" class="btn">
+            <a href="/register">
                 Daftar
             </a>
 
@@ -326,18 +304,13 @@
         </h1>
 
         @auth
-
             <p>
-                Selamat datang,
-                {{ Auth::user()->name }}
+                Selamat datang, {{ Auth::user()->name }}
             </p>
-
         @else
-
             <p>
                 Selamat datang di Sistem Reservasi Klinik Gigi
             </p>
-
         @endauth
 
     </div>

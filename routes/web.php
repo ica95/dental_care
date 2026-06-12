@@ -184,3 +184,13 @@ Route::get(
     '/laporan',
     [RekamMedisController::class, 'laporan']
 );
+
+Route::get(
+    '/get-dokter/{tanggal}',
+    [ReservasiController::class, 'getDokter']
+);
+
+Route::get(
+    '/get-jadwal/{dokterId}/{tanggal}',
+    [ReservasiController::class, 'getJadwal']
+);

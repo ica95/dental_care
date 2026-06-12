@@ -255,6 +255,37 @@ if($cekJam)
                 'Reservasi berhasil dihapus'
             );
     }
+    public function getDokter($tanggal)
+{
+    Carbon::setLocale('id');
+
+    $hari = Carbon::parse($tanggal)
+        ->translatedFormat('l');
+
+    $hari = ucfirst($hari);
+
+    $jadwals = JadwalDokter::join(
+        'dokters',
+        'jadwal_dokters.dokter_id',
+        '=',
+        'dokters.id'
+    )
+    ->where(
+        'jadwal_dokters.hari',
+        $hari
+    )
+   ->select(
+    'dokters.id',
+    'dokters.nama_dokter',
+    'jadwal_dokters.hari',
+    'jadwal_dokters.jam_mulai',
+    'jadwal_dokters.jam_selesai'
+)
+    
+    ->get();
+
+    return response()->json($jadwals);
+}
    public function getJadwal($dokterId, $tanggal)
 {
     Carbon::setLocale('id');

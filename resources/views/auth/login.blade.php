@@ -36,6 +36,16 @@
             margin-bottom:25px;
         }
 
+        label{
+            font-weight:bold;
+            display:block;
+            margin-bottom:8px;
+        }
+
+        .required{
+            color:red;
+        }
+
         input{
             width:100%;
             padding:12px;
@@ -97,14 +107,23 @@
 
         @csrf
 
-        <input type="email"
-               name="email"
-               placeholder="Masukkan Email"
-               required>
+        <label>
+    Nama <span class="required">*</span>
+</label>
+        <input
+    type="text"
+    name="name"
+    placeholder="Masukkan Nama"
+    required>
+
+        <label>
+            Password <span class="required">*</span>
+        </label>
 
         <input type="password"
                name="password"
-               placeholder="Masukkan Password"
+               placeholder="Minimal 6 karakter"
+               minlength="6"
                required>
 
         <button type="submit">

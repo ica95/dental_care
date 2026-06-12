@@ -1,67 +1,108 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Profil</title>
-</head>
-<body>
+@extends('layouts.pasien')
 
-<h1>Edit Profil</h1>
+@section('title', 'Edit Profil')
 
-<form
-action="/pasien/{{ $pasien->id }}"
-method="POST">
+@section('content')
 
-    @csrf
-    @method('PUT')
+<div class="card" style="max-width:700px; margin:auto;">
 
-    <input
-        type="text"
-        name="nama_pasien"
-        value="{{ $pasien->nama_pasien }}"
-        placeholder="Nama">
+    <h2 style="
+        color:#ff6b9a;
+        margin-bottom:25px;
+        text-align:center;
+    ">
+        ✏️ Edit Profil Saya
+    </h2>
 
-    <br><br>
+    <form action="/pasien/{{ $pasien->id }}"
+          method="POST">
 
-    <select name="jenis_kelamin">
+        @csrf
+        @method('PUT')
 
-    <option value="L"
-        {{ $pasien->jenis_kelamin == 'L' ? 'selected' : '' }}>
-        Laki-laki
-    </option>
+        <label>Nama Lengkap</label>
+        <input
+            type="text"
+            name="nama_pasien"
+            value="{{ $pasien->nama_pasien }}"
+            placeholder="Masukkan nama lengkap"
+            required>
 
-    <option value="P"
-        {{ $pasien->jenis_kelamin == 'P' ? 'selected' : '' }}>
-        Perempuan
-    </option>
+        <label>Jenis Kelamin</label>
+        <select name="jenis_kelamin" required>
 
-</select>
+            <option value="L"
+                {{ $pasien->jenis_kelamin == 'L' ? 'selected' : '' }}>
+                Laki-laki
+            </option>
 
-    <br><br>
+            <option value="P"
+                {{ $pasien->jenis_kelamin == 'P' ? 'selected' : '' }}>
+                Perempuan
+            </option>
 
-    <input
-        type="date"
-        name="tanggal_lahir"
-        value="{{ $pasien->tanggal_lahir }}">
+        </select>
 
-    <br><br>
+        <label>Tanggal Lahir</label>
+        <input
+            type="date"
+            name="tanggal_lahir"
+            value="{{ $pasien->tanggal_lahir }}"
+            required>
 
-    <textarea
-        name="alamat">{{ $pasien->alamat }}</textarea>
+        <label>Alamat</label>
+        <textarea
+            name="alamat"
+            rows="4"
+            placeholder="Masukkan alamat"
+            required>{{ $pasien->alamat }}</textarea>
 
-    <br><br>
+        <label>Nomor HP</label>
+        <input
+            type="text"
+            name="no_hp"
+            value="{{ $pasien->no_hp }}"
+            placeholder="Masukkan nomor HP"
+            required>
 
-    <input
-        type="text"
-        name="no_hp"
-        value="{{ $pasien->no_hp }}">
+        <div style="
+            display:flex;
+            gap:10px;
+            margin-top:20px;
+        ">
 
-    <br><br>
+            <button type="submit"
+                style="
+                    flex:1;
+                    background:#ff6b9a;
+                    color:white;
+                    border:none;
+                    padding:12px;
+                    border-radius:10px;
+                    font-weight:bold;
+                    cursor:pointer;
+                ">
+                Simpan Perubahan
+            </button>
 
-    <button type="submit">
-        Simpan
-    </button>
+            <a href="/pasien"
+               style="
+                    flex:1;
+                    text-align:center;
+                    background:#f3f3f3;
+                    color:#555;
+                    padding:12px;
+                    border-radius:10px;
+                    text-decoration:none;
+                    font-weight:bold;
+               ">
+                Batal
+            </a>
 
-</form>
+        </div>
 
-</body>
-</html>
+    </form>
+
+</div>
+
+@endsection

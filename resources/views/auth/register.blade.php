@@ -36,6 +36,16 @@
             margin-bottom:25px;
         }
 
+        label{
+            font-weight:bold;
+            display:block;
+            margin-bottom:8px;
+        }
+
+        .required{
+            color:red;
+        }
+
         input,
         select{
             width:100%;
@@ -54,6 +64,10 @@
             color:white;
             font-weight:bold;
             cursor:pointer;
+        }
+
+        button:hover{
+            background:#ff4fa3;
         }
 
         .login{
@@ -82,69 +96,90 @@
     <h2>Registrasi Pasien</h2>
 
     @if ($errors->any())
-
         <div class="error">
-
             @foreach ($errors->all() as $error)
-
                 <p>{{ $error }}</p>
-
             @endforeach
-
         </div>
-
     @endif
 
     <form action="/register" method="POST">
 
         @csrf
 
+        <label>
+            Nama Lengkap <span class="required">*</span>
+        </label>
         <input
-    type="text"
-    name="name"
-    placeholder="Nama Lengkap"
-    required>
+            type="text"
+            name="name"
+            placeholder="Nama Lengkap"
+            required>
 
-<input
-    type="email"
-    name="email"
-    placeholder="Email"
-    required>
 
-<select name="jenis_kelamin" required>
-    <option value="">Pilih Jenis Kelamin</option>
-    <option value="L">Laki-laki</option>
-    <option value="P">Perempuan</option>
-</select>
+        <label>
+            Email <span class="required">*</span>
+        </label>
+        <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            required>
 
-<input
-    type="date"
-    name="tanggal_lahir"
-    required>
+        <label>
+            Jenis Kelamin <span class="required">*</span>
+        </label>
+        <select name="jenis_kelamin" required>
+            <option value="">Pilih Jenis Kelamin</option>
+            <option value="L">Laki-laki</option>
+            <option value="P">Perempuan</option>
+        </select>
 
-<input
-    type="text"
-    name="alamat"
-    placeholder="Alamat"
-    required>
+        <label>
+            Tanggal Lahir <span class="required">*</span>
+        </label>
+        <input
+            type="date"
+            name="tanggal_lahir"
+            required>
 
-<input
-    type="text"
-    name="no_hp"
-    placeholder="Nomor HP"
-    required>
+        <label>
+            Alamat <span class="required">*</span>
+        </label>
+        <input
+            type="text"
+            name="alamat"
+            placeholder="Alamat"
+            required>
 
-<input
-    type="password"
-    name="password"
-    placeholder="Password"
-    required>
+        <label>
+            Nomor HP <span class="required">*</span>
+        </label>
+        <input
+            type="text"
+            name="no_hp"
+            placeholder="Nomor HP"
+            required>
 
-<input
-    type="password"
-    name="password_confirmation"
-    placeholder="Konfirmasi Password"
-    required>
+        <label>
+            Password <span class="required">*</span>
+        </label>
+        <input
+            type="password"
+            name="password"
+            placeholder="Minimal 6 karakter"
+            minlength="6"
+            required>
+
+        <label>
+            Konfirmasi Password <span class="required">*</span>
+        </label>
+        <input
+            type="password"
+            name="password_confirmation"
+            placeholder="Konfirmasi Password"
+            minlength="6"
+            required>
 
         <button type="submit">
             Daftar
