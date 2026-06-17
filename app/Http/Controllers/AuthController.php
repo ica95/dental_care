@@ -30,21 +30,19 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'name' => 'required',
-            'password' => 'required'
+            'email' => 'required|email',
+            'password' => 'required|min:6'
         ]);
 
         if (Auth::attempt($credentials)) {
 
             $request->session()->regenerate();
 
-           if (Auth::user()->role == 'admin') {
+            if (Auth::user()->role == 'admin') {
+                return redirect('/dashboard-admin');
+            }
 
-    return redirect('/dashboard-admin');
-
-}
-
-return redirect('/dashboard-pasien');
+            return redirect('/dashboard-pasien');
         }
 
         return back()->with(
@@ -71,60 +69,59 @@ return redirect('/dashboard-pasien');
     */
 
     public function register(Request $request)
-{
-    $request->validate([
+    {
+        $request->validate([
 
-        'name' => 'required',
+            'name' => 'required',
 
-        'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|unique:users,email',
 
-        'jenis_kelamin' => 'required',
+            'jenis_kelamin' => 'required',
 
-        'tanggal_lahir' => 'required',
+            'tanggal_lahir' => 'required',
 
-        'alamat' => 'required',
+            'alamat' => 'required',
 
-        'no_hp' => 'required',
+            'no_hp' => 'required',
 
-        'password' => [
-    'required',
-    'min:6',
-    'confirmed'
-]
-    ]);
+            'password' => [
+                'required',
+                'min:6',
+                'confirmed'
+            ]
+        ]);
 
-    $user = User::create([
+        $user = User::create([
 
-        'name' => $request->name,
+            'name' => $request->name,
 
-        'email' => $request->email,
+            'email' => $request->email,
 
-        'password' => Hash::make($request->password),
+            'password' => Hash::make($request->password),
 
-        'role' => 'pasien'
-    ]);
+            'role' => 'pasien'
+        ]);
 
-    Pasien::create([
+        Pasien::create([
 
-        'user_id' => $user->id,
+            'user_id' => $user->id,
 
-        'nama_pasien' => $request->name,
+            'nama_pasien' => $request->name,
 
-        'jenis_kelamin' => $request->jenis_kelamin,
+            'jenis_kelamin' => $request->jenis_kelamin,
 
-        'tanggal_lahir' => $request->tanggal_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
 
-        'alamat' => $request->alamat,
+            'alamat' => $request->alamat,
 
-        'no_hp' => $request->no_hp
-    ]);
+            'no_hp' => $request->no_hp
+        ]);
 
-    return redirect('/login')
-        ->with(
+        return redirect('/login')->with(
             'success',
             'Registrasi berhasil'
         );
-}
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -132,14 +129,14 @@ return redirect('/dashboard-pasien');
     |--------------------------------------------------------------------------
     */
 
-   public function logout(Request $request)
-{
-    Auth::logout();
+    public function logout(Request $request)
+    {
+        Auth::logout();
 
-    $request->session()->invalidate();
+        $request->session()->invalidate();
 
-    $request->session()->regenerateToken();
+        $request->session()->regenerateToken();
 
-    return redirect('/');
-}
+        return redirect('/');
+    }
 }

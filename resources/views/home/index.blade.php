@@ -5,7 +5,6 @@
 @section('content')
 
 <!-- HERO -->
-
 <section id="beranda" class="hero">
 
     <div class="hero-content">
@@ -18,13 +17,25 @@
             Senyum Sehat, Percaya Diri Meningkat
         </p>
 
-    
+        <div class="hero-contact">
+
+            <p>
+                📷 Instagram :
+                @luminedental_care
+            </p>
+
+            <p>
+                📞 Kontak Kami :
+                081772862667
+            </p>
+
+        </div>
+
     </div>
 
 </section>
 
 <!-- TENTANG -->
-
 <section id="tentang">
 
     <h2>
@@ -35,7 +46,11 @@
 
         <div class="card-body">
 
-            <p style="text-align:center; line-height:1.8; font-size:18px;">
+            <p style="
+                text-align:center;
+                line-height:1.8;
+                font-size:18px;
+            ">
 
                 Lumine Dental Care adalah klinik gigi yang menyediakan
                 pelayanan kesehatan gigi profesional dengan dokter
@@ -56,7 +71,6 @@
 </section>
 
 <!-- LAYANAN -->
-
 <section id="layanan">
 
     <h2>
@@ -71,9 +85,8 @@
 
                 @if($layanan->foto)
 
-                    <img
-                        src="{{ asset('images/layanan/'.$layanan->foto) }}"
-                        alt="{{ $layanan->nama_layanan }}">
+                    <img src="{{ asset('images/layanan/'.$layanan->foto) }}"
+                         alt="{{ $layanan->nama_layanan }}">
 
                 @endif
 
@@ -98,7 +111,6 @@
 </section>
 
 <!-- DOKTER -->
-
 <section id="dokter">
 
     <h2>
@@ -113,9 +125,8 @@
 
                 @if($dokter->foto)
 
-                    <img
-                        src="{{ asset('images/dokter/'.$dokter->foto) }}"
-                        alt="{{ $dokter->nama_dokter }}">
+                    <img src="{{ asset('images/dokter/'.$dokter->foto) }}"
+                         alt="{{ $dokter->nama_dokter }}">
 
                 @endif
 
@@ -136,7 +147,6 @@
 </section>
 
 <!-- LOKASI -->
-
 <section id="lokasi" class="section">
 
     <div class="section-title">
@@ -157,7 +167,9 @@
 
             <div class="info-item">
 
-                <h3>📍 Alamat</h3>
+                <h3>
+                    📍 Alamat
+                </h3>
 
                 <p>
                     Komplek HKSN Permai Blok 11 (57),
@@ -168,7 +180,9 @@
 
             <div class="info-item">
 
-                <h3>🕒 Jam Operasional</h3>
+                <h3>
+                    🕒 Jam Operasional
+                </h3>
 
                 <p>
                     Senin - Sabtu
@@ -187,7 +201,6 @@
                 allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade">
-
             </iframe>
 
         </div>
@@ -208,7 +221,6 @@
 
 </section>
 <!-- KONTAK -->
-
 <section id="kontak" class="section">
 
     <div class="section-title">
@@ -226,7 +238,6 @@
     <div class="kontak-container">
 
         <!-- WHATSAPP -->
-
         <div class="kontak-card">
 
             <div class="kontak-icon">
@@ -252,7 +263,6 @@
         </div>
 
         <!-- INSTAGRAM -->
-
         <div class="kontak-card">
 
             <div class="kontak-icon">
@@ -278,7 +288,6 @@
         </div>
 
         <!-- TIKTOK -->
-
         <div class="kontak-card">
 
             <div class="kontak-icon">
@@ -306,4 +315,5 @@
     </div>
 
 </section>
+
 @endsection

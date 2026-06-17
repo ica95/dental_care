@@ -4,12 +4,20 @@
 
 @section('content')
 
-<div class="card" style="max-width:750px; margin:auto;">
+<div class="card" style="
+    max-width:750px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+">
 
     <h2 style="
         color:#ff6b9a;
         margin-bottom:25px;
         text-align:center;
+        font-size:30px;
     ">
         🦷 Form Reservasi
     </h2>
@@ -19,11 +27,28 @@
         <div style="
             background:#ffe5e5;
             color:red;
-            padding:12px;
+            padding:15px;
             border-radius:10px;
             margin-bottom:20px;
         ">
             {{ session('error') }}
+        </div>
+    @endif
+
+    {{-- VALIDATION --}}
+    @if ($errors->any())
+        <div style="
+            background:#fff3cd;
+            color:#856404;
+            padding:15px;
+            border-radius:10px;
+            margin-bottom:20px;
+        ">
+            @foreach ($errors->all() as $error)
+                <p style="margin:5px 0;">
+                    {{ $error }}
+                </p>
+            @endforeach
         </div>
     @endif
 
@@ -40,15 +65,47 @@
             required>
 
         {{-- DOKTER --}}
-        <label>Dokter (sesuai hari praktik)</label>
-        <select name="dokter_id" id="dokter" required>
-            <option value="">Pilih Dokter</option>
+        <label>Dokter</label>
+        <select
+            name="dokter_id"
+            id="dokter"
+            required>
+
+            <option value="">
+                Pilih Dokter
+            </option>
+
+        </select>
+
+        {{-- LAYANAN --}}
+        <label>Layanan</label>
+        <select
+            name="layanan_id"
+            required>
+
+            <option value="">
+                Pilih Layanan
+            </option>
+
+            @foreach($layanans as $layanan)
+                <option value="{{ $layanan->id }}">
+                    {{ $layanan->nama_layanan }}
+                </option>
+            @endforeach
+
         </select>
 
         {{-- JAM --}}
         <label>Jam Reservasi</label>
-        <select name="jam_reservasi" id="jam" required>
-            <option value="">Pilih Jam</option>
+        <select
+            name="jam_reservasi"
+            id="jam"
+            required>
+
+            <option value="">
+                Pilih Jam
+            </option>
+
         </select>
 
         {{-- KELUHAN --}}
@@ -65,13 +122,14 @@
             margin-top:20px;
         ">
 
-            <button type="submit"
+            <button
+                type="submit"
                 style="
                     flex:1;
                     background:#ff6b9a;
                     color:white;
                     border:none;
-                    padding:12px;
+                    padding:14px;
                     border-radius:10px;
                     font-weight:bold;
                     cursor:pointer;
@@ -85,7 +143,7 @@
                     text-align:center;
                     background:#f3f3f3;
                     color:#555;
-                    padding:12px;
+                    padding:14px;
                     border-radius:10px;
                     text-decoration:none;
                     font-weight:bold;
@@ -101,60 +159,83 @@
 
 <script>
 
-document.getElementById('tanggal').addEventListener('change', function () {
+// PILIH TANGGAL
+document.getElementById('tanggal')
+.addEventListener('change', function(){
 
     let tanggal = this.value;
+
+    let dokterSelect =
+        document.getElementById('dokter');
+
+    let jamSelect =
+        document.getElementById('jam');
+
+    dokterSelect.innerHTML =
+        '<option value="">Pilih Dokter</option>';
+
+    jamSelect.innerHTML =
+        '<option value="">Pilih Jam</option>';
 
     fetch('/get-dokter/' + tanggal)
         .then(response => response.json())
         .then(data => {
 
-            let dokterSelect = document.getElementById('dokter');
-            dokterSelect.innerHTML =
-                '<option value="">Pilih Dokter</option>';
-
-            if(data.length == 0){
+            if(data.length == 0)
+            {
                 dokterSelect.innerHTML +=
-                    '<option disabled>Tidak ada dokter praktik</option>';
+                '<option disabled>Tidak ada dokter praktik</option>';
             }
 
             data.forEach(dokter => {
+
                 dokterSelect.innerHTML += `
                     <option value="${dokter.id}">
-                        ${dokter.nama_dokter} - ${dokter.hari}
-                        (${dokter.jam_mulai.substring(0,5)} - ${dokter.jam_selesai.substring(0,5)})
+                        ${dokter.nama_dokter}
+                        (${dokter.hari})
+                        ${dokter.jam_mulai.substring(0,5)}
+                        - ${dokter.jam_selesai.substring(0,5)}
                     </option>
                 `;
+
             });
 
         });
 
 });
 
-document.getElementById('dokter').addEventListener('change', function () {
+// PILIH DOKTER
+document.getElementById('dokter')
+.addEventListener('change', function(){
 
     let dokterId = this.value;
-    let tanggal = document.getElementById('tanggal').value;
+    let tanggal =
+        document.getElementById('tanggal').value;
+
+    let jamSelect =
+        document.getElementById('jam');
+
+    jamSelect.innerHTML =
+        '<option value="">Pilih Jam</option>';
 
     fetch('/get-jadwal/' + dokterId + '/' + tanggal)
         .then(response => response.json())
         .then(data => {
 
-            let jamSelect = document.getElementById('jam');
-            jamSelect.innerHTML =
-                '<option value="">Pilih Jam</option>';
-
-            if(data.length == 0){
+            if(data.length == 0)
+            {
                 jamSelect.innerHTML +=
-                    '<option disabled>Jam sudah penuh</option>';
+                '<option disabled>Jam sudah penuh</option>';
             }
 
-                        data.forEach(jam => {
+            data.forEach(jam => {
+
                 jamSelect.innerHTML += `
                     <option value="${jam}">
                         ${jam}
                     </option>
                 `;
+
             });
 
         });

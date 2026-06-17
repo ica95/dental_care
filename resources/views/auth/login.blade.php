@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Login - Dental Care</title>
 
     <style>
@@ -95,7 +97,9 @@
 
 <div class="card">
 
-    <h2>Login Dental Care</h2>
+    <h2>
+        Login Dental Care
+    </h2>
 
     @if(session('error'))
         <div class="error">
@@ -108,23 +112,25 @@
         @csrf
 
         <label>
-    Nama <span class="required">*</span>
-</label>
+            Email <span class="required">*</span>
+        </label>
+
         <input
-    type="text"
-    name="name"
-    placeholder="Masukkan Nama"
-    required>
+            type="email"
+            name="email"
+            placeholder="Masukkan Email"
+            required>
 
         <label>
             Password <span class="required">*</span>
         </label>
 
-        <input type="password"
-               name="password"
-               placeholder="Minimal 6 karakter"
-               minlength="6"
-               required>
+        <input
+            type="password"
+            name="password"
+            placeholder="Minimal 6 karakter"
+            minlength="6"
+            required>
 
         <button type="submit">
             Login
@@ -133,8 +139,13 @@
     </form>
 
     <div class="register">
+
         Belum punya akun?
-        <a href="{{ url('/register') }}">Daftar</a>
+
+        <a href="{{ url('/register') }}">
+            Daftar
+        </a>
+
     </div>
 
 </div>
