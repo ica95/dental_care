@@ -56,7 +56,7 @@
         <div class="card-body">
 
             <h3>
-                📅 Reservasi Baru
+                Reservasi Baru
             </h3>
 
             <p style="
@@ -80,7 +80,7 @@
         <div class="card-body">
 
             <h3>
-                📋 Riwayat Reservasi
+                Riwayat Reservasi
             </h3>
 
             <p style="
@@ -93,30 +93,6 @@
             <a href="/reservasi"
                class="btn">
                 Lihat Riwayat
-            </a>
-
-        </div>
-
-    </div>
-
-    <div class="card">
-
-        <div class="card-body">
-
-            <h3>
-                👤 Profil Saya
-            </h3>
-
-            <p style="
-                margin:10px 0;
-                color:#666;
-            ">
-                Edit data profil pasien Anda.
-            </p>
-
-            <a href="/pasien"
-               class="btn">
-                Lihat Profil
             </a>
 
         </div>

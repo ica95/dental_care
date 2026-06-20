@@ -1,74 +1,43 @@
-@extends('layouts.pasien')
+@extends('layouts.admin')
 
-@section('title', 'Profil Saya')
+@section('title', 'Data Pasien')
 
 @section('content')
 
-<div class="card" style="max-width:700px; margin:auto;">
+<div class="card">
 
     <h2 style="
         color:#ff6b9a;
-        margin-bottom:25px;
-        text-align:center;
+        margin-bottom:20px;
     ">
-        👤 Profil Pasien
+        Data Pasien
     </h2>
 
-    <div style="line-height:2; font-size:17px;">
+    <table>
 
-        <p>
-            <strong>Nama Lengkap :</strong><br>
-            {{ $pasien->nama_pasien }}
-        </p>
+        <tr>
+            <th>No</th>
+            <th>Nama Pasien</th>
+            <th>Jenis Kelamin</th>
+            <th>Tanggal Lahir</th>
+            <th>Alamat</th>
+            <th>No HP</th>
+        </tr>
 
-        <hr>
+        @foreach($pasiens as $index => $pasien)
 
-        <p>
-            <strong>Jenis Kelamin :</strong><br>
-            {{ $pasien->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}
-        </p>
+        <tr>
+            <td>{{ $index + 1 }}</td>
+            <td>{{ $pasien->nama_pasien }}</td>
+            <td>{{ $pasien->jenis_kelamin }}</td>
+            <td>{{ $pasien->tanggal_lahir }}</td>
+            <td>{{ $pasien->alamat }}</td>
+            <td>{{ $pasien->no_hp }}</td>
+        </tr>
 
-        <hr>
+        @endforeach
 
-        <p>
-            <strong>Tanggal Lahir :</strong><br>
-            {{ \Carbon\Carbon::parse($pasien->tanggal_lahir)->format('d F Y') }}
-        </p>
-
-        <hr>
-
-        <p>
-            <strong>Alamat :</strong><br>
-            {{ $pasien->alamat }}
-        </p>
-
-        <hr>
-
-        <p>
-            <strong>No HP :</strong><br>
-            {{ $pasien->no_hp }}
-        </p>
-
-    </div>
-
-    <div style="
-        margin-top:25px;
-        text-align:center;
-    ">
-
-        <a href="/pasien/{{ $pasien->id }}/edit"
-           style="
-                background:#ff6b9a;
-                color:white;
-                padding:12px 25px;
-                border-radius:10px;
-                text-decoration:none;
-                font-weight:bold;
-           ">
-            ✏️ Edit Profil
-        </a>
-
-    </div>
+    </table>
 
 </div>
 

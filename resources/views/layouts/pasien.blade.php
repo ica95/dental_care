@@ -280,10 +280,27 @@
             Riwayat Reservasi
         </a>
 
-        <a href="/pasien"
-           class="{{ request()->is('pasien') ? 'active' : '' }}">
-            Profil Saya
-        </a>
+        <form action="/logout" method="POST">
+
+        @csrf
+
+        <button type="submit"
+            style="
+                width:100%;
+                background:white;
+                color:#f06292;
+                border:none;
+                padding:14px;
+                border-radius:12px;
+                font-weight:bold;
+                cursor:pointer;
+                margin-top:20px;
+            ">
+            Logout
+        </button>
+
+    </form>
+
 
     </div>
 
@@ -301,20 +318,6 @@
         <a href="/pasien" class="profile">
             {{ Auth::user()->name }}
         </a>
-
-        <div class="logout">
-
-            <form action="/logout" method="POST">
-
-                @csrf
-
-                <button type="submit">
-                    Logout
-                </button>
-
-            </form>
-
-        </div>
 
     </div>
 

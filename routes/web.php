@@ -42,6 +42,7 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 /*
 |--------------------------------------------------------------------------
+|--------------------------------------------------------------------------
 | AREA LOGIN
 |--------------------------------------------------------------------------
 */
@@ -59,9 +60,25 @@ Route::middleware('auth')->group(function () {
         [PasienController::class, 'dashboard']
     );
 
-    Route::resource(
-        'pasien',
-        PasienController::class
+    /*
+    |--------------------------------------------------------------------------
+    | PROFIL PASIEN (khusus pasien sendiri)
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get(
+        '/pasien',
+        [PasienController::class, 'show']
+    );
+
+    Route::get(
+        '/pasien/{id}/edit',
+        [PasienController::class, 'edit']
+    );
+
+    Route::put(
+        '/pasien/{id}',
+        [PasienController::class, 'update']
     );
 
     /*
@@ -84,10 +101,16 @@ Route::middleware('auth')->group(function () {
         '/reservasi',
         [ReservasiController::class, 'store']
     );
+
     Route::get(
-    '/jadwal-dokter/{dokter}/{tanggal}',
-    [ReservasiController::class, 'getJadwal']
-);
+        '/get-dokter/{tanggal}',
+        [ReservasiController::class, 'getDokter']
+    );
+
+    Route::get(
+        '/get-jadwal/{dokterId}/{tanggal}',
+        [ReservasiController::class, 'getJadwal']
+    );
 
     /*
     |--------------------------------------------------------------------------
@@ -98,6 +121,17 @@ Route::middleware('auth')->group(function () {
     Route::get(
         '/dashboard-admin',
         [AdminController::class, 'dashboard']
+    );
+
+    /*
+    |--------------------------------------------------------------------------
+    | DATA PASIEN (khusus admin)
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get(
+        '/data-pasien',
+        [PasienController::class, 'index']
     );
 
     /*
@@ -157,6 +191,17 @@ Route::middleware('auth')->group(function () {
         [ReservasiController::class, 'destroy']
     );
 
+    /*
+    |--------------------------------------------------------------------------
+    | LAPORAN
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get(
+        '/laporan',
+        [RekamMedisController::class, 'laporan']
+    );
+
 });
 
 /*
@@ -176,21 +221,3 @@ Route::get('/tes-logout', function () {
     return redirect('/login');
 
 });
-Route::put(
-    '/rekam_medis/{id}',
-    [RekamMedisController::class, 'update']
-);
-Route::get(
-    '/laporan',
-    [RekamMedisController::class, 'laporan']
-);
-
-Route::get(
-    '/get-dokter/{tanggal}',
-    [ReservasiController::class, 'getDokter']
-);
-
-Route::get(
-    '/get-jadwal/{dokterId}/{tanggal}',
-    [ReservasiController::class, 'getJadwal']
-);

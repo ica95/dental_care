@@ -29,11 +29,27 @@ class PasienController extends Controller
 
     /*
     |--------------------------------------------------------------------------
-    | PROFIL PASIEN
+    | DATA PASIEN (UNTUK ADMIN)
     |--------------------------------------------------------------------------
     */
 
     public function index()
+    {
+        $pasiens = Pasien::all();
+
+        return view(
+            'pasien.index',
+            compact('pasiens')
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | PROFIL PASIEN SENDIRI
+    |--------------------------------------------------------------------------
+    */
+
+    public function show()
     {
         $pasien = Pasien::where(
             'user_id',
@@ -41,14 +57,10 @@ class PasienController extends Controller
         )->first();
 
         return view(
-            'pasien.index',
+            'pasien.show',
             compact('pasien')
         );
     }
-    public function show($id)
-{
-    return redirect('/pasien');
-}
 
     /*
     |--------------------------------------------------------------------------
@@ -72,36 +84,29 @@ class PasienController extends Controller
     |--------------------------------------------------------------------------
     */
 
-    public function update(
-        Request $request,
-        $id
-    )
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            'nama_pasien' => 'required',
+            'jenis_kelamin' => 'required',
+            'tanggal_lahir' => 'required',
+            'alamat' => 'required',
+            'no_hp' => 'required'
+        ]);
+
         $pasien = Pasien::findOrFail($id);
 
         $pasien->update([
-
-            'nama_pasien' =>
-                $request->nama_pasien,
-
-            'jenis_kelamin' =>
-                $request->jenis_kelamin,
-
-            'tanggal_lahir' =>
-                $request->tanggal_lahir,
-
-            'alamat' =>
-                $request->alamat,
-
-            'no_hp' =>
-                $request->no_hp
-
+            'nama_pasien'   => $request->nama_pasien,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'alamat'        => $request->alamat,
+            'no_hp'         => $request->no_hp
         ]);
 
-        return redirect('/pasien')
-            ->with(
-                'success',
-                'Profil berhasil diperbarui'
-            );
+        return redirect('/pasien')->with(
+            'success',
+            'Profil berhasil diperbarui'
+        );
     }
 }

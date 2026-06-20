@@ -13,12 +13,12 @@
         </div>
     </a>
 
-    <a href="/pasien" class="card-link">
-        <div class="card">
-            <h2>{{ $jumlahPasien }}</h2>
-            <p>Data Pasien</p>
-        </div>
-    </a>
+   <a href="/data-pasien" class="card-link">
+    <div class="card">
+        <h2>{{ $jumlahPasien }}</h2>
+        <p>Data Pasien</p>
+    </div>
+</a>
 
     <a href="/layanan" class="card-link">
         <div class="card">
