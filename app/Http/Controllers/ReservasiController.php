@@ -122,9 +122,14 @@ class ReservasiController extends Controller
         }
 
         // Jam di luar jadwal dokter
+            $jamReservasi = Carbon::createFromFormat(
+            'H:i',
+            $request->jam_reservasi
+        )->format('H:i:s');
+
         if (
-            $request->jam_reservasi < $jadwal->jam_mulai ||
-            $request->jam_reservasi > $jadwal->jam_selesai
+            $jamReservasi < $jadwal->jam_mulai ||
+            $jamReservasi > $jadwal->jam_selesai
         )
         {
             return back()
