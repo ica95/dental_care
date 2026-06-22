@@ -71,42 +71,35 @@
                 </td>
 
                 <td>
+                    <div class="aksi-btn">
 
-                   <button class="btn-edit"
+                        <button class="btn"
                         onclick="openEditModal(
-                        '{{ $layanan->id }}',
-                        '{{ $layanan->nama_layanan }}',
-                        `{{ $layanan->deskripsi }}`
+                            '{{ $layanan->id }}',
+                            '{{ $layanan->nama_layanan }}',
+                            '{{ $layanan->deskripsi }}'
                         )">
                             Edit
-                    </button>
-
-                    <form action="/layanan/{{ $layanan->id }}"
-                          method="POST"
-                          style="display:inline;">
-
-                        @csrf
-                        @method('DELETE')
+                        </button>
 
                         <button type="submit"
-                                class="btn-danger"
-                                onclick="return confirm('Yakin ingin menghapus layanan ini?')">
+                            class="btn btn-danger"
+                            onclick="return confirm('Yakin ingin menghapus data layanan ini?')">
                             Hapus
                         </button>
 
-                    </form>
-
+                    </div>
                 </td>
 
             </tr>
 
-            @empty
+                @empty
 
             <tr>
 
                 <td colspan="5"
                     style="text-align:center;">
-                    Belum ada data layanan
+                        Belum ada data layanan
                 </td>
 
             </tr>

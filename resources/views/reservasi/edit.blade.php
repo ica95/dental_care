@@ -46,7 +46,7 @@
     <br>
 
     <button type="submit">
-        Update Reservasi
+        Update
     </button>
 
     <a href="/reservasi"

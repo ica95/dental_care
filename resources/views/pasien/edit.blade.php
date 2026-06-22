@@ -11,7 +11,7 @@
         margin-bottom:25px;
         text-align:center;
     ">
-        ✏️ Edit Profil Saya
+        Edit Profil Saya
     </h2>
 
     <form action="/pasien/{{ $pasien->id }}"
@@ -82,7 +82,7 @@
                     font-weight:bold;
                     cursor:pointer;
                 ">
-                Simpan Perubahan
+                Update
             </button>
 
             <a href="/pasien"

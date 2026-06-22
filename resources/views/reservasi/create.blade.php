@@ -19,7 +19,7 @@
         text-align:center;
         font-size:30px;
     ">
-        🦷 Form Reservasi
+        Form Reservasi
     </h2>
 
     {{-- ERROR --}}

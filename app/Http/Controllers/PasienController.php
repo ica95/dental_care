@@ -35,7 +35,9 @@ class PasienController extends Controller
 
     public function index()
     {
-        $pasiens = Pasien::all();
+        $pasiens = Pasien::whereHas('user', function ($query) {
+            $query->where('role', 'pasien');
+        })->get();
 
         return view(
             'pasien.index',

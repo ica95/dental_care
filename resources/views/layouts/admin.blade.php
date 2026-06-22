@@ -200,6 +200,43 @@
             background:#c0392b;
         }
 
+        .aksi-btn{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            gap:10px;
+        }
+
+        .aksi-btn form{
+            margin:0;
+        }
+
+        .btn-edit,
+        .btn-hapus{
+            min-width:80px;
+            text-align:center;
+            padding:10px 15px;
+            border-radius:10px;
+            text-decoration:none;
+            color:white;
+            display:inline-block;
+        }
+
+        .btn-edit{
+            background:#ff6b9a;
+        }
+
+        .btn-edit:hover{
+            background:#ff4f87;
+        }
+
+        .btn-hapus{
+            background:#e74c3c;
+        }
+
+        .btn-hapus:hover{
+            background:#c0392b;
+        }
 
         /* LOGOUT */
 
@@ -214,41 +251,40 @@
             font-weight:bold;
         }
 
+        .modal{
+            display:none;
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,.4);
+            z-index:9999;
+        }
 
-.modal{
-    display:none;
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,.4);
-    z-index:9999;
-}
+        .modal-content{
+            width:450px;
+            background:white;
+            padding:25px;
+            border-radius:15px;
 
-.modal-content{
-    width:450px;
-    background:white;
-    padding:25px;
-    border-radius:15px;
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
 
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
+            box-shadow:0 5px 20px rgba(0,0,0,.2);
+        }
 
-    box-shadow:0 5px 20px rgba(0,0,0,.2);
-}
+        .modal-content h2{
+            margin-bottom:20px;
+            color:#ff6b9a;
+        }
 
-.modal-content h2{
-    margin-bottom:20px;
-    color:#ff6b9a;
-}
-
-.button-group{
-    display:flex;
-    gap:10px;
-}
+        .button-group{
+            display:flex;
+            gap:10px;
+        }
 
     </style>
 

@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Reservasi extends Model
 {
     protected $fillable = [
-
         'pasien_id',
         'dokter_id',
         'layanan_id',
@@ -31,28 +30,9 @@ class Reservasi extends Model
     {
         return $this->belongsTo(Layanan::class);
     }
-    public function laporan()
-{
-    $reservasis = Reservasi::with(
-        'pasien',
-        'dokter'
-    )->get();
 
-    $rekamMedis = RekamMedis::with(
-        'pasien',
-        'dokter'
-    )->get();
-
-    $totalPemasukan =
-        RekamMedis::sum('biaya');
-
-    return view(
-        'laporan.index',
-        compact(
-            'reservasis',
-            'rekamMedis',
-            'totalPemasukan'
-        )
-    );
-}
+    public function rekamMedis()
+    {
+        return $this->hasOne(RekamMedis::class);
+    }
 }

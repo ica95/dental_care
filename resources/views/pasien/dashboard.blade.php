@@ -17,7 +17,7 @@
             font-size:35px;
             margin-bottom:10px;
         ">
-            👋 Selamat Datang,
+            Selamat Datang,
             {{ $pasien->nama_pasien }}
         </h2>
 

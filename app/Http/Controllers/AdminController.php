@@ -13,7 +13,9 @@ class AdminController extends Controller
     public function dashboard()
     {
         $jumlahDokter = Dokter::count();
-        $jumlahPasien = Pasien::count();
+        $jumlahPasien = Pasien::whereHas('user', function ($query) {
+                                    $query->where('role', 'pasien');
+                                })->count();
         $jumlahLayanan = Layanan::count();
         $jumlahReservasi = Reservasi::count();
         $jumlahRekamMedis = RekamMedis::count();

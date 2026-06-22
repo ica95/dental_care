@@ -12,34 +12,27 @@
             @method('PUT')
 
             <div class="form-group">
-
                 <label>Nama Layanan</label>
 
                 <input type="text"
                        id="edit_nama"
                        name="nama_layanan"
                        required>
-
             </div>
 
             <div class="form-group">
-
                 <label>Deskripsi</label>
 
                 <textarea id="edit_deskripsi"
                           name="deskripsi"
-                          rows="4"
                           required></textarea>
-
             </div>
 
             <div class="form-group">
-
-                <label>Ganti Foto</label>
+                <label>Foto Layanan</label>
 
                 <input type="file"
                        name="foto">
-
             </div>
 
             <div class="button-group">

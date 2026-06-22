@@ -195,8 +195,7 @@
                 </h3>
 
                 <p>
-                    Komplek HKSN Permai Blok 11 (57),
-                    Banjarmasin
+                    Komplek HKSN Permai Blok 11 (57),Banjarmasin
                 </p>
 
             </div>

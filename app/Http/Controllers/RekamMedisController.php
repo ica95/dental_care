@@ -36,16 +36,20 @@ $totalPemasukan = RekamMedis::sum('biaya');
     */
 
     public function create()
-    {
-        $reservasis = \App\Models\Reservasi::with(
-    'pasien',
-    'dokter'
-)->get();
-        return view(
-            'rekam_medis.create',
-            compact('reservasis')
-        );
-    }
+{
+    $reservasis = \App\Models\Reservasi::with(
+        'pasien',
+        'dokter'
+    )
+    ->where('status', 'selesai')
+    ->whereDoesntHave('rekamMedis')
+    ->get();
+
+    return view(
+        'rekam_medis.create',
+        compact('reservasis')
+    );
+}
 
     /*
     |--------------------------------------------------------------------------
@@ -67,39 +71,34 @@ $totalPemasukan = RekamMedis::sum('biaya');
 
         ]);
 
-        $reservasi = Reservasi::findOrFail(
-            $request->reservasi_id
-        );
+            $reservasi = Reservasi::findOrFail(
+    $request->reservasi_id
+);
 
-       RekamMedis::create([
+RekamMedis::create([
 
     'reservasi_id' => $reservasi->id,
-
     'pasien_id' => $reservasi->pasien_id,
-
     'dokter_id' => $reservasi->dokter_id,
-
     'tanggal_periksa' => $reservasi->tanggal_reservasi,
-
     'diagnosa' => $request->diagnosa,
-
     'tindakan' => $request->tindakan,
-
     'resep_obat' => $request->resep_obat,
-
     'catatan' => $request->catatan,
-
     'biaya' => $request->biaya
 
 ]);
 
-        
+$reservasi->update([
+    'status' => 'diperiksa'
+]);
 
-        return redirect('/rekam_medis')
-            ->with(
-                'success',
-                'Rekam medis berhasil ditambahkan'
-            );
+return redirect('/rekam_medis')
+    ->with(
+        'success',
+        'Rekam medis berhasil ditambahkan'
+    );
+
     }
 
     /*
@@ -159,13 +158,9 @@ $totalPemasukan = RekamMedis::sum('biaya');
     $rekamMedis->update([
 
         'diagnosa' => $request->diagnosa,
-
         'tindakan' => $request->tindakan,
-
         'resep_obat' => $request->resep_obat,
-
         'catatan' => $request->catatan,
-
         'biaya' => $request->biaya
 
     ]);

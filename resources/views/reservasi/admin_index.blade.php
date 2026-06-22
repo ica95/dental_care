@@ -110,6 +110,17 @@
                         Selesai
                     </span>
 
+                @elseif($reservasi->status == 'diperiksa')
+
+                    <span style="
+                        color:#6f42c1;
+                        background:#e2d9f3;
+                        padding:5px 10px;
+                        border-radius:20px;
+                    ">
+                        Diperiksa
+                    </span>
+
                 @else
 
                     <span style="
@@ -156,7 +167,7 @@
                             {{ $reservasi->status == 'selesai' ? 'selected' : '' }}>
                             Selesai
                         </option>
-
+                        
                         <option value="batal"
                             {{ $reservasi->status == 'batal' ? 'selected' : '' }}>
                             Batal
