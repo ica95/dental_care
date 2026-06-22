@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title','Lumine Dental Care')</title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 @php
     $profil = \App\Models\ProfilKlinik::first();
@@ -62,7 +62,7 @@ body{
 }
 
 .logo span{
-    color:white;
+    color:#ff6b9a;
     font-size:30px;
     font-weight:bold;
 }
@@ -74,18 +74,19 @@ body{
 }
 
 .menu a{
-    color:white;
+    color:#ff6b9a;
     text-decoration:none;
     font-weight:600;
     transition:.3s;
 }
 
 .menu a:hover{
-    color:#ffd1e0;
+    color:#ff4f87;
 }
 
 .btn-reservasi{
     background:#ff6b9a;
+    color:white !important;
     padding:12px 24px;
     border-radius:30px;
 }
@@ -104,7 +105,7 @@ body{
         rgba(0,0,0,.45),
         rgba(0,0,0,.45)
     ),
-    url('/images/hero.jpeg');
+    url('/images/logo_lumine.png');
 
     background-size:cover;
     background-position:center;
@@ -126,6 +127,32 @@ body{
 .hero-content p{
     font-size:26px;
     margin-bottom:30px;
+}
+
+.hero-contact{
+    margin-top:30px;
+}
+
+.hero-contact p{
+    font-size:20px;
+    margin:15px 0;
+}
+
+.hero-contact i{
+    margin-right:10px;
+    font-size:24px;
+}
+
+.hero-contact .fa-instagram{
+    color:#E1306C;
+}
+
+.hero-contact .fa-tiktok{
+    color:white;
+}
+
+.hero-contact .fa-whatsapp{
+    color:#25D366;
 }
 
 .hero-btn{
@@ -194,6 +221,7 @@ section h2{
 
 .dokter-card{
     text-align:center;
+    min-height:450px;
 }
 
 .dokter-card img{
@@ -202,6 +230,34 @@ section h2{
     border-radius:50%;
     object-fit:cover;
     margin:20px auto;
+}
+
+.btn-jadwal{
+    margin-top:15px;
+    background:#ff6b9a;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.btn-jadwal:hover{
+    background:#ff4f87;
+}
+
+.jadwal-box{
+    display:none;
+    margin-top:15px;
+    padding:15px;
+    background:#fff0f5;
+    border-radius:10px;
+    text-align:center;
+}
+
+.jadwal-box p{
+    margin:5px 0;
+    color:#666;
 }
 
 /* LOKASI */
@@ -283,8 +339,20 @@ section h2{
 }
 
 .kontak-icon{
-    font-size:50px;
-    margin-bottom:15px;
+    font-size:55px;
+    margin-bottom:20px;
+}
+
+.fa-whatsapp{
+    color:#25D366;
+}
+
+.fa-instagram{
+    color:#E1306C;
+}
+
+.fa-tiktok{
+    color:#000;
 }
 
 .kontak-card h3{
@@ -303,7 +371,7 @@ section h2{
 }
 
 .btn-wa{
-    background:#25D366;
+    background:#ff6b9a;
 }
 
 .btn-sosmed{
@@ -313,7 +381,7 @@ section h2{
 /* FOOTER */
 
 footer{
-    background:#f8a5c2;
+    background:#ff6b9a;
     color:white;
     text-align:center;
     padding:50px 20px;

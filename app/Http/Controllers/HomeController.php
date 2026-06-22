@@ -11,7 +11,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $dokters = Dokter::all();
+        $dokters = Dokter::with('jadwal')->get();
 
         $layanans = Layanan::all();
 

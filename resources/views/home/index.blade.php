@@ -17,19 +17,24 @@
             Senyum Sehat, Percaya Diri Meningkat
         </p>
 
-        <div class="hero-contact">
+    <div class="hero-contact">
 
-            <p>
-                📷 Instagram :
-                @luminedental_care
-            </p>
+        <p>
+            <i class="fa-brands fa-instagram"></i>
+            Instagram : @luminedental_care
+        </p>
 
-            <p>
-                📞 Kontak Kami :
-                081772862667
-            </p>
+        <p>
+            <i class="fa-brands fa-tiktok"></i>
+            TikTok : @lumine.dental.care
+        </p>
 
-        </div>
+        <p>
+            <i class="fa-brands fa-whatsapp"></i>
+            Kontak Kami : 081772862667
+        </p>
+
+    </div>
 
     </div>
 
@@ -113,32 +118,50 @@
 <!-- DOKTER -->
 <section id="dokter">
 
-    <h2>
-        Dokter Kami
-    </h2>
+    <h2>Dokter Kami</h2>
 
     <div class="cards">
 
         @foreach($dokters as $dokter)
 
-            <div class="card dokter-card">
+        <div class="card dokter-card">
 
-                @if($dokter->foto)
+            @if($dokter->foto)
+                <img src="{{ asset('images/dokter/'.$dokter->foto) }}"
+                     alt="{{ $dokter->nama_dokter }}">
+            @endif
 
-                    <img src="{{ asset('images/dokter/'.$dokter->foto) }}"
-                         alt="{{ $dokter->nama_dokter }}">
+            <div class="card-body">
 
-                @endif
+                <h3>{{ $dokter->nama_dokter }}</h3>
 
-                <div class="card-body">
+                <button class="btn-jadwal"
+                        onclick="toggleJadwal({{ $dokter->id }})">
+                    Lihat Jadwal
+                </button>
 
-                    <h3>
-                        {{ $dokter->nama_dokter }}
-                    </h3>
+                <div id="jadwal-{{ $dokter->id }}"
+                     class="jadwal-box">
+
+                    @foreach($dokter->jadwal as $jadwal)
+
+                        <p>
+                            <b>{{ $jadwal->hari }}</b>
+                        </p>
+
+                        <p>
+                            {{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }}
+                            -
+                            {{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H:i') }}
+                        </p>
+
+                    @endforeach
 
                 </div>
 
             </div>
+
+        </div>
 
         @endforeach
 
@@ -168,7 +191,7 @@
             <div class="info-item">
 
                 <h3>
-                    📍 Alamat
+                    Alamat
                 </h3>
 
                 <p>
@@ -181,7 +204,7 @@
             <div class="info-item">
 
                 <h3>
-                    🕒 Jam Operasional
+                    Jam Operasional
                 </h3>
 
                 <p>
@@ -241,23 +264,17 @@
         <div class="kontak-card">
 
             <div class="kontak-icon">
-                📞
+                <i class="fa-brands fa-whatsapp"></i>
             </div>
 
-            <h3>
-                WhatsApp
-            </h3>
+            <h3>WhatsApp</h3>
 
-            <p>
-                081772862667
-            </p>
+            <p>081772862667</p>
 
             <a href="https://wa.me/6281772862667"
-               target="_blank"
-               class="btn-wa">
-
+            target="_blank"
+            class="btn-wa">
                 Chat Sekarang
-
             </a>
 
         </div>
@@ -266,23 +283,17 @@
         <div class="kontak-card">
 
             <div class="kontak-icon">
-                📷
+                <i class="fa-brands fa-instagram"></i>
             </div>
 
-            <h3>
-                Instagram
-            </h3>
+            <h3>Instagram</h3>
 
-            <p>
-                @luminedental_care
-            </p>
+            <p>@luminedental_care</p>
 
             <a href="https://instagram.com/luminedental_care"
-               target="_blank"
-               class="btn-sosmed">
-
+            target="_blank"
+            class="btn-sosmed">
                 Kunjungi Instagram
-
             </a>
 
         </div>
@@ -291,23 +302,17 @@
         <div class="kontak-card">
 
             <div class="kontak-icon">
-                🎵
+                <i class="fa-brands fa-tiktok"></i>
             </div>
 
-            <h3>
-                TikTok
-            </h3>
+            <h3>TikTok</h3>
 
-            <p>
-                @lumine.dental.care
-            </p>
+            <p>@lumine.dental.care</p>
 
             <a href="https://tiktok.com/@lumine.dental.care"
-               target="_blank"
-               class="btn-sosmed">
-
+            target="_blank"
+            class="btn-sosmed">
                 Kunjungi TikTok
-
             </a>
 
         </div>
@@ -315,5 +320,21 @@
     </div>
 
 </section>
+
+<script>
+function toggleJadwal(id)
+{
+    let box = document.getElementById('jadwal-' + id);
+
+    if(box.style.display === 'block')
+    {
+        box.style.display = 'none';
+    }
+    else
+    {
+        box.style.display = 'block';
+    }
+}
+</script>
 
 @endsection
