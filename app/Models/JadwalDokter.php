@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class JadwalDokter extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'dokter_id',
         'hari',

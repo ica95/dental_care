@@ -7,6 +7,8 @@ use App\Models\Reservasi;
 
 class Layanan extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'nama_layanan',
         'deskripsi',

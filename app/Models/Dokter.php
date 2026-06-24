@@ -8,6 +8,8 @@ use App\Models\Reservasi;
 
 class Dokter extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'nama_dokter',
         'foto'
