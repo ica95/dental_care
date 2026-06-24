@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\JadwalDokter;
 use App\Models\Reservasi;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Dokter extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'nama_dokter',
         'foto'

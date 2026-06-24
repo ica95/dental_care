@@ -2,31 +2,30 @@
 
 namespace Database\Factories;
 
+use App\Models\Pasien;
+use App\Models\Dokter;
+use App\Models\Layanan;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Reservasi>
- */
 class ReservasiFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
-{
-    return [
-        'pasien_id' => \App\Models\Pasien::inRandomOrder()->first()->id,
-        'jadwal_dokter_id' => \App\Models\JadwalDokter::inRandomOrder()->first()->id,
-        'layanan_id' => \App\Models\Layanan::inRandomOrder()->first()->id,
-        'tanggal_reservasi' => fake()->date(),
-        'keluhan' => fake()->sentence(),
-        'status' => fake()->randomElement([
-            'Menunggu',
-            'Dikonfirmasi',
-            'Selesai'
-        ]),
-    ];
-}
+    {
+        return [
+            'pasien_id' => Pasien::inRandomOrder()->first()?->id ?? Pasien::factory(),
+            'dokter_id' => Dokter::inRandomOrder()->first()?->id ?? Dokter::factory(),
+            'layanan_id' => Layanan::inRandomOrder()->first()?->id ?? Layanan::factory(),
+
+            'tanggal_reservasi' => fake()->date(),
+            'jam_reservasi' => fake()->time('H:i:s'),
+
+            'keluhan' => fake()->sentence(),
+            'status' => fake()->randomElement([
+                'pending',
+                'diterima',
+                'selesai',
+                'batal',
+            ]),
+        ];
+    }
 }
