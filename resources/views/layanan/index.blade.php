@@ -82,12 +82,6 @@
                             Edit
                         </button>
 
-                        <button type="submit"
-                            class="btn btn-danger"
-                            onclick="return confirm('Yakin ingin menghapus data layanan ini?')">
-                            Hapus
-                        </button>
-
                     </div>
                 </td>
 

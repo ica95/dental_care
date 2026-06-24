@@ -4,183 +4,170 @@
 
 @section('content')
 
-<div class="card">
+<div class="card laporan-card">
 
-<h2>
-    LAPORAN KLINIK GIGI
-</h2>
+    <h2 class="judul-laporan">
+        LAPORAN KLINIK GIGI
+    </h2>
 
-<br>
+    <form method="GET">
 
-<form method="GET">
+        <label>Pilih Bulan</label>
 
-    <label>Pilih Bulan</label>
+        <input
+            type="month"
+            name="bulan"
+            value="{{ request('bulan') }}">
 
-    <input
-        type="month"
-        name="bulan"
-        value="{{ request('bulan') }}">
+        <button
+            type="submit"
+            class="btn">
+            Tampilkan
+        </button>
+
+    </form>
 
     <button
-        type="submit"
+        onclick="window.print()"
         class="btn">
-
-        Tampilkan
-
+        🖨 Cetak Laporan
     </button>
 
-</form>
+    <div class="summary-box">
 
-<br>
+        <h3>Ringkasan Bulanan</h3>
 
-<button
-    onclick="window.print()"
-    class="btn">
+        <p>
+            Jumlah Rekam Medis :
+            {{ $rekamMedis->count() }}
+        </p>
 
-    🖨 Cetak Laporan
+        <p>
+            Total Pemasukan :
+            <b>
+                Rp {{ number_format($totalPemasukan,0,',','.') }}
+            </b>
+        </p>
 
-</button>
+    </div>
 
-<br><br>
+    <h3>Laporan Rekam Medis</h3>
 
-<div style="
+    <table class="laporan-table">
+
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Tanggal</th>
+                <th>Pasien</th>
+                <th>Dokter</th>
+                <th>Diagnosa</th>
+                <th>Tindakan</th>
+                <th>Biaya</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach($rekamMedis as $data)
+
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $data->tanggal_periksa }}</td>
+                <td>{{ $data->pasien->nama_pasien }}</td>
+                <td>{{ $data->dokter->nama_dokter }}</td>
+                <td>{{ $data->diagnosa }}</td>
+                <td>{{ $data->tindakan }}</td>
+                <td>Rp {{ number_format($data->biaya,0,',','.') }}</td>
+            </tr>
+
+            @endforeach
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<style>
+
+.laporan-card{
+    padding:20px;
+}
+
+.judul-laporan{
+    text-align:center;
+    color:#b03a5b;
+    margin-bottom:20px;
+    margin-top:0;
+}
+
+.summary-box{
     background:#d4edda;
     padding:15px;
     border-radius:10px;
-    margin-bottom:20px;
-">
+    margin:20px 0;
+}
 
-    <h3>Ringkasan Bulanan</h3>
+.laporan-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+}
 
-    <p>
-        Jumlah Rekam Medis :
-        {{ $rekamMedis->count() }}
-    </p>
+.laporan-table th,
+.laporan-table td{
+    padding:8px;
+    text-align:center;
+    border:1px solid #ddd;
+}
 
-    <p>
-        Total Pemasukan :
-        <b>
-            Rp {{ number_format($totalPemasukan,0,',','.') }}
-        </b>
-    </p>
-
-</div>
-
-<h3>
-    Laporan Rekam Medis
-</h3>
-
-<table>
-
-    <thead>
-
-        <tr>
-
-            <th>No</th>
-            <th>Tanggal</th>
-            <th>Pasien</th>
-            <th>Dokter</th>
-            <th>Diagnosa</th>
-            <th>Tindakan</th>
-            <th>Biaya</th>
-
-        </tr>
-
-    </thead>
-
-    <tbody>
-
-        @foreach($rekamMedis as $data)
-
-        <tr>
-
-            <td>
-                {{ $loop->iteration }}
-            </td>
-
-            <td>
-                {{ $data->tanggal_periksa }}
-            </td>
-
-            <td>
-                {{ $data->pasien->nama_pasien }}
-            </td>
-
-            <td>
-                {{ $data->dokter->nama_dokter }}
-            </td>
-
-            <td>
-                {{ $data->diagnosa }}
-            </td>
-
-            <td>
-                {{ $data->tindakan }}
-            </td>
-
-            <td>
-                Rp {{ number_format($data->biaya,0,',','.') }}
-            </td>
-
-        </tr>
-
-        @endforeach
-
-    </tbody>
-
-</table>
-
-</div>
-
-<style>
+.laporan-table th{
+    background:#ffb6c1;
+}
 
 @media print {
 
+    .sidebar,
+    .header,
+    .footer,
     .btn,
-    form {
-        display: none;
+    form{
+        display:none !important;
+    }
+
+    .main{
+        margin-left:0 !important;
+        padding:0 !important;
+    }
+
+    .card{
+        box-shadow:none !important;
+        padding:10px !important;
+    }
+
+    .judul-laporan{
+        margin-top:0 !important;
+        margin-bottom:10px !important;
+        font-size:26px;
+    }
+
+    .summary-box{
+        margin-bottom:15px !important;
+        padding:10px !important;
+    }
+
+    .laporan-table{
+        font-size:12px;
+    }
+
+    .laporan-table th,
+    .laporan-table td{
+        padding:5px;
     }
 
 }
 
 </style>
-<style>
 
-@media print {
-
-    /* Sembunyikan sidebar */
-    .sidebar {
-        display: none !important;
-    }
-
-    /* Sembunyikan header dashboard */
-    .header {
-        display: none !important;
-    }
-
-    /* Sembunyikan footer */
-    .footer {
-        display: none !important;
-    }
-
-    /* Sembunyikan tombol dan form filter */
-    .btn,
-    form {
-        display: none !important;
-    }
-
-    /* Hilangkan jarak kiri karena sidebar disembunyikan */
-    .main {
-        margin-left: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* Hilangkan bayangan card */
-    .card {
-        box-shadow: none !important;
-    }
-
-}
-
-</style>
 @endsection
