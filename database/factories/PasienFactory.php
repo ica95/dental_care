@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,8 +19,10 @@ class PasienFactory extends Factory
     public function definition(): array
 {
     return [
+  	'user_id' => User::factory(),
+
         'nama_pasien' => fake()->name(),
-        'jenis_kelamin' => fake()->randomElement(['Laki-laki','Perempuan']),
+        'jenis_kelamin' => fake()->randomElement(['L','P']),
         'tanggal_lahir' => fake()->date(),
         'alamat' => fake()->address(),
         'no_hp' => fake()->phoneNumber(),
