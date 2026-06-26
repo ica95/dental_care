@@ -31,7 +31,7 @@
 
         <p>
             <i class="fa-brands fa-whatsapp"></i>
-            Kontak Kami : 081772862667
+            Kontak Kami : 082318699468
         </p>
 
     </div>
@@ -268,9 +268,9 @@
 
             <h3>WhatsApp</h3>
 
-            <p>081772862667</p>
+            <p>082318699468</p>
 
-            <a href="https://wa.me/6281772862667"
+            <a href="https://wa.me/6282318699468"
             target="_blank"
             class="btn-wa">
                 Chat Sekarang
