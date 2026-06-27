@@ -7,8 +7,9 @@
 <!-- WELCOME CARD -->
 
 <div class="card" style="
-    background:linear-gradient(135deg,#ff8fb1,#ff6b9a);
+    background:linear-gradient(135deg,#DA8B8E,#C97A7D);
     color:white;
+    border:none;
 ">
 
     <div class="card-body">
@@ -23,9 +24,9 @@
 
         <p style="
             font-size:18px;
-            opacity:.9;
+            opacity:.95;
         ">
-            Kelola profil dan reservasi Anda dengan mudah di Lumine Dental.
+            Reservasi Anda dengan mudah di Lumine Dental.
         </p>
 
     </div>
@@ -33,15 +34,6 @@
 </div>
 
 <br>
-
-<!-- INFO CARD -->
-
-<div style="
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-">
-
 
 <!-- QUICK MENU -->
 
@@ -51,11 +43,17 @@
     gap:20px;
 ">
 
-    <div class="card">
+    <!-- CARD RESERVASI -->
+    <div class="card" style="
+        border:1px solid #E9B8BA;
+    ">
 
         <div class="card-body">
 
-            <h3>
+            <h3 style="
+                color:#C97A7D;
+                margin-bottom:10px;
+            ">
                 Reservasi Baru
             </h3>
 
@@ -67,7 +65,10 @@
             </p>
 
             <a href="/reservasi/create"
-               class="btn">
+               class="btn"
+               style="
+                    background:#DA8B8E;
+               ">
                 Buat Reservasi
             </a>
 
@@ -75,11 +76,17 @@
 
     </div>
 
-    <div class="card">
+    <!-- CARD RIWAYAT -->
+    <div class="card" style="
+        border:1px solid #E9B8BA;
+    ">
 
         <div class="card-body">
 
-            <h3>
+            <h3 style="
+                color:#C97A7D;
+                margin-bottom:10px;
+            ">
                 Riwayat Reservasi
             </h3>
 
@@ -91,7 +98,10 @@
             </p>
 
             <a href="/reservasi"
-               class="btn">
+               class="btn"
+               style="
+                    background:#DA8B8E;
+               ">
                 Lihat Riwayat
             </a>
 

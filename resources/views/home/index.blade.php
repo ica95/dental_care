@@ -182,10 +182,6 @@
             Lokasi Kami
         </h2>
 
-        <p>
-            Temukan lokasi Lumine Dental Care dengan mudah
-        </p>
-
     </div>
 
     <div class="lokasi-card">
@@ -222,18 +218,13 @@
 
         <div class="maps-wrapper">
 
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.2854846036903!2d114.57760107353519!3d-3.27922499669571!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2de42390cad5c2c3%3A0x5bd695a8ce658833!2sKomplek%20HKSN%20Permai%20Blok%2011%20(57)!5e0!3m2!1sid!2sid!4v1780991345047!5m2!1sid!2sid"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3983.273540436355!2d114.5751472735353!3d-3.282222196692712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zM8KwMTYnNTYuMCJTIDExNMKwMzQnMzkuOCJF!5e0!3m2!1sid!2sid!4v1782543086441!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
 
         </div>
 
         <div class="btn-wrapper">
 
-            <a href="https://maps.app.goo.gl/sQSwibSe9A6SXiSPA"
+            <a href="https://maps.app.goo.gl/VpYjeL2WLeYDKYEs5"
                target="_blank"
                class="btn-lokasi">
 
@@ -255,9 +246,6 @@
             Kontak Kami
         </h2>
 
-        <p>
-            Hubungi dan ikuti media sosial Lumine Dental Care
-        </p>
 
     </div>
 

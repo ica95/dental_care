@@ -26,7 +26,7 @@
         </button>
 
     </form>
-
+<br>
     <button
         onclick="window.print()"
         class="btn">
@@ -93,81 +93,198 @@
 
 .laporan-card{
     padding:20px;
+    background:white;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(218,139,142,0.15);
 }
 
 .judul-laporan{
     text-align:center;
-    color:#b03a5b;
+    color:#C86D71;
     margin-bottom:20px;
     margin-top:0;
+    font-weight:bold;
 }
 
 .summary-box{
-    background:#d4edda;
+    background:#FFF1F2;
+    border:1px solid #EBC1C3;
     padding:15px;
-    border-radius:10px;
+    border-radius:12px;
     margin:20px 0;
+}
+
+.summary-box h3{
+    color:#C86D71;
+    margin-bottom:10px;
+}
+
+.summary-box p{
+    color:#666;
+    margin:8px 0;
 }
 
 .laporan-table{
     width:100%;
     border-collapse:collapse;
     font-size:14px;
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(218,139,142,0.12);
 }
 
 .laporan-table th,
 .laporan-table td{
-    padding:8px;
+    padding:10px;
     text-align:center;
-    border:1px solid #ddd;
+    border:1px solid #f3d8da;
 }
 
 .laporan-table th{
-    background:#ffb6c1;
+    background:#D47D82;
+    color:white;
+    font-weight:600;
 }
 
-@media print {
+.laporan-table tr:nth-child(even){
+    background:#FFF8F8;
+}
+
+.laporan-table tr:hover{
+    background:#FFF1F2;
+}
+
+label{
+    font-weight:600;
+    color:#C86D71;
+}
+
+input[type="month"]{
+    border:1px solid #EBC1C3;
+    padding:10px;
+    border-radius:10px;
+}
+
+.btn{
+    background:#D47D82;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#C86D71;
+}
+
+h3{
+    color:#C86D71;
+    margin-bottom:15px;
+}
+
+@media print{
+
+    @page{
+        size:auto;
+        margin:5mm;
+    }
+
+    html, body{
+        width:100%;
+        height:auto;
+        margin:0;
+        padding:0;
+        background:white !important;
+    }
+
+    body{
+        zoom:100%;
+    }
 
     .sidebar,
     .header,
     .footer,
     .btn,
-    form{
+    form,
+    .menu-toggle,
+    .overlay{
         display:none !important;
     }
 
     .main{
-        margin-left:0 !important;
+        width:100% !important;
+        margin:0 !important;
         padding:0 !important;
     }
 
-    .card{
+    .content{
+        width:100% !important;
+        margin:0 !important;
+        padding:0 !important;
+    }
+
+    .laporan-card{
+        width:100vw !important;
+        max-width:100% !important;
+        margin:0 !important;
+        padding:0 !important;
         box-shadow:none !important;
-        padding:10px !important;
+        border:none !important;
     }
 
     .judul-laporan{
-        margin-top:0 !important;
-        margin-bottom:10px !important;
-        font-size:26px;
+        text-align:center;
+        font-size:28px !important;
+        margin-bottom:20px !important;
+        color:black !important;
     }
 
     .summary-box{
-        margin-bottom:15px !important;
-        padding:10px !important;
+        width:100% !important;
+        margin:0 0 20px 0 !important;
+        padding:15px !important;
+        border:1px solid #ccc !important;
+        background:white !important;
+        box-sizing:border-box;
+    }
+
+    .summary-box h3{
+        font-size:22px !important;
+        margin-bottom:10px !important;
+    }
+
+    .summary-box p{
+        font-size:16px !important;
+        line-height:1.6;
     }
 
     .laporan-table{
-        font-size:12px;
+        width:100% !important;
+        table-layout:fixed !important;
+        border-collapse:collapse !important;
+        font-size:14px !important;
     }
 
     .laporan-table th,
     .laporan-table td{
-        padding:5px;
+        padding:10px !important;
+        border:1px solid #999 !important;
+        text-align:center !important;
+        word-break:break-word;
     }
 
-}
+    .laporan-table th{
+        background:#ddd !important;
+        color:black !important;
+    }
 
+    tr{
+        page-break-inside:avoid;
+    }
+}
 </style>
 
 @endsection

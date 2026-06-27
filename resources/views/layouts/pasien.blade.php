@@ -15,7 +15,7 @@
 }
 
 body{
-    background:#fff5f7;
+    background:#fdf6f6;
     display:flex;
     min-height:100vh;
 }
@@ -25,7 +25,7 @@ body{
 .sidebar{
     width:250px;
     height:100vh;
-    background:#f8a5c2;
+    background:#DA8B8E;
     position:fixed;
     left:0;
     top:0;
@@ -52,7 +52,7 @@ body{
 
 .logo h2{
     color:white;
-    font-size:28px;
+    font-size:26px;
     line-height:1.4;
 }
 
@@ -73,17 +73,19 @@ body{
 }
 
 .menu a:hover{
-    background:#ff8db4;
+    background:#C97A7D;
 }
 
 .active{
-    background:#ff8db4;
+    background:#C97A7D;
 }
+
+/* LOGOUT */
 
 .logout button{
     width:100%;
     background:white;
-    color:#f06292;
+    color:#C97A7D;
     border:none;
     padding:14px;
     border-radius:12px;
@@ -101,6 +103,24 @@ body{
     flex-direction:column;
 }
 
+/* OVERLAY */
+
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.25);
+    backdrop-filter:blur(4px);
+    z-index:900;
+    display:none;
+}
+
+.overlay.active{
+    display:block;
+}
+
 /* TOPBAR */
 
 .topbar{
@@ -113,7 +133,7 @@ body{
 }
 
 .profile{
-    background:#ff6b9a;
+    background:#DA8B8E;
     color:white;
     text-decoration:none;
     padding:14px 25px;
@@ -140,7 +160,7 @@ body{
 /* BUTTON */
 
 .btn{
-    background:#ff6b9a;
+    background:#DA8B8E;
     color:white;
     text-decoration:none;
     padding:12px 20px;
@@ -150,7 +170,7 @@ body{
 }
 
 .btn:hover{
-    background:#ff4f87;
+    background:#C97A7D;
 }
 
 /* FORM */
@@ -160,7 +180,7 @@ select,
 textarea{
     width:100%;
     padding:14px;
-    border:1px solid #ffc0cb;
+    border:1px solid #E9B8BA;
     border-radius:10px;
     margin-bottom:15px;
 }
@@ -176,7 +196,7 @@ table{
 }
 
 th{
-    background:#ff6b9a;
+    background:#D47D82;
     color:white;
     padding:15px;
 }
@@ -187,7 +207,7 @@ td{
 }
 
 tr:hover{
-    background:#fff0f5;
+    background:#fff0f1;
 }
 
 /* TOGGLE BUTTON */
@@ -195,29 +215,18 @@ tr:hover{
 .menu-toggle{
     display:none;
     position:fixed;
-    top:20px;
-    left:20px;
-    width:55px;
-    height:55px;
-    background:#ff6b9a;
+    top:15px;
+    left:15px;
+    width:50px;
+    height:50px;
+    background:#DA8B8E;
     color:white;
     border:none;
-    border-radius:15px;
-    font-size:24px;
+    border-radius:12px;
+    font-size:22px;
     z-index:2000;
     cursor:pointer;
-}
-
-.close-btn{
-    display:none;
-    position:absolute;
-    top:20px;
-    right:20px;
-    background:none;
-    border:none;
-    color:white;
-    font-size:30px;
-    cursor:pointer;
+    box-shadow:0 4px 10px rgba(0,0,0,.15);
 }
 
 /* MOBILE */
@@ -235,39 +244,45 @@ tr:hover{
     }
 
     .sidebar{
-        left:-280px;
-        width:260px;
-        height:100vh;
-        position:fixed;
-        padding:25px 20px;
-        box-shadow:0 0 25px rgba(0,0,0,.15);
+        left:-230px;
+        width:220px;
+        height:95vh;
+        top:10px;
+        padding:20px;
+        border-radius:0 20px 20px 0;
+        box-shadow:4px 0 15px rgba(0,0,0,.15);
     }
 
     .sidebar.active{
         left:0;
     }
 
-    .close-btn{
-        display:block;
-    }
-
     .logo{
-        margin-top:40px;
-        margin-bottom:30px;
+        margin-top:20px;
+        margin-bottom:25px;
     }
 
     .logo img{
-        width:70px;
-        height:70px;
+        width:60px;
+        height:60px;
     }
 
     .logo h2{
-        font-size:24px;
+        font-size:20px;
     }
 
     .menu{
-        flex-direction:column;
-        gap:15px;
+        gap:8px;
+    }
+
+    .menu a{
+        padding:12px;
+        font-size:15px;
+    }
+
+    .logout button{
+        padding:12px;
+        font-size:15px;
     }
 
     .main{
@@ -277,7 +292,6 @@ tr:hover{
 
     .topbar{
         padding:20px;
-        justify-content:flex-end;
     }
 
     .profile{
@@ -325,15 +339,11 @@ tr:hover{
     $profil = \App\Models\ProfilKlinik::first();
 @endphp
 
-<!-- TOGGLE -->
 <button class="menu-toggle" onclick="toggleSidebar()">
     ☰
 </button>
 
-<!-- SIDEBAR -->
 <div class="sidebar">
-
-    
 
     <div class="logo">
 
@@ -377,10 +387,10 @@ tr:hover{
 
 </div>
 
-<!-- MAIN -->
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
 <div class="main">
 
-    <!-- TOPBAR -->
     <div class="topbar">
 
         <a href="/pasien" class="profile">
@@ -389,7 +399,6 @@ tr:hover{
 
     </div>
 
-    <!-- CONTENT -->
     <div class="content">
         @yield('content')
     </div>
@@ -399,6 +408,7 @@ tr:hover{
 <script>
 function toggleSidebar(){
     document.querySelector('.sidebar').classList.toggle('active');
+    document.querySelector('.overlay').classList.toggle('active');
 }
 </script>
 

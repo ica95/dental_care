@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title','Lumine Dental Care')</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 @php
     $profil = \App\Models\ProfilKlinik::first();
@@ -12,7 +14,7 @@
 
 <style>
 
-    *{
+*{
     margin:0;
     padding:0;
     box-sizing:border-box;
@@ -24,7 +26,7 @@ html{
 }
 
 body{
-    background:#fff5f7;
+    background:#fff8f8;
 }
 
 /* NAVBAR */
@@ -35,14 +37,11 @@ body{
     left:0;
     width:100%;
     z-index:1000;
-
     display:flex;
     justify-content:space-between;
     align-items:center;
-
     padding:15px 60px;
-
-    background:rgba(255,255,255,.15);
+    background:rgba(255,255,255,.25);
     backdrop-filter:blur(12px);
 }
 
@@ -62,7 +61,7 @@ body{
 }
 
 .logo span{
-    color:#ff6b9a;
+    color:#C97A7D;
     font-size:30px;
     font-weight:bold;
 }
@@ -74,29 +73,30 @@ body{
 }
 
 .menu a{
-    color:#ff6b9a;
+    color:#C97A7D;
     text-decoration:none;
     font-weight:600;
     transition:.3s;
 }
 
 .menu a:hover{
-    color:#ff4f87;
+    color:#B86A6D;
 }
 
 .btn-reservasi{
-    background:#ff6b9a;
+    background:#DA8B8E;
     color:white !important;
     padding:12px 24px;
     border-radius:30px;
 }
 
 .btn-reservasi:hover{
-    background:#ff4f87;
+    background:#C97A7D;
 }
+
 .menu-toggle{
     display:none;
-    background:#ff6b9a;
+    background:#DA8B8E;
     color:white;
     border:none;
     width:50px;
@@ -105,11 +105,11 @@ body{
     font-size:22px;
     cursor:pointer;
 }
+
 /* HERO */
 
 .hero{
     min-height:100vh;
-
     background:
     linear-gradient(
         rgba(0,0,0,.45),
@@ -125,7 +125,6 @@ body{
     justify-content:center;
     align-items:center;
     text-align:center;
-
     color:white;
 }
 
@@ -139,35 +138,9 @@ body{
     margin-bottom:30px;
 }
 
-.hero-contact{
-    margin-top:30px;
-}
-
-.hero-contact p{
-    font-size:20px;
-    margin:15px 0;
-}
-
-.hero-contact i{
-    margin-right:10px;
-    font-size:24px;
-}
-
-.hero-contact .fa-instagram{
-    color:#E1306C;
-}
-
-.hero-contact .fa-tiktok{
-    color:white;
-}
-
-.hero-contact .fa-whatsapp{
-    color:#25D366;
-}
-
 .hero-btn{
     display:inline-block;
-    background:#ff6b9a;
+    background:#DA8B8E;
     color:white;
     text-decoration:none;
     padding:15px 35px;
@@ -176,7 +149,7 @@ body{
 }
 
 .hero-btn:hover{
-    background:#ff4f87;
+    background:#C97A7D;
 }
 
 /* SECTION */
@@ -187,7 +160,7 @@ section{
 
 section h2{
     text-align:center;
-    color:#ff6b9a;
+    color:#C97A7D;
     font-size:42px;
     margin-bottom:40px;
 }
@@ -204,7 +177,7 @@ section h2{
     background:white;
     border-radius:25px;
     overflow:hidden;
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    box-shadow:0 10px 25px rgba(218,139,142,.10);
     transition:.3s;
 }
 
@@ -223,7 +196,7 @@ section h2{
 }
 
 .card-body h3{
-    color:#ff6b9a;
+    color:#C97A7D;
     margin-bottom:10px;
 }
 
@@ -244,7 +217,7 @@ section h2{
 
 .btn-jadwal{
     margin-top:15px;
-    background:#ff6b9a;
+    background:#DA8B8E;
     color:white;
     border:none;
     padding:10px 15px;
@@ -253,33 +226,19 @@ section h2{
 }
 
 .btn-jadwal:hover{
-    background:#ff4f87;
+    background:#C97A7D;
 }
 
 .jadwal-box{
     display:none;
     margin-top:15px;
     padding:15px;
-    background:#fff0f5;
+    background:#FDF1F1;
     border-radius:10px;
     text-align:center;
 }
 
-.jadwal-box p{
-    margin:5px 0;
-    color:#666;
-}
-
 /* LOKASI */
-
-.section-title{
-    text-align:center;
-    margin-bottom:40px;
-}
-
-.section-title p{
-    color:#666;
-}
 
 .lokasi-card{
     max-width:900px;
@@ -287,7 +246,7 @@ section h2{
     background:white;
     padding:35px;
     border-radius:25px;
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    box-shadow:0 10px 25px rgba(218,139,142,.10);
 }
 
 .lokasi-info{
@@ -298,14 +257,14 @@ section h2{
 }
 
 .info-item{
-    background:#fff5f7;
+    background:#FDF1F1;
     padding:20px;
     border-radius:15px;
     text-align:center;
 }
 
 .info-item h3{
-    color:#ff6b9a;
+    color:#C97A7D;
     margin-bottom:10px;
 }
 
@@ -323,7 +282,7 @@ section h2{
 
 .btn-lokasi{
     display:inline-block;
-    background:#ff6b9a;
+    background:#DA8B8E;
     color:white;
     text-decoration:none;
     padding:12px 24px;
@@ -345,7 +304,7 @@ section h2{
     padding:35px;
     border-radius:25px;
     text-align:center;
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    box-shadow:0 10px 25px rgba(218,139,142,.10);
 }
 
 .kontak-icon{
@@ -353,20 +312,8 @@ section h2{
     margin-bottom:20px;
 }
 
-.fa-whatsapp{
-    color:#25D366;
-}
-
-.fa-instagram{
-    color:#E1306C;
-}
-
-.fa-tiktok{
-    color:#000;
-}
-
 .kontak-card h3{
-    color:#ff6b9a;
+    color:#C97A7D;
     margin-bottom:10px;
 }
 
@@ -378,20 +325,13 @@ section h2{
     padding:12px 20px;
     border-radius:12px;
     margin-top:10px;
-}
-
-.btn-wa{
-    background:#ff6b9a;
-}
-
-.btn-sosmed{
-    background:#ff6b9a;
+    background:#DA8B8E;
 }
 
 /* FOOTER */
 
 footer{
-    background:#ff6b9a;
+    background:#DA8B8E;
     color:white;
     text-align:center;
     padding:50px 20px;
@@ -403,38 +343,26 @@ footer{
     position:fixed;
     right:25px;
     bottom:25px;
-
     width:65px;
     height:65px;
-
     background:#25D366;
-
     border-radius:50%;
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     color:white;
     text-decoration:none;
     font-size:30px;
-
     z-index:9999;
 }
+
+/* MOBILE */
 
 @media(max-width:768px){
 
     .navbar{
         padding:15px 20px;
-        flex-direction:row;
-        justify-content:space-between;
-        align-items:center;
-        background:white;
-    }
-
-    .logo{
-        flex-direction:row;
-        gap:10px;
+        background:#fff8f8;
     }
 
     .logo img{
@@ -459,7 +387,7 @@ footer{
         display:none;
         flex-direction:column;
         padding:20px;
-        box-shadow:0 8px 20px rgba(0,0,0,.1);
+        box-shadow:0 8px 20px rgba(0,0,0,.08);
     }
 
     .menu.active{
@@ -469,12 +397,6 @@ footer{
     .menu a{
         padding:12px 0;
         font-size:18px;
-    }
-
-    .btn-reservasi{
-        width:100%;
-        text-align:center;
-        margin-top:10px;
     }
 
     .hero{
@@ -489,8 +411,33 @@ footer{
         font-size:18px;
     }
 
+    /* LAYANAN MOBILE SCROLL */
+
     .cards{
-        grid-template-columns:1fr;
+        display:flex;
+        overflow-x:auto;
+        gap:15px;
+        padding-bottom:10px;
+        scroll-snap-type:x mandatory;
+    }
+
+    .cards::-webkit-scrollbar{
+        height:6px;
+    }
+
+    .cards::-webkit-scrollbar-thumb{
+        background:#DA8B8E;
+        border-radius:10px;
+    }
+
+    .card{
+        min-width:280px;
+        flex:0 0 auto;
+        scroll-snap-align:start;
+    }
+
+    .card img{
+        height:180px;
     }
 
     .kontak-container{
@@ -498,6 +445,7 @@ footer{
     }
 
 }
+
 </style>
 
 </head>
@@ -505,64 +453,42 @@ footer{
 
 <div class="navbar">
 
-<div class="logo">
+    <div class="logo">
 
-    @if($profil && $profil->logo)
-        <img src="{{ asset('images/logo/'.$profil->logo) }}">
-    @endif
+        @if($profil && $profil->logo)
+            <img src="{{ asset('images/logo/'.$profil->logo) }}">
+        @endif
 
-    <span>Lumine Dental Care</span>
+        <span>Lumine Dental Care</span>
 
-</div>
+    </div>
 
-<button class="menu-toggle" onclick="toggleMenu()">
-    <i class="fas fa-bars"></i>
-</button>
+    <button class="menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
 
-<div class="menu" id="mobileMenu">
-
-    <a href="#beranda">
-        Beranda
-    </a>
-
-    <a href="#layanan">
-        Layanan
-    </a>
-
-    <a href="#dokter">
-        Dokter
-    </a>
-
-    <a href="#lokasi">
-        Lokasi
-    </a>
-
-    <a href="#kontak">
-        Kontak
-    </a>
-
-
-</div>
+    <div class="menu" id="mobileMenu">
+        <a href="#beranda">Beranda</a>
+        <a href="#layanan">Layanan</a>
+        <a href="#dokter">Dokter</a>
+        <a href="#lokasi">Lokasi</a>
+        <a href="#kontak">Kontak</a>
+    </div>
 
 </div>
 
 @yield('content')
 
 <footer>
-
-<h3>
-    Lumine Dental Care
-</h3>
-
-<p>
-    Klinik Gigi Profesional dan Terpercaya
-</p>
-
+    <h3>Lumine Dental Care</h3>
+    <p>Klinik Gigi Profesional dan Terpercaya</p>
 </footer>
+
 <script>
 function toggleMenu(){
     document.getElementById('mobileMenu').classList.toggle('active');
 }
 </script>
+
 </body>
 </html>

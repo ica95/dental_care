@@ -10,11 +10,12 @@
     background:white;
     padding:30px;
     border-radius:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    border:1px solid #E9B8BA;
+    box-shadow:0 10px 25px rgba(218,139,142,0.12);
 ">
 
     <h2 style="
-        color:#ff6b9a;
+        color:#C97A7D;
         margin-bottom:25px;
         text-align:center;
         font-size:30px;
@@ -25,11 +26,12 @@
     {{-- ERROR --}}
     @if(session('error'))
         <div style="
-            background:#ffe5e5;
-            color:red;
+            background:#FFECEC;
+            color:#C97A7D;
             padding:15px;
             border-radius:10px;
             margin-bottom:20px;
+            border:1px solid #E9B8BA;
         ">
             {{ session('error') }}
         </div>
@@ -38,11 +40,12 @@
     {{-- VALIDATION --}}
     @if ($errors->any())
         <div style="
-            background:#fff3cd;
-            color:#856404;
+            background:#FFF6F6;
+            color:#C97A7D;
             padding:15px;
             border-radius:10px;
             margin-bottom:20px;
+            border:1px solid #E9B8BA;
         ">
             @foreach ($errors->all() as $error)
                 <p style="margin:5px 0;">
@@ -56,20 +59,28 @@
         @csrf
 
         {{-- TANGGAL --}}
-        <label>Tanggal Reservasi</label>
+        <label style="color:#C97A7D; font-weight:bold;">
+            Tanggal Reservasi
+        </label>
+
         <input
             type="date"
             name="tanggal_reservasi"
             id="tanggal"
             min="{{ date('Y-m-d') }}"
-            required>
+            required
+            style="border:1px solid #E9B8BA;">
 
         {{-- DOKTER --}}
-        <label>Dokter</label>
+        <label style="color:#C97A7D; font-weight:bold;">
+            Dokter
+        </label>
+
         <select
             name="dokter_id"
             id="dokter"
-            required>
+            required
+            style="border:1px solid #E9B8BA;">
 
             <option value="">
                 Pilih Dokter
@@ -78,10 +89,14 @@
         </select>
 
         {{-- LAYANAN --}}
-        <label>Layanan</label>
+        <label style="color:#C97A7D; font-weight:bold;">
+            Layanan
+        </label>
+
         <select
             name="layanan_id"
-            required>
+            required
+            style="border:1px solid #E9B8BA;">
 
             <option value="">
                 Pilih Layanan
@@ -96,11 +111,15 @@
         </select>
 
         {{-- JAM --}}
-        <label>Jam Reservasi</label>
+        <label style="color:#C97A7D; font-weight:bold;">
+            Jam Reservasi
+        </label>
+
         <select
             name="jam_reservasi"
             id="jam"
-            required>
+            required
+            style="border:1px solid #E9B8BA;">
 
             <option value="">
                 Pilih Jam
@@ -109,12 +128,16 @@
         </select>
 
         {{-- KELUHAN --}}
-        <label>Keluhan</label>
+        <label style="color:#C97A7D; font-weight:bold;">
+            Keluhan
+        </label>
+
         <textarea
             name="keluhan"
             rows="4"
             placeholder="Masukkan keluhan"
-            required></textarea>
+            required
+            style="border:1px solid #E9B8BA;"></textarea>
 
         <div style="
             display:flex;
@@ -126,7 +149,7 @@
                 type="submit"
                 style="
                     flex:1;
-                    background:#ff6b9a;
+                    background:#DA8B8E;
                     color:white;
                     border:none;
                     padding:14px;
@@ -141,8 +164,8 @@
                style="
                     flex:1;
                     text-align:center;
-                    background:#f3f3f3;
-                    color:#555;
+                    background:#F7EAEA;
+                    color:#C97A7D;
                     padding:14px;
                     border-radius:10px;
                     text-decoration:none;
