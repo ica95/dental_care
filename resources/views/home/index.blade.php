@@ -33,9 +33,13 @@
             <i class="fa-brands fa-whatsapp"></i>
             Kontak Kami : 082318699468
         </p>
-
+<br>
+        <a href="/login" class="hero-btn">
+            <i class="fa-solid fa-calendar-check"></i>
+            Reservasi Sekarang
+        </a>
     </div>
-
+ 
     </div>
 
 </section>

@@ -7,389 +7,447 @@
 
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @yield('css')
-    <style>
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial, Helvetica, sans-serif;
-        }
+<style>
 
-        body{
-            background:#fff5f7;
-        }
-
-        /* SIDEBAR */
-
-        .sidebar{
-            width:250px;
-            height:100vh;
-            background:#f8a5c2;
-            position:fixed;
-            left:0;
-            top:0;
-            padding:30px 20px;
-            overflow-y:auto;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
-        .sidebar h2{
-            color:white;
-            text-align:center;
-            margin-bottom:40px;
-        }
+body{
+    background:#FFF8F8;
+}
 
-        .sidebar a{
-            display:block;
-            text-decoration:none;
-            color:white;
-            padding:12px;
-            margin-bottom:10px;
-            border-radius:10px;
-            transition:.3s;
-        }
+/* SIDEBAR */
+.sidebar{
+    width:250px;
+    height:100vh;
+    background:#DA8B8E;
+    position:fixed;
+    left:0;
+    top:0;
+    padding:30px 20px;
+    overflow-y:auto;
+}
 
-        .sidebar a:hover{
-            background:#ff8db4;
-        }
+.sidebar h2{
+    color:white;
+    text-align:center;
+    margin-bottom:40px;
+}
 
-        /* MAIN */
+.sidebar a{
+    display:block;
+    text-decoration:none;
+    color:white;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:10px;
+    transition:.3s;
+}
 
-        .main{
-            margin-left:250px;
-            min-height:100vh;
-            padding:30px;
-            display:flex;
-            flex-direction:column;
-        }
+.sidebar a:hover{
+    background:#C97A7D;
+}
 
-        /* HEADER */
+/* MAIN */
+.main{
+    margin-left:250px;
+    min-height:100vh;
+    padding:30px;
+    display:flex;
+    flex-direction:column;
+}
 
-        .header{
-            background:white;
-            padding:20px;
-            border-radius:15px;
-            box-shadow:0 3px 10px rgba(0,0,0,0.08);
-            margin-bottom:25px;
-        }
+/* OVERLAY */
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.25);
+    backdrop-filter:blur(5px);
+    z-index:1400;
+    display:none;
+}
 
-        .header h1{
-            color:#ff6b9a;
-        }
+.overlay.active{
+    display:block;
+}
 
-        .header p{
-            color:#666;
-            margin-top:5px;
-        }
+/* HEADER */
+.header{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(218,139,142,0.15);
+    margin-bottom:25px;
+}
 
-        /* CONTENT */
+.header h1{
+    color:#C86D71;
+}
 
-        .content{
-            flex:1;
-        }
+.header p{
+    color:#666;
+    margin-top:5px;
+}
 
-        .cards{
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-            gap:20px;
-        }
+/* CONTENT */
+.content{
+    flex:1;
+}
 
-        .card{
-            background:white;
-            padding:25px;
-            border-radius:15px;
-            text-align:center;
-            box-shadow:0 3px 10px rgba(0,0,0,0.08);
-        }
+/* CARD */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
 
-        .card h2{
-            color:#ff6b9a;
-            margin-bottom:10px;
-        }
+.card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(218,139,142,0.15);
+}
 
-        .card p{
-            color:#666;
-        }
+.card h2{
+    color:#C86D71;
+}
 
-        .card-link{
-            text-decoration:none;
-            color:inherit;
-        }
+.card p{
+    color:#666;
+}
 
-        .card-link .card{
-            transition:0.3s;
-            cursor:pointer;
-        }
+/* FORM */
+input,
+select,
+textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #EBC1C3;
+    border-radius:10px;
+    margin-bottom:15px;
+}
 
-        .card-link .card:hover{
-            transform:translateY(-5px);
-            box-shadow:0 8px 20px rgba(0,0,0,0.15);
-        }
-        
-        /* FORM */
+/* BUTTON */
+button{
+    background:#D47D82;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:10px;
+    cursor:pointer;
+}
 
-        input,
-        select,
-        textarea{
-            width:100%;
-            padding:12px;
-            border:1px solid #ffc0cb;
-            border-radius:10px;
-            margin-bottom:15px;
-        }
+button:hover{
+    background:#C86D71;
+}
 
-        button{
-            background:#ff6b9a;
-            color:white;
-            border:none;
-            padding:12px 20px;
-            border-radius:10px;
-            cursor:pointer;
-        }
+.btn{
+    background:#D47D82;
+    color:white;
+    text-decoration:none;
+    padding:10px 15px;
+    border-radius:8px;
+    display:inline-block;
+}
 
-        button:hover{
-            background:#ff4f87;
-        }
+.btn:hover{
+    background:#C86D71;
+}
 
-        /* TABLE */
+.btn-danger{
+    background:#C65A4E;
+}
 
-        table{
-            width:100%;
-            border-collapse:collapse;
-            background:white;
-            border-radius:15px;
-            overflow:hidden;
-            box-shadow:0 3px 10px rgba(0,0,0,0.08);
-        }
+.btn-danger:hover{
+    background:#B94B3F;
+}
 
-        th{
-            background:#ff6b9a;
-            color:white;
-            padding:15px;
-        }
+.aksi-btn{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+}
 
-        td{
-            padding:15px;
-            border-bottom:1px solid #eee;
-        }
+.aksi-btn form{
+    margin:0;
+}
 
-        tr:hover{
-            background:#fff0f5;
-        }
+.btn-edit{
+    min-width:80px;
+    text-align:center;
+    padding:10px 15px;
+    border-radius:10px;
+    text-decoration:none;
+    color:white;
+    display:inline-block;
+    background:#D47D82;
+}
 
-        /* BUTTON */
+.btn-edit:hover{
+    background:#C86D71;
+}
 
-        .btn{
-            background:#ff6b9a;
-            color:white;
-            text-decoration:none;
-            padding:10px 15px;
-            border-radius:8px;
-            display:inline-block;
-        }
+.btn-hapus{
+    min-width:80px;
+    text-align:center;
+    padding:10px 15px;
+    border-radius:10px;
+    text-decoration:none;
+    color:white;
+    display:inline-block;
+    background:#C65A4E;
+}
 
-        .btn:hover{
-            background:#ff4f87;
-        }
+.btn-hapus:hover{
+    background:#B94B3F;
+}
 
-        .btn-danger{
-            background:#e74c3c;
-        }
+/* TABLE */
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(218,139,142,0.15);
+}
 
-        .btn-danger:hover{
-            background:#c0392b;
-        }
+th{
+    background:#D47D82;
+    color:white;
+    padding:15px;
+}
 
-        .aksi-btn{
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            gap:10px;
-        }
+td{
+    padding:15px;
+    border-bottom:1px solid #f3d8da;
+}
 
-        .aksi-btn form{
-            margin:0;
-        }
+tr:hover{
+    background:#FFF1F2;
+}
 
-        .btn-edit,
-        .btn-hapus{
-            min-width:80px;
-            text-align:center;
-            padding:10px 15px;
-            border-radius:10px;
-            text-decoration:none;
-            color:white;
-            display:inline-block;
-        }
+/* LOGOUT */
+.logout{
+    margin-top:30px;
+}
 
-        .btn-edit{
-            background:#ff6b9a;
-        }
+.logout button{
+    width:100%;
+    background:white;
+    color:#C86D71;
+    font-weight:bold;
+}
 
-        .btn-edit:hover{
-            background:#ff4f87;
-        }
+.logout button:hover{
+    background:#F8E6E7;
+}
 
-        .btn-hapus{
-            background:#e74c3c;
-        }
+/* MODAL */
+.modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.4);
+    z-index:9999;
+}
 
-        .btn-hapus:hover{
-            background:#c0392b;
-        }
+.modal-content{
+    width:450px;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
 
-        /* LOGOUT */
+.button-group{
+    display:flex;
+    gap:10px;
+}
 
-        .logout{
-            margin-top:30px;
-        }
+/* TOGGLE */
+.menu-toggle{
+    display:none;
+    position:fixed;
+    top:20px;
+    left:20px;
+    z-index:2001;
+    background:#D47D82;
+    color:white;
+    border:none;
+    padding:12px 15px;
+    border-radius:12px;
+    font-size:20px;
+    box-shadow:0 4px 10px rgba(0,0,0,.15);
+}
 
-        .logout button{
-            width:100%;
-            background:white;
-            color:#f06292;
-            font-weight:bold;
-        }
+/* MOBILE */
+@media(max-width:768px){
 
-        .modal{
-            display:none;
-            position:fixed;
-            top:0;
-            left:0;
-            width:100%;
-            height:100%;
-            background:rgba(0,0,0,.4);
-            z-index:9999;
-        }
+    .menu-toggle{
+        display:block;
+    }
 
-        .modal-content{
-            width:450px;
-            background:white;
-            padding:25px;
-            border-radius:15px;
+    .sidebar{
+        left:-230px;
+        width:220px;
+        height:95vh;
+        top:10px;
+        transition:.3s;
+        z-index:2000;
+        padding:20px;
+        border-radius:0 20px 20px 0;
+        box-shadow:4px 0 15px rgba(0,0,0,.12);
+    }
 
-            position:absolute;
-            top:50%;
-            left:50%;
-            transform:translate(-50%,-50%);
+    .sidebar.active{
+        left:0;
+    }
 
-            box-shadow:0 5px 20px rgba(0,0,0,.2);
-        }
+    .sidebar img{
+        width:60px !important;
+        height:60px !important;
+        margin-bottom:10px !important;
+    }
 
-        .modal-content h2{
-            margin-bottom:20px;
-            color:#ff6b9a;
-        }
+    .sidebar h2{
+        font-size:18px;
+        margin-bottom:20px;
+    }
 
-        .button-group{
-            display:flex;
-            gap:10px;
-        }
+    .menu-admin{
+        gap:6px;
+    }
 
-    </style>
+    .menu-admin a{
+        padding:10px 12px;
+        font-size:15px;
+    }
+
+    .logout{
+        margin-top:20px;
+    }
+
+    .logout button{
+        padding:10px;
+        font-size:15px;
+    }
+
+    .main{
+        margin-left:0;
+        padding:15px;
+    }
+
+    .header{
+        margin-top:75px;
+    }
+
+    table{
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+}
+</style>
 
 </head>
 <body>
 
 <div class="sidebar">
 
-     @php
-        $profil = \App\Models\ProfilKlinik::first();
-    @endphp
+@php
+    $profil = \App\Models\ProfilKlinik::first();
+@endphp
 
-   <a href="/profil_klinik"
-   style="
-        text-decoration:none;
+<a href="/profil_klinik" style="text-decoration:none; display:block; margin-bottom:30px;">
+
+@if($profil && $profil->logo)
+
+<img src="{{ asset('images/logo/'.$profil->logo) }}"
+     width="80"
+     height="80"
+     style="
         display:block;
-        margin-bottom:30px;
-   ">
+        margin:auto;
+        margin-bottom:15px;
+        border-radius:50%;
+        background:white;
+        padding:5px;
+        object-fit:cover;
+">
 
-    @if($profil && $profil->logo)
+@endif
 
-        <img src="{{ asset('images/logo/'.$profil->logo) }}"
-             width="80"
-             height="80"
-             style="
-                display:block;
-                margin:auto;
-                margin-bottom:15px;
-                border-radius:50%;
-                background:white;
-                padding:5px;
-                object-fit:cover;
-             ">
-
-    @endif
-
-    <h2 style="
-        color:white;
-        text-align:center;
-        margin:0;
-    ">
-        {{ $profil->nama_klinik ?? 'Dental Care' }}
-    </h2>
+<h2>
+    {{ $profil->nama_klinik ?? 'Dental Care' }}
+</h2>
 
 </a>
 
+<div class="menu-admin">
     <a href="/dashboard-admin">Dashboard</a>
-
     <a href="/dokter">Data Dokter</a>
-
     <a href="/jadwal_dokter">Jadwal Dokter</a>
-
     <a href="/layanan">Data Layanan</a>
-
     <a href="/reservasi">Reservasi</a>
-
     <a href="/rekam_medis">Rekam Medis</a>
-
     <a href="/laporan">Laporan</a>
+</div>
 
-    
-
-    <div class="logout">
-
-        <form action="/logout" method="POST">
-
-            @csrf
-
-            <button type="submit">
-                Logout
-            </button>
-
-        </form>
-
-    </div>
+<div class="logout">
+    <form action="/logout" method="POST">
+        @csrf
+        <button type="submit">Logout</button>
+    </form>
+</div>
 
 </div>
+
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
 <div class="main">
 
-    <!-- HEADER -->
+<button class="menu-toggle" onclick="toggleSidebar()">
+    ☰
+</button>
 
-    <div class="header">
+<div class="header">
+    <h1>@yield('title', 'Dashboard Admin')</h1>
+    <p>Selamat datang, {{ Auth::user()->name ?? 'Admin' }}</p>
+</div>
 
-        <h1>
-            @yield('title', 'Dashboard Admin')
-        </h1>
-
-        <p>
-            Selamat datang,
-            {{ Auth::user()->name ?? 'Admin' }}
-        </p>
-
-    </div>
-
-    <!-- CONTENT -->
-
-    <div class="content">
-
-        @yield('content')
-
-    </div>
-
+<div class="content">
+    @yield('content')
+</div>
 
 </div>
+
+<script>
+function toggleSidebar(){
+    document.querySelector('.sidebar').classList.toggle('active');
+    document.querySelector('.overlay').classList.toggle('active');
+}
+</script>
 
 </body>
 </html>

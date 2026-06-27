@@ -49,7 +49,7 @@
 </td>
 
 <td>
-    {{ \Carbon\Carbon::parse($reservasi->jam_reservasi)->format('H:i') }} WIB
+    {{ \Carbon\Carbon::parse($reservasi->jam_reservasi)->format('H:i') }} WITA
 </td>
                     <td>
                         {{ $reservasi->keluhan }}

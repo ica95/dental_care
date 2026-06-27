@@ -94,7 +94,17 @@ body{
 .btn-reservasi:hover{
     background:#ff4f87;
 }
-
+.menu-toggle{
+    display:none;
+    background:#ff6b9a;
+    color:white;
+    border:none;
+    width:50px;
+    height:50px;
+    border-radius:12px;
+    font-size:22px;
+    cursor:pointer;
+}
 /* HERO */
 
 .hero{
@@ -105,7 +115,7 @@ body{
         rgba(0,0,0,.45),
         rgba(0,0,0,.45)
     ),
-    url('/images/logo_lumine.png');
+    url('/images/logo_lumine.jpeg');
 
     background-size:cover;
     background-position:center;
@@ -412,196 +422,79 @@ footer{
     z-index:9999;
 }
 
-@media (max-width:768px){
+@media(max-width:768px){
 
-    /* NAVBAR */
     .navbar{
-        position:relative;
-        flex-direction:column;
+        padding:15px 20px;
+        flex-direction:row;
+        justify-content:space-between;
         align-items:center;
-        gap:15px;
-        padding:20px;
+        background:white;
     }
 
     .logo{
-        flex-direction:column;
-        text-align:center;
+        flex-direction:row;
         gap:10px;
     }
 
     .logo img{
-        width:60px;
-        height:60px;
+        width:55px;
+        height:55px;
     }
 
     .logo span{
-        font-size:22px;
+        font-size:20px;
+    }
+
+    .menu-toggle{
+        display:block;
     }
 
     .menu{
-        flex-direction:column;
+        position:absolute;
+        top:90px;
+        left:0;
         width:100%;
-        gap:10px;
+        background:white;
+        display:none;
+        flex-direction:column;
+        padding:20px;
+        box-shadow:0 8px 20px rgba(0,0,0,.1);
+    }
+
+    .menu.active{
+        display:flex;
     }
 
     .menu a{
-        width:100%;
-        text-align:center;
-        padding:10px;
+        padding:12px 0;
+        font-size:18px;
     }
 
     .btn-reservasi{
         width:100%;
-        padding:12px;
+        text-align:center;
+        margin-top:10px;
     }
 
-    /* HERO */
     .hero{
-        min-height:auto;
-        padding:100px 20px 60px;
-    }
-
-    .hero-content{
-        width:100%;
+        padding:140px 20px 60px;
     }
 
     .hero-content h1{
-        font-size:38px;
-        line-height:1.3;
+        font-size:42px;
     }
 
     .hero-content p{
         font-size:18px;
-        line-height:1.5;
     }
 
-    .hero-contact{
-        margin-top:20px;
-    }
-
-    .hero-contact p{
-        font-size:16px;
-    }
-
-    .hero-contact i{
-        font-size:18px;
-    }
-
-    .hero-btn{
-        width:100%;
-        padding:14px;
-        font-size:16px;
-    }
-
-    /* SECTION */
-    section{
-        padding:60px 20px;
-    }
-
-    section h2{
-        font-size:28px;
-        margin-bottom:25px;
-    }
-
-    /* CARDS */
     .cards{
         grid-template-columns:1fr;
-        gap:20px;
     }
 
-    .card{
-        width:100%;
-    }
-
-    .card img{
-        height:200px;
-    }
-
-    .card-body{
-        padding:15px;
-    }
-
-    /* DOKTER */
-    .dokter-card{
-        min-height:auto;
-        padding-bottom:20px;
-    }
-
-    .dokter-card img{
-        width:150px;
-        height:150px;
-    }
-
-    .btn-jadwal{
-        width:100%;
-    }
-
-    .jadwal-box{
-        padding:10px;
-    }
-
-    /* LOKASI */
-    .lokasi-card{
-        padding:20px;
-    }
-
-    .lokasi-info{
-        grid-template-columns:1fr;
-    }
-
-    .info-item{
-        padding:15px;
-    }
-
-    .maps-wrapper iframe{
-        height:250px;
-    }
-
-    .btn-lokasi{
-        width:100%;
-        text-align:center;
-    }
-
-    /* KONTAK */
     .kontak-container{
         grid-template-columns:1fr;
-        gap:20px;
-    }
-
-    .kontak-card{
-        padding:25px;
-    }
-
-    .kontak-icon{
-        font-size:40px;
-    }
-
-    .btn-wa,
-    .btn-sosmed{
-        width:100%;
-        text-align:center;
-    }
-
-    /* FOOTER */
-    footer{
-        padding:30px 15px;
-    }
-
-    footer h3{
-        font-size:20px;
-    }
-
-    footer p{
-        font-size:14px;
-    }
-
-    /* FLOATING WA */
-    .wa-float{
-        width:55px;
-        height:55px;
-        font-size:24px;
-        right:15px;
-        bottom:15px;
     }
 
 }
@@ -615,18 +508,18 @@ footer{
 <div class="logo">
 
     @if($profil && $profil->logo)
-
         <img src="{{ asset('images/logo/'.$profil->logo) }}">
-
     @endif
 
-    <span>
-        Lumine Dental Care
-    </span>
+    <span>Lumine Dental Care</span>
 
 </div>
 
-<div class="menu">
+<button class="menu-toggle" onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+</button>
+
+<div class="menu" id="mobileMenu">
 
     <a href="#beranda">
         Beranda
@@ -648,9 +541,6 @@ footer{
         Kontak
     </a>
 
-    <a href="/login" class="btn-reservasi">
-        Reservasi Sekarang
-    </a>
 
 </div>
 
@@ -669,6 +559,10 @@ footer{
 </p>
 
 </footer>
-
+<script>
+function toggleMenu(){
+    document.getElementById('mobileMenu').classList.toggle('active');
+}
+</script>
 </body>
 </html>
