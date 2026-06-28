@@ -4,14 +4,23 @@
 
 @section('content')
 
-<div class="card" style="max-width:700px; margin:auto;">
+<div class="card" style="
+    max-width:700px;
+    margin:auto;
+    background:white;
+    box-shadow:0 8px 20px rgba(218,139,142,.12);
+    border-radius:20px;
+    padding:30px;
+">
 
     <h2 style="
-        color:#ff6b9a;
+        color:#C97A7D;
         margin-bottom:25px;
         text-align:center;
+        font-size:30px;
+        font-weight:bold;
     ">
-        Edit Profil Saya
+        Edit Profil
     </h2>
 
     <form action="/pasien/{{ $pasien->id }}"
@@ -20,7 +29,13 @@
         @csrf
         @method('PUT')
 
-        <label>Nama Lengkap</label>
+        <label style="
+            font-weight:bold;
+            color:#7A6A6A;
+        ">
+            Nama Lengkap
+        </label>
+
         <input
             type="text"
             name="nama_pasien"
@@ -28,7 +43,13 @@
             placeholder="Masukkan nama lengkap"
             required>
 
-        <label>Jenis Kelamin</label>
+        <label style="
+            font-weight:bold;
+            color:#7A6A6A;
+        ">
+            Jenis Kelamin
+        </label>
+
         <select name="jenis_kelamin" required>
 
             <option value="L"
@@ -43,21 +64,39 @@
 
         </select>
 
-        <label>Tanggal Lahir</label>
+        <label style="
+            font-weight:bold;
+            color:#7A6A6A;
+        ">
+            Tanggal Lahir
+        </label>
+
         <input
             type="date"
             name="tanggal_lahir"
             value="{{ $pasien->tanggal_lahir }}"
             required>
 
-        <label>Alamat</label>
+        <label style="
+            font-weight:bold;
+            color:#7A6A6A;
+        ">
+            Alamat
+        </label>
+
         <textarea
             name="alamat"
             rows="4"
             placeholder="Masukkan alamat"
             required>{{ $pasien->alamat }}</textarea>
 
-        <label>Nomor HP</label>
+        <label style="
+            font-weight:bold;
+            color:#7A6A6A;
+        ">
+            Nomor HP
+        </label>
+
         <input
             type="text"
             name="no_hp"
@@ -74,29 +113,29 @@
             <button type="submit"
                 style="
                     flex:1;
-                    background:#ff6b9a;
+                    background:#DA8B8E;
                     color:white;
                     border:none;
-                    padding:12px;
+                    padding:14px;
                     border-radius:10px;
                     font-weight:bold;
                     cursor:pointer;
                 ">
-                Update
+                Simpan Perubahan
             </button>
 
             <a href="/pasien"
                style="
                     flex:1;
                     text-align:center;
-                    background:#f3f3f3;
-                    color:#555;
-                    padding:12px;
+                    background:#FDF1F1;
+                    color:#C97A7D;
+                    padding:14px;
                     border-radius:10px;
                     text-decoration:none;
                     font-weight:bold;
                ">
-                Batal
+                Kembali
             </a>
 
         </div>

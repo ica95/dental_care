@@ -7,59 +7,115 @@
 <div class="card" style="
     max-width:900px;
     margin:auto;
+    background:white;
+    box-shadow:0 8px 20px rgba(218,139,142,.12);
 ">
 
     <h2 style="
-        color:#ff6b9a;
+        color:#C97A7D;
         text-align:center;
         margin-bottom:30px;
+        font-size:28px;
     ">
-         Profil Saya
+        Profil Saya
     </h2>
 
     @if(session('success'))
         <div style="
-            background:#d4edda;
-            color:#155724;
+            background:#F3FAF4;
+            color:#4F8A5B;
             padding:12px;
             border-radius:10px;
             margin-bottom:20px;
+            border:1px solid #D4E8D8;
         ">
             {{ session('success') }}
         </div>
     @endif
 
     {{-- NAMA --}}
-    <label>Nama Lengkap</label>
+    <label style="
+        font-weight:bold;
+        color:#7A6A6A;
+    ">
+        Nama Lengkap
+    </label>
+
     <input
         type="text"
         value="{{ $pasien->nama_pasien }}"
-        readonly>
+        readonly
+        style="
+            background:#FFF8F8;
+            border:1px solid #EBC1C3;
+        ">
 
     {{-- JENIS KELAMIN --}}
-    <label>Jenis Kelamin</label>
+    <label style="
+        font-weight:bold;
+        color:#7A6A6A;
+    ">
+        Jenis Kelamin
+    </label>
+
     <input
         type="text"
-        value="{{ $pasien->jenis_kelamin }}"
-        readonly>
+        value="{{ $pasien->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}"
+        readonly
+        style="
+            background:#FFF8F8;
+            border:1px solid #EBC1C3;
+        ">
 
     {{-- TANGGAL LAHIR --}}
-    <label>Tanggal Lahir</label>
+    <label style="
+        font-weight:bold;
+        color:#7A6A6A;
+    ">
+        Tanggal Lahir
+    </label>
+
     <input
         type="text"
-        value="{{ $pasien->tanggal_lahir }}"
-        readonly>
+        value="{{ \Carbon\Carbon::parse($pasien->tanggal_lahir)->locale('id')->translatedFormat('d F Y') }}"
+        readonly
+        style="
+            background:#FFF8F8;
+            border:1px solid #EBC1C3;
+        ">
 
     {{-- ALAMAT --}}
-    <label>Alamat</label>
-    <textarea rows="4" readonly>{{ $pasien->alamat }}</textarea>
+    <label style="
+        font-weight:bold;
+        color:#7A6A6A;
+    ">
+        Alamat
+    </label>
+
+    <textarea
+        rows="4"
+        readonly
+        style="
+            background:#FFF8F8;
+            border:1px solid #EBC1C3;
+        ">{{ $pasien->alamat }}</textarea>
 
     {{-- NOMOR HP --}}
-    <label>Nomor HP</label>
+    <label style="
+        font-weight:bold;
+        color:#7A6A6A;
+    ">
+        Nomor HP
+    </label>
+
     <input
         type="text"
         value="{{ $pasien->no_hp }}"
-        readonly>
+        readonly
+        style="
+            background:#FFF8F8;
+            border:1px solid #EBC1C3;
+        ">
 
     <div style="
         display:flex;
@@ -69,7 +125,11 @@
 
         <a href="/pasien/{{ $pasien->id }}/edit"
            class="btn"
-           style="flex:1; text-align:center;">
+           style="
+                flex:1;
+                text-align:center;
+                background:#DA8B8E;
+           ">
             Edit Profil
         </a>
 
@@ -77,12 +137,13 @@
            style="
                 flex:1;
                 text-align:center;
-                background:#f3f3f3;
-                color:#555;
+                background:#FDF1F1;
+                color:#C97A7D;
                 padding:12px;
                 border-radius:10px;
                 text-decoration:none;
                 font-weight:bold;
+                border:1px solid #EBC1C3;
            ">
             Kembali
         </a>
