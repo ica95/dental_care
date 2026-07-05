@@ -394,7 +394,7 @@ tr:hover{
     <div class="topbar">
 
         <a href="/pasien" class="profile">
-            {{ Auth::user()->name }}
+            {{ Auth::user()->name }}    
         </a>
 
     </div>

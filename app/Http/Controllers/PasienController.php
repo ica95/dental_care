@@ -98,12 +98,18 @@ class PasienController extends Controller
 
         $pasien = Pasien::findOrFail($id);
 
+        // Update data pasien
         $pasien->update([
             'nama_pasien'   => $request->nama_pasien,
             'jenis_kelamin' => $request->jenis_kelamin,
             'tanggal_lahir' => $request->tanggal_lahir,
             'alamat'        => $request->alamat,
             'no_hp'         => $request->no_hp
+        ]);
+
+        // Update nama pada tabel users
+        $pasien->user->update([
+            'name' => $request->nama_pasien
         ]);
 
         return redirect('/pasien')->with(
