@@ -19,7 +19,6 @@
 <table>
 
     <thead>
-
         <tr>
             <th>No</th>
             <th>Dokter</th>
@@ -28,7 +27,6 @@
             <th>Jam Selesai</th>
             <th>Aksi</th>
         </tr>
-
     </thead>
 
     <tbody>
@@ -48,11 +46,11 @@
             </td>
 
             <td>
-                {{ $jadwal->jam_mulai }}
+                {{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }}
             </td>
 
             <td>
-                {{ $jadwal->jam_selesai }}
+                {{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H:i') }}
             </td>
 
             <td>
@@ -62,10 +60,10 @@
                     '{{ $jadwal->id }}',
                     '{{ $jadwal->dokter_id }}',
                     '{{ $jadwal->hari }}',
-                    '{{ $jadwal->jam_mulai }}',
-                    '{{ $jadwal->jam_selesai }}'
+                    '{{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }}',
+                    '{{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H:i') }}'
                     )">
-                        Edit
+                    Edit
                 </button>
 
                 <form action="/jadwal_dokter/{{ $jadwal->id }}"
@@ -90,11 +88,9 @@
         @empty
 
         <tr>
-
             <td colspan="6" style="text-align:center;">
                 Belum ada data jadwal dokter
             </td>
-
         </tr>
 
         @endforelse
@@ -104,8 +100,8 @@
 </table>
 
 </div>
-@include('jadwal_dokter.create')
 
+@include('jadwal_dokter.create')
 @include('jadwal_dokter.edit')
 
 <script>

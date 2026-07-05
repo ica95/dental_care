@@ -355,6 +355,30 @@ footer{
     font-size:30px;
     z-index:9999;
 }
+.btn-deskripsi{
+    margin-top:10px;
+    background:#DA8B8E;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    width:100%;
+}
+
+.btn-deskripsi:hover{
+    background:#C97A7D;
+}
+
+.deskripsi-box{
+    display:none;
+    margin-top:15px;
+    padding:15px;
+    background:#FDF1F1;
+    border-radius:10px;
+    color:#666;
+    line-height:1.7;
+}
 
 /* MOBILE */
 
@@ -489,6 +513,20 @@ function toggleMenu(){
     document.getElementById('mobileMenu').classList.toggle('active');
 }
 </script>
+<script>
+function toggleDeskripsi(id)
+{
+    let box = document.getElementById('deskripsi-' + id);
 
+    if(box.style.display === 'block')
+    {
+        box.style.display = 'none';
+    }
+    else
+    {
+        box.style.display = 'block';
+    }
+}
+</script>
 </body>
 </html>

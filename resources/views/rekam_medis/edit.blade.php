@@ -7,7 +7,7 @@
 <div class="card" style="max-width:900px;margin:auto;">
 
     <h2 style="
-        color:#ff6b9a;
+        color:#DA8B8E;
         margin-bottom:25px;
         border-bottom:2px solid #ffe0ea;
         padding-bottom:10px;

@@ -23,9 +23,7 @@ class ReservasiController extends Controller
                 'pasien',
                 'dokter',
                 'layanan'
-            )
-            ->where('status', '!=', 'diperiksa')
-            ->get();
+            )->get();
 
             return view(
                 'reservasi.admin_index',

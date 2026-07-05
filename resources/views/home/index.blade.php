@@ -195,7 +195,7 @@
                 </h3>
 
                 <p>
-                    Komplek HKSN Permai Blok 11 (57),Banjarmasin
+                 Jl Perdagangan Komplek HKSN Permai
                 </p>
 
             </div>

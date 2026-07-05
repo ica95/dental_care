@@ -89,9 +89,6 @@ RekamMedis::create([
 
 ]);
 
-$reservasi->update([
-    'status' => 'diperiksa'
-]);
 
 return redirect('/rekam_medis')
     ->with(
