@@ -147,19 +147,12 @@ class ReservasiController extends Controller
             'user_id',
             Auth::id()
         )->first();
-$cekJam = Reservasi::where(
-    'dokter_id',
-    $request->dokter_id
-)
-->where(
-    'tanggal_reservasi',
-    $request->tanggal_reservasi
-)
-->where(
-    'jam_reservasi',
-    $request->jam_reservasi
-)
-->exists();
+
+        $cekJam = Reservasi::where('dokter_id', $request->dokter_id)
+            ->where('tanggal_reservasi', $request->tanggal_reservasi)
+            ->where('jam_reservasi', $request->jam_reservasi)
+            ->where('status', '!=', 'Batal')
+            ->exists();
 
 if($cekJam)
 {
@@ -332,16 +325,11 @@ if($cekJam)
     }
 
     // Jam yang sudah dibooking
-    $jamTerpakai = Reservasi::where(
-        'dokter_id',
-        $dokterId
-    )
-    ->where(
-        'tanggal_reservasi',
-        $tanggal
-    )
-    ->pluck('jam_reservasi')
-    ->toArray();
+    $jamTerpakai = Reservasi::where('dokter_id', $dokterId)
+        ->where('tanggal_reservasi', $tanggal)
+        ->whereIn('status', ['Pending', 'Diterima'])
+        ->pluck('jam_reservasi')
+        ->toArray();
 
     // Hapus jam yang sudah terpakai
     $jamTersedia = array_diff(
