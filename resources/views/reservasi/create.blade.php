@@ -57,6 +57,28 @@
 
     <form action="/reservasi" method="POST">
         @csrf
+        {{-- NAMA PASIEN --}}
+<label style="color:#C97A7D; font-weight:bold;">
+    Nama Pasien
+</label>
+
+<input
+    type="text"
+    name="nama_pasien"
+    placeholder="Masukkan nama pasien yang akan diperiksa"
+    required
+    style="border:1px solid #E9B8BA;">
+
+{{-- TANGGAL LAHIR --}}
+<label style="color:#C97A7D; font-weight:bold;">
+    Tanggal Lahir Pasien
+</label>
+
+<input
+    type="date"
+    name="tanggal_lahir"
+    required
+    style="border:1px solid #E9B8BA;">
 
         {{-- TANGGAL --}}
         <label style="color:#C97A7D; font-weight:bold;">

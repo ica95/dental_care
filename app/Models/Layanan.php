@@ -4,17 +4,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Reservasi;
+
 
 class Layanan extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable = [
+    protected $fillable=[
         'nama_layanan',
-        'deskripsi',
+        'biaya',
         'foto'
     ];
+
 
     public function reservasis()
     {

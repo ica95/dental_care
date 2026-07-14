@@ -106,7 +106,15 @@
                     </h3>
 
                     <p>
-                        {{ $layanan->deskripsi }}
+
+                    Biaya mulai dari
+
+                    <b>
+
+                    Rp {{ number_format($layanan->biaya,0,',','.') }}
+
+                    </b>
+
                     </p>
 
                 </div>

@@ -23,8 +23,11 @@
 
             <tr>
                 <th>No</th>
-                <th>Foto</th>
                 <th>Nama Dokter</th>
+                <th>Foto</th>
+                <th>No. WhatsApp</th>
+                <th>Alamat</th>
+                <th>Status</th>
                 <th>Aksi</th>
             </tr>
 
@@ -63,7 +66,47 @@
                 <td>
                     {{ $dokter->nama_dokter }}
                 </td>
+<td>
+    {{ $dokter->no_hp }}
+</td>
 
+<td>
+    {{ $dokter->alamat }}
+</td>
+
+<td>
+
+@if($dokter->status == 'aktif')
+
+<span style="
+background:#d4edda;
+color:#155724;
+padding:6px 12px;
+border-radius:20px;
+font-weight:bold;
+">
+
+Aktif
+
+</span>
+
+@else
+
+<span style="
+background:#fff3cd;
+color:#856404;
+padding:6px 12px;
+border-radius:20px;
+font-weight:bold;
+">
+
+Cuti
+
+</span>
+
+@endif
+
+</td>
                 <td>
 
                     <button class="btn-edit"

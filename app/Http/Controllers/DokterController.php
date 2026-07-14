@@ -34,9 +34,18 @@ class DokterController extends Controller
         }
 
         Dokter::create([
-            'nama_dokter' => $request->nama_dokter,
-            'foto' => $foto
-        ]);
+
+    'nama_dokter' => $request->nama_dokter,
+
+    'no_hp' => $request->no_hp,
+
+    'alamat' => $request->alamat,
+
+    'status' => $request->status,
+
+    'foto' => $foto
+
+]);
 
         return redirect('/dokter');
     }
@@ -65,9 +74,18 @@ class DokterController extends Controller
         }
 
         $dokter->update([
-            'nama_dokter' => $request->nama_dokter,
-            'foto' => $foto
-        ]);
+
+    'nama_dokter' => $request->nama_dokter,
+
+    'no_hp' => $request->no_hp,
+
+    'alamat' => $request->alamat,
+
+    'status' => $request->status,
+
+    'foto' => $foto
+
+]);
 
         return redirect('/dokter');
     }

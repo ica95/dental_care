@@ -101,7 +101,10 @@ Route::middleware('auth')->group(function () {
         '/reservasi',
         [ReservasiController::class, 'store']
     );
-
+Route::put(
+    '/reservasi/{id}/batal',
+    [ReservasiController::class, 'batal']
+)->name('reservasi.batal');
     Route::get(
         '/get-dokter/{tanggal}',
         [ReservasiController::class, 'getDokter']
@@ -150,10 +153,13 @@ Route::middleware('auth')->group(function () {
         JadwalDokterController::class
     );
 
-    Route::resource(
-        'layanan',
-        LayananController::class
-    );
+    Route::get('/layanan/trash', [LayananController::class, 'trash'])
+    ->name('layanan.trash');
+
+Route::put('/layanan/{id}/restore', [LayananController::class, 'restore'])
+    ->name('layanan.restore');
+
+Route::resource('layanan', LayananController::class);
 
     Route::resource(
         'rekam_medis',

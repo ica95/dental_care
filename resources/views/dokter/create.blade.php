@@ -17,6 +17,47 @@
                        name="nama_dokter"
                        required>
             </div>
+            <div class="form-group">
+
+    <label>Nomor WhatsApp</label>
+
+    <input
+        type="text"
+        name="no_hp"
+        required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Alamat</label>
+
+                <textarea
+                    name="alamat"
+                    rows="3"
+                    required></textarea>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Status</label>
+
+                <select
+                    name="status"
+                    required>
+
+                    <option value="aktif">
+                        Aktif
+                    </option>
+
+                    <option value="cuti">
+                        Cuti
+                    </option>
+
+                </select>
+
+            </div>
 
             <div class="form-group">
                 <label>Foto Dokter</label>

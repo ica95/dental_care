@@ -17,6 +17,19 @@
 </div>
 @endif
 
+@if(session('error'))
+<div style="
+    background:#FDECEC;
+    color:#C53030;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:20px;
+    border:1px solid #f5c2c7;
+">
+    {{ session('error') }}
+</div>
+@endif
+
 <div class="card" style="
     box-shadow:0 8px 20px rgba(218,139,142,.12);
 ">
@@ -31,26 +44,35 @@
     <table>
 
         <thead>
+
             <tr>
-                <th>Pasien</th>
+
+                <th>Nama Pasien</th>
+                <th>Tanggal Lahir</th>
                 <th>Dokter</th>
                 <th>Layanan</th>
-                <th>Tanggal</th>
+                <th>Tanggal Reservasi</th>
                 <th>Jam</th>
                 <th>Keluhan</th>
                 <th>Status</th>
                 <th>Aksi</th>
+
             </tr>
+
         </thead>
 
         <tbody>
 
-            @forelse($reservasis as $reservasi)
+        @forelse($reservasis as $reservasi)
 
             <tr>
 
                 <td>
-                    {{ $reservasi->pasien->nama_pasien }}
+                    {{ $reservasi->nama_pasien }}
+                </td>
+
+                <td>
+                    {{ \Carbon\Carbon::parse($reservasi->tanggal_lahir)->translatedFormat('d F Y') }}
                 </td>
 
                 <td>
@@ -62,8 +84,8 @@
                 </td>
 
                 <td>
-                     {{ \Carbon\Carbon::parse($reservasi->tanggal_reservasi)->locale('id')->translatedFormat('d F Y') }}
-                 </td>
+                    {{ \Carbon\Carbon::parse($reservasi->tanggal_reservasi)->translatedFormat('d F Y') }}
+                </td>
 
                 <td>
                     {{ \Carbon\Carbon::parse($reservasi->jam_reservasi)->format('H:i') }}
@@ -78,8 +100,8 @@
                     @if($reservasi->status == 'pending')
 
                         <span style="
-                            color:#B7791F;
                             background:#FFF4E0;
+                            color:#B7791F;
                             padding:6px 12px;
                             border-radius:20px;
                             font-weight:bold;
@@ -90,8 +112,8 @@
                     @elseif($reservasi->status == 'diterima')
 
                         <span style="
-                            color:#C97A7D;
                             background:#FCEEEF;
+                            color:#C97A7D;
                             padding:6px 12px;
                             border-radius:20px;
                             font-weight:bold;
@@ -102,8 +124,8 @@
                     @elseif($reservasi->status == 'selesai')
 
                         <span style="
-                            color:#2F855A;
                             background:#E8F6F0;
+                            color:#2F855A;
                             padding:6px 12px;
                             border-radius:20px;
                             font-weight:bold;
@@ -111,28 +133,16 @@
                             Selesai
                         </span>
 
-                    @elseif($reservasi->status == 'diperiksa')
+                    @elseif($reservasi->status == 'batal')
 
                         <span style="
-                            color:#6B46C1;
-                            background:#F3E8FF;
-                            padding:6px 12px;
-                            border-radius:20px;
-                            font-weight:bold;
-                        ">
-                            Diperiksa
-                        </span>
-
-                    @else
-
-                        <span style="
-                            color:#C53030;
                             background:#FDECEC;
+                            color:#C53030;
                             padding:6px 12px;
                             border-radius:20px;
                             font-weight:bold;
                         ">
-                            Batal
+                            Dibatalkan
                         </span>
 
                     @endif
@@ -140,73 +150,97 @@
                 </td>
 
                 <td>
+                    @if($reservasi->status == 'batal')
 
-                    <form
-                        action="/admin/reservasi/{{ $reservasi->id }}"
-                        method="POST">
+    <span style="
+        color:#dc3545;
+        font-weight:bold;
+    ">
+        Reservasi telah dibatalkan pasien
+    </span>
 
-                        @csrf
-                        @method('PUT')
+@else
 
-                        <select
-                            name="status"
-                            style="
-                                margin-bottom:10px;
-                                width:100%;
-                                border:1px solid #E9B8BA;
-                            ">
+<form
+    action="/admin/reservasi/{{ $reservasi->id }}"
+    method="POST">
 
-                            <option value="pending"
-                                {{ $reservasi->status == 'pending' ? 'selected' : '' }}>
-                                Pending
-                            </option>
+    @csrf
+    @method('PUT')
 
-                            <option value="diterima"
-                                {{ $reservasi->status == 'diterima' ? 'selected' : '' }}>
-                                Diterima
-                            </option>
+    <select
+        name="status"
+        style="
+            width:100%;
+            margin-bottom:10px;
+            border:1px solid #E9B8BA;
+            border-radius:8px;
+            padding:8px;
+        ">
 
-                            <option value="selesai"
-                                {{ $reservasi->status == 'selesai' ? 'selected' : '' }}>
-                                Selesai
-                            </option>
+        <option
+            value="pending"
+            {{ $reservasi->status == 'pending' ? 'selected' : '' }}>
+            Pending
+        </option>
 
-                            <option value="batal"
-                                {{ $reservasi->status == 'batal' ? 'selected' : '' }}>
-                                Batal
-                            </option>
+        <option
+            value="diterima"
+            {{ $reservasi->status == 'diterima' ? 'selected' : '' }}>
+            Diterima
+        </option>
 
-                        </select>
+        <option
+            value="selesai"
+            {{ $reservasi->status == 'selesai' ? 'selected' : '' }}>
+            Selesai
+        </option>
 
-                        <button
-                            type="submit"
-                            class="btn"
-                            style="
-                                width:100%;
-                                background:#DA8B8E;
-                            ">
-                            Simpan
-                        </button>
+        <option
+            value="batal"
+            {{ $reservasi->status == 'batal' ? 'selected' : '' }}>
+            Batal
+        </option>
 
-                    </form>
+    </select>
+
+    <button
+        type="submit"
+        class="btn"
+        style="
+            width:100%;
+            background:#DA8B8E;
+        ">
+        Simpan
+    </button>
+
+</form>
+
+@endif
 
                 </td>
 
             </tr>
 
-            @empty
+        @empty
 
             <tr>
-                <td colspan="8" style="
-                    text-align:center;
-                    color:#999;
-                    padding:20px;
-                ">
-                    Belum ada data reservasi
+
+                <td
+                    colspan="9"
+                    style="
+                        text-align:center;
+                        color:#999;
+                        padding:20px;
+                    ">
+
+                    Belum ada data reservasi.
+
                 </td>
+
             </tr>
 
-            @endforelse
+        @endforelse
 
         </tbody>
 

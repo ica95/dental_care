@@ -12,9 +12,18 @@ class Dokter extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama_dokter',
-        'foto'
-    ];
+
+    'nama_dokter',
+
+    'no_hp',
+
+    'alamat',
+
+    'status',
+
+    'foto'
+
+];
 
     public function jadwal()
     {

@@ -10,14 +10,16 @@ class Reservasi extends Model
     use HasFactory;
 
     protected $fillable = [
-        'pasien_id',
-        'dokter_id',
-        'layanan_id',
-        'tanggal_reservasi',
-        'jam_reservasi',
-        'keluhan',
-        'status'
-    ];
+    'pasien_id',
+    'nama_pasien',
+    'tanggal_lahir',
+    'dokter_id',
+    'layanan_id',
+    'tanggal_reservasi',
+    'jam_reservasi',
+    'keluhan',
+    'status',
+];
 
     public function pasien()
     {

@@ -4,9 +4,7 @@
 
         <h2>Tambah Layanan</h2>
 
-        <form action="{{ route('layanan.store') }}"
-              method="POST"
-              enctype="multipart/form-data">
+        <form action="{{ route('layanan.store') }}" method="POST" enctype="multipart/form-data">
 
             @csrf
 
@@ -14,19 +12,23 @@
 
                 <label>Nama Layanan</label>
 
-                <input type="text"
-                       name="nama_layanan"
-                       required>
+                <input
+                    type="text"
+                    name="nama_layanan"
+                    required>
 
             </div>
 
             <div class="form-group">
 
-                <label>Deskripsi</label>
+                <label>Biaya</label>
 
-                <textarea name="deskripsi"
-                          rows="4"
-                          required></textarea>
+                <input
+                    type="number"
+                    name="biaya"
+                    placeholder="Contoh : 150000"
+                    min="0"
+                    required>
 
             </div>
 
@@ -34,8 +36,10 @@
 
                 <label>Foto</label>
 
-                <input type="file"
-                       name="foto">
+                <input
+                    type="file"
+                    name="foto"
+                    accept="image/*">
 
             </div>
 
@@ -45,9 +49,7 @@
                     Simpan
                 </button>
 
-                <button type="button"
-                        class="btn-danger"
-                        onclick="closeModal()">
+                <button type="button" class="btn-danger" onclick="closeModal()">
                     Batal
                 </button>
 

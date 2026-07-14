@@ -20,10 +20,12 @@ class ReservasiController extends Controller
         if (Auth::user()->role == 'admin')
         {
             $reservasis = Reservasi::with(
-                'pasien',
-                'dokter',
-                'layanan'
-            )->get();
+            'pasien',
+            'dokter',
+            'layanan'
+        )
+        ->orderBy('updated_at', 'desc')
+        ->get();
 
             return view(
                 'reservasi.admin_index',
@@ -37,14 +39,12 @@ class ReservasiController extends Controller
             Auth::id()
         )->first();
 
-        $reservasis = Reservasi::with(
+       $reservasis = Reservasi::with(
             'dokter',
             'layanan'
         )
-        ->where(
-            'pasien_id',
-            $pasien->id
-        )
+        ->where('pasien_id', $pasien->id)
+        ->orderBy('updated_at', 'desc')
         ->get();
 
         return view(
@@ -54,42 +54,44 @@ class ReservasiController extends Controller
     }
 
     public function create()
-    {
-        $pasien = Pasien::where(
-            'user_id',
-            Auth::id()
-        )->first();
+{
+    $pasien = Pasien::where(
+        'user_id',
+        Auth::id()
+    )->first();
 
-        $dokters = Dokter::all();
+    $dokters = Dokter::all();
 
-        $layanans = Layanan::all();
+    $layanans = Layanan::all();
 
-        return view(
-            'reservasi.create',
-            compact(
-                'pasien',
-                'dokters',
-                'layanans'
-            )
-        );
-    }
-
+    return view(
+        'reservasi.create',
+        compact(
+            'pasien',
+            'dokters',
+            'layanans'
+        )
+    );
+}
     public function store(Request $request)
     {
         $request->validate([
 
-            'dokter_id' => 'required',
+    'dokter_id' => 'required',
 
-            'layanan_id' => 'required',
+    'layanan_id' => 'required',
 
-            'tanggal_reservasi' => 'required|date',
+    'nama_pasien' => 'required|string|max:255',
 
-            'jam_reservasi' => 'required',
+    'tanggal_lahir' => 'required|date',
 
-            'keluhan' => 'required'
+    'tanggal_reservasi' => 'required|date',
 
-        ]);
+    'jam_reservasi' => 'required',
 
+    'keluhan' => 'required'
+
+]);
         // Ambil nama hari dari tanggal reservasi
         Carbon::setLocale('id');
 
@@ -163,26 +165,27 @@ if($cekJam)
             'Jam tersebut sudah dibooking'
         );
 }
-        Reservasi::create([
+       Reservasi::create([
 
-            'pasien_id' => $pasien->id,
+    'pasien_id' => $pasien->id,
 
-            'dokter_id' => $request->dokter_id,
+    'nama_pasien' => $request->nama_pasien,
 
-            'layanan_id' => $request->layanan_id,
+    'tanggal_lahir' => $request->tanggal_lahir,
 
-            'tanggal_reservasi' =>
-                $request->tanggal_reservasi,
+    'dokter_id' => $request->dokter_id,
 
-            'jam_reservasi' =>
-                $request->jam_reservasi,
+    'layanan_id' => $request->layanan_id,
 
-            'keluhan' =>
-                $request->keluhan,
+    'tanggal_reservasi' => $request->tanggal_reservasi,
 
-            'status' => 'pending'
+    'jam_reservasi' => $request->jam_reservasi,
 
-        ]);
+    'keluhan' => $request->keluhan,
+
+    'status' => 'Pending'
+
+]);
 
         return redirect('/reservasi')
             ->with(
@@ -230,15 +233,19 @@ if($cekJam)
 {
     $reservasi = Reservasi::findOrFail($id);
 
+    // Jika reservasi sudah dibatalkan pasien
+    if ($reservasi->status == 'batal') {
+
+        return redirect('/admin/reservasi')
+            ->with('error', 'Reservasi sudah dibatalkan oleh pasien dan tidak dapat diubah.');
+    }
+
     $reservasi->update([
         'status' => $request->status
     ]);
 
     return redirect('/admin/reservasi')
-        ->with(
-            'success',
-            'Status reservasi berhasil diperbarui'
-        );
+        ->with('success', 'Status reservasi berhasil diperbarui.');
 }
 
     public function destroy($id)
@@ -340,5 +347,28 @@ if($cekJam)
     return response()->json(
         array_values($jamTersedia)
     );
+}
+public function batal($id)
+{
+    $reservasi = Reservasi::findOrFail($id);
+
+    $pasien = Pasien::where('user_id', Auth::id())->first();
+
+    // Pastikan reservasi milik pasien yang login
+    if ($reservasi->pasien_id != $pasien->id) {
+        abort(403);
+    }
+
+    // Hanya bisa dibatalkan jika masih pending
+    if ($reservasi->status != 'pending') {
+        return redirect('/reservasi')
+            ->with('error', 'Reservasi tidak dapat dibatalkan.');
+    }
+
+    $reservasi->status = 'batal';
+    $reservasi->save();
+
+    return redirect('/reservasi')
+        ->with('success', 'Reservasi berhasil dibatalkan.');
 }
 }

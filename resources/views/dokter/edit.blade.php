@@ -19,7 +19,51 @@
                        name="nama_dokter"
                        required>
             </div>
+<div class="form-group">
 
+    <label>Nomor WhatsApp</label>
+
+    <input
+        type="text"
+        name="no_hp"
+        value="{{ $dokter->no_hp }}"
+        required>
+
+</div>
+
+<div class="form-group">
+
+    <label>Alamat</label>
+
+    <textarea
+        name="alamat"
+        rows="3"
+        required>{{ $dokter->alamat }}</textarea>
+
+</div>
+
+<div class="form-group">
+
+    <label>Status</label>
+
+    <select
+        name="status">
+
+        <option
+            value="aktif"
+            {{ $dokter->status == 'aktif' ? 'selected' : '' }}>
+            Aktif
+        </option>
+
+        <option
+            value="cuti"
+            {{ $dokter->status == 'cuti' ? 'selected' : '' }}>
+            Cuti
+        </option>
+
+    </select>
+
+</div>
             <div class="form-group">
                 <label>Foto Dokter</label>
 
