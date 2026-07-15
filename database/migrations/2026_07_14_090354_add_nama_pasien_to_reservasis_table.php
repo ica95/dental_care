@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('reservasis', function (Blueprint $table) {
-             $table->string('nama_pasien')->after('pasien_id');
-            $table->date('tanggal_lahir')->after('nama_pasien');
+            $table->string('nama_pasien')->nullable()->after('pasien_id');
+            $table->date('tanggal_lahir')->nullable()->after('nama_pasien');
         });
     }
 

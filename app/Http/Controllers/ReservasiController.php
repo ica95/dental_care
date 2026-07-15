@@ -60,7 +60,7 @@ class ReservasiController extends Controller
         Auth::id()
     )->first();
 
-    $dokters = Dokter::all();
+    $dokters = Dokter::where('status', 'aktif')->get();
 
     $layanans = Layanan::all();
 
@@ -275,10 +275,8 @@ if($cekJam)
         '=',
         'dokters.id'
     )
-    ->where(
-        'jadwal_dokters.hari',
-        $hari
-    )
+    ->where('jadwal_dokters.hari', $hari)
+    ->where('dokters.status', 'aktif')
    ->select(
     'dokters.id',
     'dokters.nama_dokter',
