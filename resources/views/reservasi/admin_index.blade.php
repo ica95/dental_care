@@ -80,7 +80,7 @@
                 </td>
 
                 <td>
-                    {{ $reservasi->layanan->nama_layanan }}
+                    {{ optional($reservasi->layanan)->nama_layanan ?? '-' }}
                 </td>
 
                 <td>
