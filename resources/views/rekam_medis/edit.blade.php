@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="card" style="max-width:900px;margin:auto;">
+<div class="card" style="max-width:950px;margin:auto;">
 
     <h2 style="
         color:#DA8B8E;
@@ -14,6 +14,80 @@
     ">
         Edit Rekam Medis
     </h2>
+
+    {{-- DATA RESERVASI --}}
+    <div style="
+        background:#FFF7F8;
+        border:1px solid #FFD9DF;
+        border-radius:12px;
+        padding:20px;
+        margin-bottom:25px;
+    ">
+
+        <h3 style="color:#DA8B8E;margin-bottom:15px;">
+            Informasi Pasien
+        </h3>
+
+        <div style="
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:15px;
+        ">
+
+            <div>
+                <label><b>Nama Pasien</b></label>
+
+                <input
+                    type="text"
+                    value="{{ $rekamMedis->reservasi->nama_pasien }}"
+                    readonly>
+            </div>
+
+            <div>
+                <label><b>Pemilik Akun</b></label>
+
+                <input
+                    type="text"
+                    value="{{ $rekamMedis->reservasi->pasien->nama_pasien }}"
+                    readonly>
+            </div>
+
+            <div>
+                <label><b>Tanggal Lahir</b></label>
+
+                <input
+                    type="text"
+                    value="{{ $rekamMedis->reservasi->tanggal_lahir }}"
+                    readonly>
+            </div>
+
+            <div>
+                <label><b>Dokter</b></label>
+
+                <input
+                    type="text"
+                    value="{{ $rekamMedis->dokter->nama_dokter }}"
+                    readonly>
+            </div>
+
+            <div>
+                <label><b>Layanan</b></label>
+
+                <input
+                    type="text"
+                    value="{{ $rekamMedis->reservasi->layanan->nama_layanan }}"
+                    readonly>
+            </div>
+
+            <div>
+                <label><b>Keluhan</b></label>
+
+                <textarea readonly rows="2">{{ $rekamMedis->reservasi->keluhan }}</textarea>
+            </div>
+
+        </div>
+
+    </div>
 
     <form action="/rekam_medis/{{ $rekamMedis->id }}"
           method="POST">
@@ -27,15 +101,27 @@
             gap:20px;
         ">
 
-            
+            <div>
+
+                <label><b>Tanggal Pemeriksaan</b></label>
+
+                <input
+                    type="date"
+                    name="tanggal_periksa"
+                    value="{{ $rekamMedis->tanggal_periksa }}"
+                    required>
+
+            </div>
+
             <div>
 
                 <label><b>Biaya Pemeriksaan</b></label>
 
-                <input type="number"
-                       name="biaya"
-                       value="{{ $rekamMedis->biaya }}"
-                       required>
+                <input
+                    type="number"
+                    name="biaya"
+                    value="{{ $rekamMedis->biaya }}"
+                    required>
 
             </div>
 
@@ -68,21 +154,23 @@
             rows="4">{{ $rekamMedis->catatan }}</textarea>
 
         <div style="
-            margin-top:25px;
             display:flex;
             gap:10px;
+            margin-top:25px;
         ">
 
-            <button type="submit"
-                    class="btn">
+            <button
+                type="submit"
+                class="btn">
                 Update
             </button>
 
-            <button type="button"
-                    class="btn-danger"
-                    onclick="window.location.href='/rekam_medis'">
-                Batal
-            </button>
+            <a
+                href="/rekam_medis"
+                class="btn"
+                style="background:#6c757d;">
+                Kembali
+            </a>
 
         </div>
 

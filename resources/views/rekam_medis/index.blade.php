@@ -6,7 +6,14 @@
 
 <div class="card">
 
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+    <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:20px;
+        flex-wrap:wrap;
+        gap:10px;
+    ">
 
         <h2>Data Rekam Medis</h2>
 
@@ -21,68 +28,93 @@
         <thead>
 
             <tr>
+
                 <th>No</th>
                 <th>Pasien</th>
+                <th>Pemilik Akun</th>
                 <th>Dokter</th>
-                <th>Reservasi</th>
+                <th>Layanan</th>
                 <th>Tanggal Periksa</th>
-                <th>Diagnosa</th>
-                <th>Tindakan</th>
-                <th>Resep Obat</th>
-                <th>Catatan</th>
                 <th>Biaya</th>
                 <th>Aksi</th>
+
             </tr>
 
         </thead>
 
         <tbody>
 
-            @forelse($rekamMedis as $data)
+        @forelse($rekamMedis as $data)
 
             <tr>
 
                 <td>{{ $loop->iteration }}</td>
 
-                <td>{{ $data->pasien->nama_pasien ?? '-' }}</td>
+                {{-- Nama pasien yang diperiksa --}}
+                <td>
+                    {{ $data->reservasi->nama_pasien ?? '-' }}
+                </td>
 
-                <td>{{ $data->dokter->nama_dokter ?? '-' }}</td>
+                {{-- Nama akun yang melakukan reservasi --}}
+                <td>
+                    {{ $data->reservasi->pasien->nama_pasien ?? '-' }}
+                </td>
 
-                <td>#{{ $data->reservasi_id }}</td>
+                <td>
+                    {{ $data->dokter->nama_dokter ?? '-' }}
+                </td>
 
-                <td>{{ $data->tanggal_periksa }}</td>
+                <td>
+                    {{ $data->reservasi->layanan->nama_layanan ?? '-' }}
+                </td>
 
-                <td>{{ $data->diagnosa }}</td>
+                <td>
+                    {{ \Carbon\Carbon::parse($data->tanggal_periksa)->translatedFormat('d F Y') }}
+                </td>
 
-                <td>{{ $data->tindakan }}</td>
-
-                <td>{{ $data->resep_obat }}</td>
-
-                <td>{{ $data->catatan }}</td>
-
-                <td>Rp {{ number_format($data->biaya,0,',','.') }}</td>
+                <td>
+                    Rp {{ number_format($data->biaya,0,',','.') }}
+                </td>
 
                 <td>
 
-                    <a href="/rekam_medis/{{ $data->id }}/edit"
-                    class="btn">
-                        Edit
-                    </a>
+                    <div style="
+                        display:flex;
+                        justify-content:center;
+                        gap:10px;
+                        flex-wrap:wrap;
+                    ">
+
+                        <a
+                            href="/rekam_medis/{{ $data->id }}"
+                            class="btn"
+                            style="background:#17a2b8;">
+                            Detail
+                        </a>
+
+                        <a
+                            href="/rekam_medis/{{ $data->id }}/edit"
+                            class="btn">
+                            Edit
+                        </a>
+
+                    </div>
 
                 </td>
+
             </tr>
 
-            @empty
+        @empty
 
             <tr>
 
-                <td colspan="9" style="text-align:center;">
-                    Belum ada data rekam medis
+                <td colspan="8" style="text-align:center;padding:20px;">
+                    Belum ada data rekam medis.
                 </td>
 
             </tr>
 
-            @endforelse
+        @endforelse
 
         </tbody>
 
