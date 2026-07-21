@@ -179,6 +179,30 @@ Cuti
                        name="foto">
             </div>
 
+            <div class="form-group">
+                <label>No. WhatsApp</label>
+                <input type="text"
+                    name="no_hp"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label>Alamat</label>
+                <textarea
+                    name="alamat"
+                    required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Status</label>
+
+                <select name="status" required>
+                    <option value="">Pilih Status</option>
+                    <option value="aktif">Aktif</option>
+                    <option value="cuti">Cuti</option>
+                </select>
+            </div>
+
             <div class="button-group">
 
                 <button type="submit"
